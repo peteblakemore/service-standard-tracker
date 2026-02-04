@@ -1,5 +1,6 @@
 {
   "serviceName": "Service name goes here",
+  "useAuth": false,
   "plugins": {
     "govuk-frontend": {
       "rebrand": true
