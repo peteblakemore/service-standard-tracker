@@ -8,8 +8,11 @@ process.env.NODE_ENV = "production";
 
 const projectRoot = path.join(__dirname, "..", "..");
 const nodeModulesPath = path.join(projectRoot, "node_modules");
+
+// Make sure any code executing from /tmp can resolve dependencies.
 process.env.NODE_PATH = nodeModulesPath;
 Module._initPaths();
+module.paths.push(nodeModulesPath);
 const tmpProjectDir = path.join(os.tmpdir(), "kit-project");
 const appSourceDir = path.join(projectRoot, "app");
 const appTargetDir = path.join(tmpProjectDir, "app");
