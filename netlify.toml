@@ -6,7 +6,7 @@
 [functions]
   node_bundler = "esbuild"
   external_node_modules = ["govuk-prototype-kit", "serverless-http", "multer"]
-  included_files = ["app/**"]
+  included_files = ["app/**", "package.json"]
 
 [[redirects]]
   from = "/*"

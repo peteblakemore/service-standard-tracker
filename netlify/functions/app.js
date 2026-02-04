@@ -26,7 +26,22 @@ function ensureTmpProject() {
   }
 
   if (!fs.existsSync(packageJsonTarget)) {
-    fs.copyFileSync(packageJsonSource, packageJsonTarget);
+    if (fs.existsSync(packageJsonSource)) {
+      fs.copyFileSync(packageJsonSource, packageJsonTarget);
+    } else {
+      fs.writeFileSync(
+        packageJsonTarget,
+        JSON.stringify(
+          {
+            name: "kit-project",
+            private: true,
+            dependencies: {},
+          },
+          null,
+          2
+        )
+      );
+    }
   }
 }
 
