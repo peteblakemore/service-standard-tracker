@@ -72,3 +72,12 @@
 .ss-notes .govuk-body + .govuk-body {
   margin-top: 8px;
 }
+
+.govuk-footer__licence-logo {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.govuk-footer__licence-description {
+  vertical-align: middle;
+}

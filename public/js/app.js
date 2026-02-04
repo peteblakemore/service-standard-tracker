@@ -831,8 +831,6 @@ function renderAddProject() {
           <option value="Alpha assessment">Alpha assessment</option>
           <option value="Beta assessment">Beta assessment</option>
           <option value="Live assessment">Live assessment</option>
-          <option value="Service assessment">Service assessment</option>
-          <option value="Peer review">Peer review</option>
         </select>
       </div>
       <button class="govuk-button" type="submit">Add project</button>
