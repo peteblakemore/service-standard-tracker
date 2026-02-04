@@ -49,10 +49,14 @@ ensureTmpProject();
 process.env.KIT_PROJECT_DIR = tmpProjectDir;
 
 const { generateAssetsSync } = require("govuk-prototype-kit/lib/build");
-try {
-  generateAssetsSync();
-} catch (error) {
-  console.error("Failed to generate assets", error);
+const cssPath = path.join(tmpProjectDir, ".tmp", "public", "stylesheets", "application.css");
+
+if (!fs.existsSync(cssPath)) {
+  try {
+    generateAssetsSync();
+  } catch (error) {
+    console.error("Failed to generate assets", error);
+  }
 }
 
 const app = require("govuk-prototype-kit/server");
