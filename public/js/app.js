@@ -499,6 +499,16 @@ function createProjectFromForm(formData) {
   };
 }
 
+function defaultAssessmentForPhase(phase) {
+  const map = {
+    Discovery: 'Discovery assessment',
+    Alpha: 'Alpha assessment',
+    Beta: 'Beta assessment',
+    Live: 'Live assessment'
+  };
+  return map[phase] || '';
+}
+
 function calculateSubsectionStatus(subsection) {
   const statuses = (subsection.comments || []).map((comment) => comment.ragStatus);
   if (statuses.includes('red')) return 'red';
@@ -1227,6 +1237,7 @@ function handleFormSubmit(event) {
     const project = projects.find((item) => item.id === projectId);
     if (project && selectedPhase) {
       project.currentPhase = selectedPhase;
+      project.nextAssessmentType = defaultAssessmentForPhase(selectedPhase) || project.nextAssessmentType;
       saveProjects(projects);
     }
     const row = document.getElementById(`phase-edit-row-${projectId}`);
