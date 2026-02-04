@@ -2,10 +2,14 @@ const path = require("path");
 const fs = require("fs");
 const os = require("os");
 const serverless = require("serverless-http");
+const Module = require("module");
 
 process.env.NODE_ENV = "production";
 
 const projectRoot = path.join(__dirname, "..", "..");
+const nodeModulesPath = path.join(projectRoot, "node_modules");
+process.env.NODE_PATH = nodeModulesPath;
+Module._initPaths();
 const tmpProjectDir = path.join(os.tmpdir(), "kit-project");
 const appSourceDir = path.join(projectRoot, "app");
 const appTargetDir = path.join(tmpProjectDir, "app");
