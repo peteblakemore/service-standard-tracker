@@ -418,27 +418,20 @@ const routes = [
 ];
 
 function init() {
-  window.addEventListener('popstate', () => renderRoute(window.location.pathname));
-  document.addEventListener('click', handleLinkClick);
-  renderRoute(window.location.pathname);
+  window.addEventListener('hashchange', () => renderRoute(getCurrentPath()));
+  renderRoute(getCurrentPath());
   if (window.GOVUKFrontend && window.GOVUKFrontend.initAll) {
     window.GOVUKFrontend.initAll();
   }
 }
 
-function handleLinkClick(event) {
-  const link = event.target.closest('a');
-  if (!link) return;
-  const url = new URL(link.href, window.location.origin);
-  if (url.origin !== window.location.origin) return;
-  if (link.hasAttribute('data-external')) return;
-  event.preventDefault();
-  navigate(url.pathname + url.search);
+function getCurrentPath() {
+  const hash = window.location.hash.replace(/^#/, '');
+  return hash || '/';
 }
 
 function navigate(path) {
-  window.history.pushState({}, '', path);
-  renderRoute(path);
+  window.location.hash = path;
   window.scrollTo(0, 0);
 }
 
@@ -545,8 +538,8 @@ function renderHome() {
   const emptyState = `
     <p class="govuk-body">You have not added any projects yet.</p>
     <div class="govuk-button-group">
-      <a href="/projects/add" class="govuk-button">Add a new project</a>
-      <a href="/projects/import" class="govuk-button govuk-button--secondary">Upload a project</a>
+      <a href="#/projects/add" class="govuk-button">Add a new project</a>
+      <a href="#/projects/import" class="govuk-button govuk-button--secondary">Upload a project</a>
     </div>
   `;
 
@@ -555,7 +548,7 @@ function renderHome() {
       const status = calculateProjectStatus(project);
       return `
         <tr class="govuk-table__row">
-          <th scope="row" class="govuk-table__header"><a class="govuk-link" href="/projects/${project.id}">${project.name}</a></th>
+          <th scope="row" class="govuk-table__header"><a class="govuk-link" href="#/projects/${project.id}">${project.name}</a></th>
           <td class="govuk-table__cell">${project.department || ''}</td>
           <td class="govuk-table__cell">${project.currentPhase || ''}</td>
           <td class="govuk-table__cell">${ragTag(status)}</td>
@@ -586,8 +579,8 @@ function renderHome() {
     ${projects.length === 0 ? emptyState : `
       ${table}
       <div class="govuk-button-group govuk-!-margin-top-4">
-        <a href="/projects/add" class="govuk-button">Add a new project</a>
-        <a href="/projects/import" class="govuk-button govuk-button--secondary">Upload a project</a>
+        <a href="#/projects/add" class="govuk-button">Add a new project</a>
+        <a href="#/projects/import" class="govuk-button govuk-button--secondary">Upload a project</a>
       </div>
     `}
   `;
@@ -595,7 +588,7 @@ function renderHome() {
 
 function renderAddProject() {
   return `
-    <a href="/" class="govuk-back-link">Back</a>
+    <a href="#/" class="govuk-back-link">Back</a>
     <h1 class="govuk-heading-l">Add a new project</h1>
     <form class="govuk-!-margin-top-4" data-action="add-project">
       <div class="govuk-form-group">
@@ -650,7 +643,7 @@ function renderAddProject() {
 
 function renderImportProject() {
   return `
-    <a href="/" class="govuk-back-link">Back</a>
+    <a href="#/" class="govuk-back-link">Back</a>
     <h1 class="govuk-heading-l">Upload a project</h1>
     <p class="govuk-body">Upload a JSON export from this tracker to restore a project.</p>
     <form class="govuk-!-margin-top-4" data-action="import-project">
@@ -675,7 +668,7 @@ function renderProject(match) {
       return `
         <li class="govuk-task-list__item govuk-task-list__item--with-link">
           <div class="govuk-task-list__name-and-hint">
-            <a class="govuk-link govuk-task-list__link" href="/projects/${project.id}/standards/${standard.id}">
+            <a class="govuk-link govuk-task-list__link" href="#/projects/${project.id}/standards/${standard.id}">
               ${standard.number}. ${standard.title}
             </a>
           </div>
@@ -686,7 +679,7 @@ function renderProject(match) {
     .join('');
 
   return `
-    <a href="/" class="govuk-back-link">Back</a>
+    <a href="#/" class="govuk-back-link">Back</a>
     <h1 class="govuk-heading-l">${project.name}</h1>
     <div class="govuk-!-margin-bottom-4">
       <a href="#" class="govuk-button" data-action="export-project" data-project-id="${project.id}">Export project</a>
@@ -723,15 +716,15 @@ function renderStandard(match) {
             <div class="ss-notes">
               <p class="govuk-body">${escapeHtml(comment.text)}</p>
               <p class="govuk-body govuk-!-margin-top-2"><strong class="govuk-!-margin-right-2">RAG:</strong>${ragTag(comment.ragStatus)}</p>
-              <p class="govuk-body govuk-!-margin-top-2"><a class="govuk-link" href="/projects/${project.id}/standards/${standard.id}/subsections/${subsection.id}/comments/${comment.id}/edit">Change</a></p>
+              <p class="govuk-body govuk-!-margin-top-2"><a class="govuk-link" href="#/projects/${project.id}/standards/${standard.id}/subsections/${subsection.id}/comments/${comment.id}/edit">Change</a></p>
             </div>
           `
             )
             .join('')}
-          <p class="govuk-body"><a class="govuk-link" href="/projects/${project.id}/standards/${standard.id}/subsections/${subsection.id}">Add another comment</a></p>
+          <p class="govuk-body"><a class="govuk-link" href="#/projects/${project.id}/standards/${standard.id}/subsections/${subsection.id}">Add another comment</a></p>
         `
         : `
-          <p class="govuk-body"><a class="govuk-link" href="/projects/${project.id}/standards/${standard.id}/subsections/${subsection.id}">Add comment</a></p>
+          <p class="govuk-body"><a class="govuk-link" href="#/projects/${project.id}/standards/${standard.id}/subsections/${subsection.id}">Add comment</a></p>
         `;
 
       return `
@@ -761,7 +754,7 @@ function renderStandard(match) {
     .join('');
 
   return `
-    <a href="/projects/${project.id}" class="govuk-back-link">Back</a>
+    <a href="#/projects/${project.id}" class="govuk-back-link">Back</a>
     <h1 class="govuk-heading-l">Service Standard ${standard.number}: ${standard.title}</h1>
     <p class="govuk-body">${standard.description}</p>
     <h2 class="govuk-heading-m">Overall RAG status</h2>
