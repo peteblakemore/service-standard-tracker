@@ -865,47 +865,13 @@ function renderProject(match) {
     })
     .join('');
 
-  const contextItems = [
-    project.description
-      ? {
-        id: 'description',
-        title: 'Description',
-        content: `<p class="govuk-body">${escapeHtml(project.description)}</p>`
-      }
-      : null,
-    project.objectives
-      ? {
-        id: 'objectives',
-        title: 'Objectives',
-        content: `<p class="govuk-body">${escapeHtml(project.objectives)}</p>`
-      }
-      : null
-  ].filter(Boolean);
+  const descriptionMarkup = project.description
+    ? `<h2 class="govuk-heading-m">Description</h2><p class="govuk-body">${escapeHtml(project.description)}</p>`
+    : `<h2 class="govuk-heading-m">Description</h2><p class="govuk-body">No description has been added yet.</p>`;
 
-  const contextMarkup = contextItems.length
-    ? `
-      <div class="govuk-accordion ss-context" data-module="govuk-accordion" id="project-context">
-        ${contextItems
-          .map(
-            (item, index) => `
-            <div class="govuk-accordion__section ${index === 0 ? 'govuk-accordion__section--expanded' : ''}">
-              <div class="govuk-accordion__section-header">
-                <h3 class="govuk-accordion__section-heading">
-                  <span class="govuk-accordion__section-button" id="context-${item.id}">
-                    ${item.title}
-                  </span>
-                </h3>
-              </div>
-              <div class="govuk-accordion__section-content" aria-labelledby="context-${item.id}">
-                ${item.content}
-              </div>
-            </div>
-          `
-          )
-          .join('')}
-      </div>
-    `
-    : `<p class="govuk-body">No project context has been added yet.</p>`;
+  const objectivesMarkup = project.objectives
+    ? `<h2 class="govuk-heading-m">Objectives</h2><p class="govuk-body">${escapeHtml(project.objectives)}</p>`
+    : `<h2 class="govuk-heading-m">Objectives</h2><p class="govuk-body">No objectives have been added yet.</p>`;
 
   return `
     <a href="#/" class="govuk-back-link">Back</a>
@@ -918,13 +884,23 @@ function renderProject(match) {
       <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Project overview</h2>
       <dl class="govuk-summary-list">
         ${summaryRow('Department', project.department)}
-        ${summaryRow('Phase', project.currentPhase)}
         ${summaryRow('Next assessment', project.nextAssessmentType)}
       </dl>
+      <form class="govuk-!-margin-top-3" data-action="update-phase" data-project-id="${project.id}">
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="currentPhase-${project.id}">Phase</label>
+          <select class="govuk-select" id="currentPhase-${project.id}" name="currentPhase">
+            ${['Discovery', 'Alpha', 'Beta', 'Live']
+              .map((phase) => `<option value="${phase}" ${project.currentPhase === phase ? 'selected' : ''}>${phase}</option>`)
+              .join('')}
+          </select>
+        </div>
+        <button class="govuk-button govuk-button--secondary" type="submit">Update phase</button>
+      </form>
     </div>
 
-    <h2 class="govuk-heading-m">Project context</h2>
-    ${contextMarkup}
+    ${descriptionMarkup}
+    ${objectivesMarkup}
 
     <div class="govuk-!-margin-top-3">
       <a href="#" class="govuk-button" data-action="export-project" data-project-id="${project.id}">Export project</a>
@@ -1226,6 +1202,18 @@ function handleFormSubmit(event) {
       return;
     }
     navigate('/');
+  }
+
+  if (action === 'update-phase') {
+    const projectId = form.getAttribute('data-project-id');
+    const selectedPhase = formData.get('currentPhase');
+    const projects = getProjects();
+    const project = projects.find((item) => item.id === projectId);
+    if (project && selectedPhase) {
+      project.currentPhase = selectedPhase;
+      saveProjects(projects);
+    }
+    navigate(`/projects/${projectId}`);
   }
 }
 
