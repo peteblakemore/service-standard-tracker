@@ -436,7 +436,7 @@ function navigate(path) {
 }
 
 function renderRoute(path) {
-  const main = document.getElementById('main-content');
+  const main = document.getElementById('app-content');
   const route = routes.find((entry) => entry.pattern.test(path));
   if (!route) {
     main.innerHTML = renderNotFound();
