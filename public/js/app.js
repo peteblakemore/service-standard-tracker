@@ -501,7 +501,7 @@ function createProjectFromForm(formData) {
 
 function defaultAssessmentForPhase(phase) {
   const map = {
-    Discovery: 'Discovery assessment',
+    Discovery: 'Discovery workshop',
     Alpha: 'Alpha assessment',
     Beta: 'Beta assessment',
     Live: 'Live assessment'
@@ -827,7 +827,7 @@ function renderAddProject() {
         <label class="govuk-label" for="nextAssessmentType">Next assessment type</label>
         <select class="govuk-select" id="nextAssessmentType" name="nextAssessmentType">
           <option value="">Select an assessment</option>
-          <option value="Discovery assessment">Discovery assessment</option>
+          <option value="Discovery workshop">Discovery workshop</option>
           <option value="Alpha assessment">Alpha assessment</option>
           <option value="Beta assessment">Beta assessment</option>
           <option value="Live assessment">Live assessment</option>
