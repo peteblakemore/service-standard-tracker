@@ -539,6 +539,17 @@ function ragTag(status) {
   return `<strong class="govuk-tag ${classes[status] || classes.pending}">${labels[status] || labels.pending}</strong>`;
 }
 
+function phaseTag(phase) {
+  const classes = {
+    Discovery: 'govuk-tag--blue',
+    Alpha: 'govuk-tag--yellow',
+    Beta: 'govuk-tag--orange',
+    Live: 'govuk-tag--green'
+  };
+  const label = phase || 'Unknown';
+  return `<strong class="govuk-tag ${classes[label] || 'govuk-tag--grey'}">${label}</strong>`;
+}
+
 function renderHome() {
   const projects = getProjects();
   const emptyState = `
@@ -844,33 +855,83 @@ function renderProject(match) {
     .map((standard) => {
       const status = calculateStandardStatus(standard);
       return `
-        <li class="govuk-task-list__item govuk-task-list__item--with-link">
-          <div class="govuk-task-list__name-and-hint">
-            <a class="govuk-link govuk-task-list__link" href="#/projects/${project.id}/standards/${standard.id}">
-              ${standard.number}. ${standard.title}
-            </a>
-          </div>
-          <div class="govuk-task-list__status">${ragTag(status)}</div>
+        <li class="ss-standards__item">
+          <a class="govuk-link ss-standards__link" href="#/projects/${project.id}/standards/${standard.id}">
+            ${standard.number}. ${standard.title}
+          </a>
+          <div class="ss-standards__status">${ragTag(status)}</div>
         </li>
       `;
     })
     .join('');
 
+  const contextItems = [
+    project.description
+      ? {
+        id: 'description',
+        title: 'Description',
+        content: `<p class="govuk-body">${escapeHtml(project.description)}</p>`
+      }
+      : null,
+    project.objectives
+      ? {
+        id: 'objectives',
+        title: 'Objectives',
+        content: `<p class="govuk-body">${escapeHtml(project.objectives)}</p>`
+      }
+      : null
+  ].filter(Boolean);
+
+  const contextMarkup = contextItems.length
+    ? `
+      <div class="govuk-accordion ss-context" data-module="govuk-accordion" id="project-context">
+        ${contextItems
+          .map(
+            (item, index) => `
+            <div class="govuk-accordion__section ${index === 0 ? 'govuk-accordion__section--expanded' : ''}">
+              <div class="govuk-accordion__section-header">
+                <h3 class="govuk-accordion__section-heading">
+                  <span class="govuk-accordion__section-button" id="context-${item.id}">
+                    ${item.title}
+                  </span>
+                </h3>
+              </div>
+              <div class="govuk-accordion__section-content" aria-labelledby="context-${item.id}">
+                ${item.content}
+              </div>
+            </div>
+          `
+          )
+          .join('')}
+      </div>
+    `
+    : `<p class="govuk-body">No project context has been added yet.</p>`;
+
   return `
     <a href="#/" class="govuk-back-link">Back</a>
-    <h1 class="govuk-heading-l">${project.name}</h1>
-    <div class="govuk-!-margin-bottom-4">
+    <h1 class="govuk-heading-l ss-project-title">
+      <span>${project.name}</span>
+      ${phaseTag(project.currentPhase)}
+    </h1>
+
+    <div class="ss-card govuk-!-margin-bottom-6">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Project overview</h2>
+      <dl class="govuk-summary-list">
+        ${summaryRow('Department', project.department)}
+        ${summaryRow('Phase', project.currentPhase)}
+        ${summaryRow('Next assessment', project.nextAssessmentType)}
+      </dl>
+    </div>
+
+    <h2 class="govuk-heading-m">Project context</h2>
+    ${contextMarkup}
+
+    <div class="govuk-!-margin-top-3">
       <a href="#" class="govuk-button" data-action="export-project" data-project-id="${project.id}">Export project</a>
     </div>
-    <dl class="govuk-summary-list">
-      ${summaryRow('Department', project.department)}
-      ${summaryRow('Current phase', project.currentPhase)}
-      ${summaryRow('Next assessment', project.nextAssessmentType)}
-      ${summaryRow('Service description', project.description)}
-    </dl>
-    ${project.objectives ? `<h2 class="govuk-heading-m">Objectives</h2><p class="govuk-body">${escapeHtml(project.objectives)}</p>` : ''}
-    <h2 class="govuk-heading-m">Service Standard points</h2>
-    <ol class="govuk-task-list">${standardsList}</ol>
+
+    <h2 class="govuk-heading-m govuk-!-margin-top-6">Service Standard points</h2>
+    <ol class="ss-standards">${standardsList}</ol>
   `;
 }
 

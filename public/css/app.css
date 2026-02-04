@@ -2,6 +2,43 @@
   max-width: 960px;
 }
 
+.ss-project-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.ss-card {
+  border: 1px solid #b1b4b6;
+  padding: 16px;
+  background: #ffffff;
+}
+
+.ss-standards {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #b1b4b6;
+}
+
+.ss-standards__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #b1b4b6;
+}
+
+.ss-standards__link {
+  text-decoration: underline;
+}
+
+.ss-standards__status {
+  flex-shrink: 0;
+}
+
 .ss-subsection {
   border: 1px solid #b1b4b6;
   padding: 16px;
