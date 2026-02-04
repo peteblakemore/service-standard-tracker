@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "echo \"No build step\"",
+    "build": "node scripts/netlify-build.js",
     "dev": "govuk-prototype-kit dev",
     "serve": "govuk-prototype-kit serve",
     "start": "govuk-prototype-kit start"
