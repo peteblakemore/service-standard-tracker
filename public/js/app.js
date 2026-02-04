@@ -891,22 +891,28 @@ function renderProject(match) {
             <a class="govuk-link" href="#" data-action="show-phase-edit" data-project-id="${project.id}">Change</a>
           </dd>
         </div>
+        <div class="govuk-summary-list__row govuk-!-display-none" id="phase-edit-row-${project.id}">
+          <dt class="govuk-summary-list__key">Update phase</dt>
+          <dd class="govuk-summary-list__value" colspan="2">
+            <form data-action="update-phase" data-project-id="${project.id}">
+              <div class="govuk-form-group govuk-!-margin-bottom-2">
+                <label class="govuk-label govuk-!-font-size-16" for="currentPhase-${project.id}">Select a new phase</label>
+                <select class="govuk-select" id="currentPhase-${project.id}" name="currentPhase">
+                  ${['Discovery', 'Alpha', 'Beta', 'Live']
+                    .map((phase) => `<option value="${phase}" ${project.currentPhase === phase ? 'selected' : ''}>${phase}</option>`)
+                    .join('')}
+                </select>
+              </div>
+              <div class="govuk-button-group">
+                <button class="govuk-button govuk-button--secondary" type="submit">Save phase</button>
+                <a class="govuk-link" href="#" data-action="cancel-phase-edit" data-project-id="${project.id}">Cancel</a>
+              </div>
+            </form>
+          </dd>
+          <dd class="govuk-summary-list__actions"></dd>
+        </div>
         ${summaryRow('Next assessment', project.nextAssessmentType)}
       </dl>
-      <form class="govuk-!-margin-top-3 govuk-!-display-none" data-action="update-phase" data-project-id="${project.id}" id="phase-edit-${project.id}">
-        <div class="govuk-form-group">
-          <label class="govuk-label" for="currentPhase-${project.id}">Update phase</label>
-          <select class="govuk-select" id="currentPhase-${project.id}" name="currentPhase">
-            ${['Discovery', 'Alpha', 'Beta', 'Live']
-              .map((phase) => `<option value="${phase}" ${project.currentPhase === phase ? 'selected' : ''}>${phase}</option>`)
-              .join('')}
-          </select>
-        </div>
-        <div class="govuk-button-group">
-          <button class="govuk-button govuk-button--secondary" type="submit">Save phase</button>
-          <a class="govuk-link" href="#" data-action="cancel-phase-edit" data-project-id="${project.id}">Cancel</a>
-        </div>
-      </form>
     </div>
 
     ${descriptionMarkup}
@@ -1250,20 +1256,18 @@ function handleActionClick(event) {
   if (action === 'show-phase-edit') {
     event.preventDefault();
     const projectId = button.getAttribute('data-project-id');
-    const form = document.getElementById(`phase-edit-${projectId}`);
-    if (form) {
-      form.classList.remove('govuk-!-display-none');
-      form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    const row = document.getElementById(`phase-edit-row-${projectId}`);
+    if (row) {
+      row.classList.remove('govuk-!-display-none');
+      row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   }
 
   if (action === 'cancel-phase-edit') {
     event.preventDefault();
     const projectId = button.getAttribute('data-project-id');
-    const form = document.getElementById(`phase-edit-${projectId}`);
-    if (form) {
-      form.classList.add('govuk-!-display-none');
-    }
+    const row = document.getElementById(`phase-edit-row-${projectId}`);
+    if (row) row.classList.add('govuk-!-display-none');
   }
 }
 
