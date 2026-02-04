@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const fse = require('fs-extra');
 
 const { generateAssetsSync } = require('govuk-prototype-kit/lib/build');
 
@@ -20,14 +19,14 @@ if (!fs.existsSync(tmpPublicDir)) {
   process.exit(1);
 }
 
-fse.ensureDirSync(publishDir);
+fs.mkdirSync(publishDir, { recursive: true });
 
 // Clear existing publish dir except .keep
-fse.readdirSync(publishDir).forEach((entry) => {
+fs.readdirSync(publishDir).forEach((entry) => {
   if (entry !== '.keep') {
-    fse.removeSync(path.join(publishDir, entry));
+    fs.rmSync(path.join(publishDir, entry), { recursive: true, force: true });
   }
 });
 
-fse.copySync(tmpPublicDir, publishDir, { overwrite: true });
+fs.cpSync(tmpPublicDir, publishDir, { recursive: true });
 console.log('Assets copied to public/');
