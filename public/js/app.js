@@ -1,6 +1,7 @@
 /* global GOVUKFrontend */
 
 const STORAGE_KEY = 'service-standard-tracker-projects';
+const clearFlowState = { downloadedCount: 0, saved: false };
 
 const serviceStandards = [
   {
@@ -409,6 +410,11 @@ const serviceStandards = [
 
 const routes = [
   { pattern: /^\/$/, render: renderHome },
+  { pattern: /^\/clear-data\/?$/, render: renderClearData },
+  { pattern: /^\/clear-data\/download\/?$/, render: renderClearDownload },
+  { pattern: /^\/clear-data\/download\/select\/?$/, render: renderClearDownloadSelect },
+  { pattern: /^\/clear-data\/confirm\/?$/, render: renderClearConfirm },
+  { pattern: /^\/clear-data\/complete\/?$/, render: renderClearComplete },
   { pattern: /^\/projects\/add\/?$/, render: renderAddProject },
   { pattern: /^\/projects\/import\/?$/, render: renderImportProject },
   { pattern: /^\/projects\/([^/]+)\/?$/, render: renderProject },
@@ -541,6 +547,9 @@ function renderHome() {
       <a href="#/projects/add" class="govuk-button">Add a new project</a>
       <a href="#/projects/import" class="govuk-button govuk-button--secondary">Upload a project</a>
     </div>
+    <p class="govuk-body govuk-!-margin-top-3">
+      <a class="govuk-link" href="#/clear-data">Clear all data</a>
+    </p>
   `;
 
   const rows = projects
@@ -582,7 +591,176 @@ function renderHome() {
         <a href="#/projects/add" class="govuk-button">Add a new project</a>
         <a href="#/projects/import" class="govuk-button govuk-button--secondary">Upload a project</a>
       </div>
+      <p class="govuk-body govuk-!-margin-top-3">
+        <a class="govuk-link" href="#/clear-data">Clear all data</a>
+      </p>
     `}
+  `;
+}
+
+function renderClearData() {
+  const projects = getProjects();
+  const hasProjects = projects.length > 0;
+
+  return `
+    <a href="#/" class="govuk-back-link">Back</a>
+    <h1 class="govuk-heading-l">Clear all data</h1>
+    <p class="govuk-body">Clearing all data will permanently delete projects and any information saved in this tool.</p>
+    ${hasProjects ? `
+      <form class="govuk-!-margin-top-4" data-action="clear-decision">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="clear-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+              Do you want to save your projects first?
+            </legend>
+            <div id="clear-hint" class="govuk-hint">You can download a JSON file for each project before clearing.</div>
+            <div class="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="save-yes" name="saveProjects" type="radio" value="yes">
+                <label class="govuk-label govuk-radios__label" for="save-yes">Yes, save my projects first</label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="save-no" name="saveProjects" type="radio" value="no">
+                <label class="govuk-label govuk-radios__label" for="save-no">No, clear everything now</label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <button class="govuk-button" type="submit">Continue</button>
+      </form>
+    ` : `
+      <p class="govuk-body">There are no projects to save.</p>
+      <form class="govuk-!-margin-top-4" data-action="clear-decision">
+        <input type="hidden" name="saveProjects" value="no">
+        <button class="govuk-button govuk-button--warning" type="submit">Clear all data</button>
+      </form>
+    `}
+  `;
+}
+
+function renderClearDownload() {
+  const projects = getProjects();
+  if (projects.length === 0) {
+    return `
+      <a href="#/clear-data" class="govuk-back-link">Back</a>
+      <h1 class="govuk-heading-l">Save your projects</h1>
+      <p class="govuk-body">There are no projects to save.</p>
+      <a class="govuk-button govuk-button--warning" href="#/clear-data/confirm">Continue</a>
+    `;
+  }
+
+  if (projects.length === 1) {
+    const project = projects[0];
+    return `
+      <a href="#/clear-data" class="govuk-back-link">Back</a>
+      <h1 class="govuk-heading-l">Save your project</h1>
+      <p class="govuk-body">Download the JSON file for <strong>${escapeHtml(project.name)}</strong>.</p>
+      <button class="govuk-button govuk-button--secondary" data-action="download-projects" data-project-ids="${project.id}">
+        Download project JSON
+      </button>
+      <div class="govuk-!-margin-top-4">
+        <a class="govuk-button govuk-button--warning" href="#/clear-data/confirm">Continue to clear all data</a>
+        <p class="govuk-body"><a class="govuk-link" href="#/">Cancel</a></p>
+      </div>
+    `;
+  }
+
+  return `
+    <a href="#/clear-data" class="govuk-back-link">Back</a>
+    <h1 class="govuk-heading-l">Save your projects</h1>
+    <p class="govuk-body">Choose how you want to download your project data before clearing.</p>
+    <form class="govuk-!-margin-top-4" data-action="download-choice">
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Download options</legend>
+          <div class="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="download-all" name="downloadChoice" type="radio" value="all">
+              <label class="govuk-label govuk-radios__label" for="download-all">Download all projects</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="download-select" name="downloadChoice" type="radio" value="select">
+              <label class="govuk-label govuk-radios__label" for="download-select">Select projects to download</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <button class="govuk-button" type="submit">Continue</button>
+    </form>
+  `;
+}
+
+function renderClearDownloadSelect() {
+  const projects = getProjects();
+  if (projects.length === 0) {
+    return `
+      <a href="#/clear-data" class="govuk-back-link">Back</a>
+      <h1 class="govuk-heading-l">Select projects</h1>
+      <p class="govuk-body">There are no projects to save.</p>
+      <a class="govuk-button govuk-button--warning" href="#/clear-data/confirm">Continue</a>
+    `;
+  }
+
+  const options = projects
+    .map((project) => `
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="project-${project.id}" name="projectIds" type="checkbox" value="${project.id}">
+        <label class="govuk-label govuk-checkboxes__label" for="project-${project.id}">
+          ${escapeHtml(project.name)}
+        </label>
+      </div>
+    `)
+    .join('');
+
+  return `
+    <a href="#/clear-data/download" class="govuk-back-link">Back</a>
+    <h1 class="govuk-heading-l">Select projects to download</h1>
+    <form class="govuk-!-margin-top-4" data-action="download-selected">
+      <div class="govuk-form-group">
+        <div class="govuk-checkboxes">
+          ${options}
+        </div>
+      </div>
+      <button class="govuk-button" type="submit">Download and continue</button>
+    </form>
+  `;
+}
+
+function renderClearConfirm() {
+  const downloadedText = clearFlowState.downloadedCount
+    ? `You downloaded ${clearFlowState.downloadedCount} project${clearFlowState.downloadedCount === 1 ? '' : 's'}.`
+    : 'You have not downloaded any projects yet.';
+
+  return `
+    <a href="#/clear-data" class="govuk-back-link">Back</a>
+    <h1 class="govuk-heading-l">Confirm clearing all data</h1>
+    <p class="govuk-body">${downloadedText}</p>
+    <form class="govuk-!-margin-top-4" data-action="confirm-clear">
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Do you still want to clear all data?</legend>
+          <div class="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="confirm-yes" name="confirmClear" type="radio" value="yes">
+              <label class="govuk-label govuk-radios__label" for="confirm-yes">Yes, clear all data</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="confirm-no" name="confirmClear" type="radio" value="no">
+              <label class="govuk-label govuk-radios__label" for="confirm-no">No, keep my data</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <button class="govuk-button govuk-button--warning" type="submit">Continue</button>
+    </form>
+  `;
+}
+
+function renderClearComplete() {
+  return `
+    <h1 class="govuk-heading-l">Data cleared</h1>
+    <p class="govuk-body">All project data has been removed from this tool.</p>
+    <a href="#/" class="govuk-button">Back to homepage</a>
   `;
 }
 
@@ -851,6 +1029,32 @@ function escapeHtml(value) {
     .replace(/'/g, '&#039;');
 }
 
+function clearAllData() {
+  window.localStorage.removeItem(STORAGE_KEY);
+  clearFlowState.downloadedCount = 0;
+  clearFlowState.saved = false;
+}
+
+function downloadProjectFile(project) {
+  const blob = new Blob([JSON.stringify(project, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `${project.name || 'project'}-${project.id}.json`.toLowerCase().replace(/\s+/g, '-');
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function downloadProjectsByIds(ids) {
+  const projects = getProjects();
+  const selected = projects.filter((project) => ids.includes(project.id));
+  selected.forEach((project) => downloadProjectFile(project));
+  clearFlowState.downloadedCount = selected.length;
+  clearFlowState.saved = selected.length > 0;
+}
+
 function handleFormSubmit(event) {
   const form = event.target.closest('form');
   if (!form) return;
@@ -917,24 +1121,72 @@ function handleFormSubmit(event) {
     saveProjects(projects);
     navigate(`/projects/${projectId}/standards/${standardId}`);
   }
+
+  if (action === 'clear-decision') {
+    const choice = formData.get('saveProjects');
+    if (choice === 'yes') {
+      navigate('/clear-data/download');
+      return;
+    }
+    clearAllData();
+    navigate('/clear-data/complete');
+  }
+
+  if (action === 'download-choice') {
+    const choice = formData.get('downloadChoice');
+    if (choice === 'all') {
+      const ids = getProjects().map((project) => project.id);
+      downloadProjectsByIds(ids);
+      navigate('/clear-data/confirm');
+      return;
+    }
+    if (choice === 'select') {
+      navigate('/clear-data/download/select');
+      return;
+    }
+    alert('Select how you want to download your projects.');
+  }
+
+  if (action === 'download-selected') {
+    const selectedIds = formData.getAll('projectIds');
+    if (!selectedIds.length) {
+      alert('Select at least one project to download.');
+      return;
+    }
+    downloadProjectsByIds(selectedIds);
+    navigate('/clear-data/confirm');
+  }
+
+  if (action === 'confirm-clear') {
+    const decision = formData.get('confirmClear');
+    if (decision === 'yes') {
+      clearAllData();
+      navigate('/clear-data/complete');
+      return;
+    }
+    navigate('/');
+  }
 }
 
-function handleExport(event) {
-  const button = event.target.closest('[data-action="export-project"]');
+function handleActionClick(event) {
+  const button = event.target.closest('[data-action]');
   if (!button) return;
-  event.preventDefault();
-  const projectId = button.getAttribute('data-project-id');
-  const project = getProjects().find((item) => item.id === projectId);
-  if (!project) return;
-  const blob = new Blob([JSON.stringify(project, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = `${project.name || 'project'}-${project.id}.json`.toLowerCase().replace(/\s+/g, '-');
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
+  const action = button.getAttribute('data-action');
+
+  if (action === 'export-project') {
+    event.preventDefault();
+    const projectId = button.getAttribute('data-project-id');
+    const project = getProjects().find((item) => item.id === projectId);
+    if (!project) return;
+    downloadProjectFile(project);
+  }
+
+  if (action === 'download-projects') {
+    event.preventDefault();
+    const ids = (button.getAttribute('data-project-ids') || '').split(',').filter(Boolean);
+    if (!ids.length) return;
+    downloadProjectsByIds(ids);
+  }
 }
 
 function hydrateImportedProject(payload) {
@@ -978,7 +1230,7 @@ function hydrateImportedProject(payload) {
 
 function bindEvents() {
   document.addEventListener('submit', handleFormSubmit);
-  document.addEventListener('click', handleExport);
+  document.addEventListener('click', handleActionClick);
 }
 
 bindEvents();
