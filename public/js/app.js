@@ -1229,7 +1229,15 @@ function handleFormSubmit(event) {
       project.currentPhase = selectedPhase;
       saveProjects(projects);
     }
-    navigate(`/projects/${projectId}`);
+    const row = document.getElementById(`phase-edit-row-${projectId}`);
+    if (row) row.classList.add('govuk-!-display-none');
+    const targetPath = `/projects/${projectId}`;
+    if (getCurrentPath() === targetPath) {
+      renderRoute(targetPath);
+      window.scrollTo(0, 0);
+    } else {
+      navigate(targetPath);
+    }
   }
 }
 
