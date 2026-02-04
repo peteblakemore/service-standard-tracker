@@ -7,6 +7,7 @@ const Module = require("module");
 process.env.NODE_ENV = "production";
 
 const projectRoot = path.join(__dirname, "..", "..");
+const tmpProjectDir = path.join(os.tmpdir(), "kit-project");
 const nodeModulesPath = path.join(projectRoot, "node_modules");
 const packageJsonSource = path.join(projectRoot, "package.json");
 const packageJsonTarget = path.join(tmpProjectDir, "package.json");
@@ -15,7 +16,6 @@ const packageJsonTarget = path.join(tmpProjectDir, "package.json");
 process.env.NODE_PATH = nodeModulesPath;
 Module._initPaths();
 module.paths.push(nodeModulesPath);
-const tmpProjectDir = path.join(os.tmpdir(), "kit-project");
 const appSourceDir = path.join(projectRoot, "app");
 const appTargetDir = path.join(tmpProjectDir, "app");
 
