@@ -2,19 +2,6 @@
   max-width: 960px;
 }
 
-.ss-service-bar {
-  border-bottom: 2px solid #1d70b8;
-  background: #f3f2f1;
-}
-
-.ss-service-bar__inner {
-  padding: 12px 0;
-}
-
-.ss-service-bar__title {
-  margin: 0;
-}
-
 .ss-subsection {
   border: 1px solid #b1b4b6;
   padding: 16px;
