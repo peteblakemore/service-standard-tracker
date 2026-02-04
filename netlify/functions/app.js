@@ -50,12 +50,23 @@ process.env.KIT_PROJECT_DIR = tmpProjectDir;
 
 const { generateAssetsSync } = require("govuk-prototype-kit/lib/build");
 const cssPath = path.join(tmpProjectDir, ".tmp", "public", "stylesheets", "application.css");
+const cssFallbackDir = path.join(tmpProjectDir, "app", "assets", "stylesheets");
+const cssFallbackPath = path.join(cssFallbackDir, "application.css");
 
 if (!fs.existsSync(cssPath)) {
   try {
     generateAssetsSync();
   } catch (error) {
     console.error("Failed to generate assets", error);
+  }
+}
+
+if (fs.existsSync(cssPath)) {
+  try {
+    fs.mkdirSync(cssFallbackDir, { recursive: true });
+    fs.copyFileSync(cssPath, cssFallbackPath);
+  } catch (error) {
+    console.error("Failed to copy CSS fallback", error);
   }
 }
 
