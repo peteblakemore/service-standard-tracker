@@ -1,6 +1,59 @@
-//
-// For guidance on how to add CSS and SCSS see:
-// https://prototype-kit.service.gov.uk/docs/adding-css-javascript-and-images
-// 
+.govuk-task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
-// Add extra styles here
+.govuk-task-list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid $govuk-border-colour;
+}
+
+.govuk-task-list__item--with-link {
+  align-items: flex-start;
+}
+
+.govuk-task-list__name-and-hint {
+  max-width: 70%;
+}
+
+.govuk-task-list__status {
+  text-align: right;
+}
+
+.ss-subsection {
+  border: 1px solid #b1b4b6;
+  padding: 16px;
+  margin-bottom: 20px;
+  background: #ffffff;
+}
+
+.ss-subsection__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ss-subsection__rag {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ss-subsection:last-child {
+  margin-bottom: 0;
+}
+
+.ss-notes {
+  background: #f3f2f1;
+  border-left: 4px solid #b1b4b6;
+  padding: 12px 16px;
+  margin: 0 0 12px 0;
+}
+
+.ss-notes .govuk-body {
+  margin: 0;
+}

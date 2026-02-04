@@ -1,0 +1,8 @@
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+{% if ragStatus %}
+  {{ govukTag({
+    text: ragLabel(ragStatus),
+    classes: ragClass(ragStatus)
+  }) }}
+{% endif %}

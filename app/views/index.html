@@ -1,20 +1,52 @@
-{% extends "layouts/main.html" %}
+{% extends "layout.html" %}
 
-{% set pageName="Home" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
 
 {% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Service Standard tracker</h1>
+      <p class="govuk-body">
+        Track one or more services against the 14 points of the GDS Service Standard. Add notes, set RAG statuses, and prepare for assessments.
+      </p>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+      {% if projects.length === 0 %}
+        <p class="govuk-body">You have not added any projects yet.</p>
+        <div class="govuk-button-group">
+          {{ govukButton({
+            text: "Add a new project",
+            href: "/projects/add"
+          }) }}
+          {{ govukButton({
+            text: "Upload a project",
+            href: "/projects/import",
+            classes: "govuk-button--secondary"
+          }) }}
+        </div>
+      {% else %}
+        {{ govukTable({
+          head: [
+            { text: "Project" },
+            { text: "Department" },
+            { text: "Current phase" },
+            { text: "Overall status" }
+          ],
+          rows: projectRows
+        }) }}
 
-    {% include "govuk-prototype-kit/includes/homepage-top.njk" %}
-
-    <h1 class="govuk-heading-xl">
-      {{ serviceName }}
-    </h1>
-
-    {% include "govuk-prototype-kit/includes/homepage-bottom.njk" %}
+        <div class="govuk-!-margin-top-4 govuk-button-group">
+          {{ govukButton({
+            text: "Add a new project",
+            href: "/projects/add"
+          }) }}
+          {{ govukButton({
+            text: "Upload a project",
+            href: "/projects/import",
+            classes: "govuk-button--secondary"
+          }) }}
+        </div>
+      {% endif %}
+    </div>
   </div>
-</div>
-
 {% endblock %}

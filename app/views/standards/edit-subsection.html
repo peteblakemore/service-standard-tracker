@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/projects/" + project.id + "/standards/" + standard.id
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">{{ subsection.title }}</h1>
+      <p class="govuk-body">{{ subsection.guidanceText }}</p>
+
+      {% if formAction %}
+        {% set formActionResolved = formAction %}
+      {% else %}
+        {% set formActionResolved = "/projects/" + project.id + "/standards/" + standard.id + "/subsections/" + subsection.id %}
+      {% endif %}
+
+      {% if comment %}
+        {% set commentText = comment.text %}
+        {% set ragStatusCurrent = comment.ragStatus %}
+      {% else %}
+        {% set commentText = "" %}
+        {% set ragStatusCurrent = subsection.ragStatus %}
+      {% endif %}
+
+      <form method="post" action="{{ formActionResolved }}">
+        {{ govukTextarea({
+          label: { text: "Comment" },
+          id: "notes",
+          name: "notes",
+          value: commentText,
+          rows: 6
+        }) }}
+
+        {{ govukRadios({
+          name: "ragStatus",
+          fieldset: {
+            legend: {
+              text: "RAG status",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          items: [
+            { value: "red", text: "Red", checked: ragStatusCurrent === "red" },
+            { value: "amber", text: "Amber", checked: ragStatusCurrent === "amber" },
+            { value: "green", text: "Green", checked: ragStatusCurrent === "green" },
+            { value: "pending", text: "Pending", checked: ragStatusCurrent === "pending" }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: submitText or "Add comment"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

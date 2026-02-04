@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% block content %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/projects/" + project.id
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Service Standard {{ standard.number }}: {{ standard.title }}</h1>
+      <p class="govuk-body">{{ standard.description }}</p>
+
+      <h2 class="govuk-heading-m">Overall RAG status</h2>
+      <div class="govuk-!-margin-bottom-2">
+        {% set ragStatus = calculateStandardStatus(standard) %}
+        {% include "partials/rag-tag.html" %}
+      </div>
+
+      <h2 class="govuk-heading-m">Subsections</h2>
+
+      {% for subsection in standard.subsections %}
+        <div class="ss-subsection">
+          <div class="ss-subsection__header">
+            <h3 class="govuk-heading-s">{{ subsection.title }}</h3>
+            <div class="ss-subsection__rag">
+              {% set ragStatus = calculateSubsectionStatus(subsection) %}
+              {% include "partials/rag-tag.html" %}
+            </div>
+          </div>
+          <p class="govuk-body">{{ subsection.guidanceText }}</p>
+
+          {% if subsection.serviceManualDetail %}
+            {{ govukDetails({
+              summaryText: "Show more from the Service Manual",
+              html: "<p class=\"govuk-body\">" + subsection.serviceManualDetail + "</p>" +
+                "<p class=\"govuk-body\"><a class=\"govuk-link\" href=\"" + standard.serviceManualUrl + "\" target=\"_blank\" rel=\"noreferrer noopener\">Read the full guidance in the Service Manual</a></p>"
+            }) }}
+          {% endif %}
+
+          {% if subsection.comments and subsection.comments.length %}
+            <h4 class="govuk-heading-s govuk-!-margin-bottom-2">Comments</h4>
+            {% for comment in subsection.comments %}
+              <div class="ss-notes">
+                <p class="govuk-body">{{ comment.text }}</p>
+                <p class="govuk-body govuk-!-margin-top-2">
+                  <strong class="govuk-!-margin-right-2">RAG:</strong>
+                  {% set ragStatus = comment.ragStatus %}
+                  {% include "partials/rag-tag.html" %}
+                </p>
+                <p class="govuk-body govuk-!-margin-top-2">
+                  <a class="govuk-link" href="/projects/{{ project.id }}/standards/{{ standard.id }}/subsections/{{ subsection.id }}/comments/{{ comment.id }}/edit">Change</a>
+                </p>
+              </div>
+            {% endfor %}
+            <p class="govuk-body">
+              <a class="govuk-link" href="/projects/{{ project.id }}/standards/{{ standard.id }}/subsections/{{ subsection.id }}">Add another comment</a>
+            </p>
+          {% else %}
+            <p class="govuk-body">
+              <a class="govuk-link" href="/projects/{{ project.id }}/standards/{{ standard.id }}/subsections/{{ subsection.id }}">Add comment</a>
+            </p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/"
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Add a new project</h1>
+
+      <form method="post" action="/projects/add">
+        {{ govukInput({
+          label: { text: "Project or service name" },
+          id: "projectName",
+          name: "projectName"
+        }) }}
+
+        {{ govukInput({
+          label: { text: "Department or organisation" },
+          id: "department",
+          name: "department"
+        }) }}
+
+        {{ govukTextarea({
+          label: { text: "Project or service objectives" },
+          id: "objectives",
+          name: "objectives",
+          rows: 4
+        }) }}
+
+        {{ govukTextarea({
+          label: { text: "Short description of the service" },
+          id: "description",
+          name: "description",
+          rows: 4
+        }) }}
+
+        {{ govukRadios({
+          name: "currentPhase",
+          fieldset: {
+            legend: {
+              text: "Current phase",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          items: [
+            { value: "Discovery", text: "Discovery" },
+            { value: "Alpha", text: "Alpha" },
+            { value: "Beta", text: "Beta" },
+            { value: "Live", text: "Live" }
+          ]
+        }) }}
+
+        {{ govukSelect({
+          id: "nextAssessmentType",
+          name: "nextAssessmentType",
+          label: { text: "Next assessment type" },
+          items: [
+            { value: "", text: "Select an assessment" },
+            { value: "Discovery assessment", text: "Discovery assessment" },
+            { value: "Alpha assessment", text: "Alpha assessment" },
+            { value: "Beta assessment", text: "Beta assessment" },
+            { value: "Live assessment", text: "Live assessment" },
+            { value: "Service assessment", text: "Service assessment" },
+            { value: "Peer review", text: "Peer review" }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Add project"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
