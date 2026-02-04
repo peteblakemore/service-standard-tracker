@@ -1,0 +1,37 @@
+.ss-app__container {
+  max-width: 960px;
+}
+
+.ss-subsection {
+  border: 1px solid #b1b4b6;
+  padding: 16px;
+  margin-bottom: 20px;
+  background: #ffffff;
+}
+
+.ss-subsection__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ss-subsection__rag {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ss-notes {
+  background: #f3f2f1;
+  border-left: 4px solid #b1b4b6;
+  padding: 12px 16px;
+  margin: 0 0 12px 0;
+}
+
+.ss-notes .govuk-body {
+  margin: 0;
+}
+
+.ss-notes .govuk-body + .govuk-body {
+  margin-top: 8px;
+}
