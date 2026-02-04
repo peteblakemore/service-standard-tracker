@@ -887,6 +887,9 @@ function renderProject(match) {
       <span>${project.name}</span>
       ${phaseTag(project.currentPhase)}
     </h1>
+    <div class="govuk-!-margin-bottom-4">
+      <a href="#" class="govuk-button" data-action="export-project" data-project-id="${project.id}">Save project</a>
+    </div>
 
     <div class="ss-card govuk-!-margin-bottom-6">
       <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Project overview</h2>
@@ -925,10 +928,6 @@ function renderProject(match) {
 
     ${descriptionMarkup}
     ${objectivesMarkup}
-
-    <div class="govuk-!-margin-top-3">
-      <a href="#" class="govuk-button" data-action="export-project" data-project-id="${project.id}">Export project</a>
-    </div>
 
     <h2 class="govuk-heading-m govuk-!-margin-top-6">Service Standard points</h2>
     <ol class="ss-standards">${standardsList}</ol>
