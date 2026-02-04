@@ -884,18 +884,28 @@ function renderProject(match) {
       <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Project overview</h2>
       <dl class="govuk-summary-list">
         ${summaryRow('Department', project.department)}
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">Phase</dt>
+          <dd class="govuk-summary-list__value">${escapeHtml(project.currentPhase || '')}</dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#" data-action="show-phase-edit" data-project-id="${project.id}">Change</a>
+          </dd>
+        </div>
         ${summaryRow('Next assessment', project.nextAssessmentType)}
       </dl>
-      <form class="govuk-!-margin-top-3" data-action="update-phase" data-project-id="${project.id}">
+      <form class="govuk-!-margin-top-3 govuk-!-display-none" data-action="update-phase" data-project-id="${project.id}" id="phase-edit-${project.id}">
         <div class="govuk-form-group">
-          <label class="govuk-label" for="currentPhase-${project.id}">Phase</label>
+          <label class="govuk-label" for="currentPhase-${project.id}">Update phase</label>
           <select class="govuk-select" id="currentPhase-${project.id}" name="currentPhase">
             ${['Discovery', 'Alpha', 'Beta', 'Live']
               .map((phase) => `<option value="${phase}" ${project.currentPhase === phase ? 'selected' : ''}>${phase}</option>`)
               .join('')}
           </select>
         </div>
-        <button class="govuk-button govuk-button--secondary" type="submit">Update phase</button>
+        <div class="govuk-button-group">
+          <button class="govuk-button govuk-button--secondary" type="submit">Save phase</button>
+          <a class="govuk-link" href="#" data-action="cancel-phase-edit" data-project-id="${project.id}">Cancel</a>
+        </div>
       </form>
     </div>
 
@@ -1235,6 +1245,25 @@ function handleActionClick(event) {
     const ids = (button.getAttribute('data-project-ids') || '').split(',').filter(Boolean);
     if (!ids.length) return;
     downloadProjectsByIds(ids);
+  }
+
+  if (action === 'show-phase-edit') {
+    event.preventDefault();
+    const projectId = button.getAttribute('data-project-id');
+    const form = document.getElementById(`phase-edit-${projectId}`);
+    if (form) {
+      form.classList.remove('govuk-!-display-none');
+      form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  if (action === 'cancel-phase-edit') {
+    event.preventDefault();
+    const projectId = button.getAttribute('data-project-id');
+    const form = document.getElementById(`phase-edit-${projectId}`);
+    if (form) {
+      form.classList.add('govuk-!-display-none');
+    }
   }
 }
 
