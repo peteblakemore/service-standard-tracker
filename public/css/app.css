@@ -52,6 +52,31 @@
   flex-shrink: 0;
 }
 
+.ss-standards-layout {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.ss-standards-sidebar {
+  flex: 0 0 280px;
+}
+
+.ss-standards-main {
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .ss-standards-layout {
+    flex-direction: column;
+  }
+
+  .ss-standards-sidebar {
+    flex-basis: auto;
+    width: 100%;
+  }
+}
+
 .ss-subsection {
   border: 1px solid #b1b4b6;
   padding: 16px;
