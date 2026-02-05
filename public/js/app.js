@@ -873,6 +873,8 @@ function renderProject(match) {
     })
     .join('');
 
+  const projectStatus = calculateProjectStatus(project);
+
   const descriptionMarkup = project.description
     ? `<h2 class="govuk-heading-m">Description</h2><p class="govuk-body">${escapeHtml(project.description)}</p>`
     : `<h2 class="govuk-heading-m">Description</h2><p class="govuk-body">No description has been added yet.</p>`;
@@ -887,6 +889,7 @@ function renderProject(match) {
       <span>${project.name}</span>
       ${phaseTag(project.currentPhase)}
     </h1>
+    <p class="govuk-body"><span class="govuk-!-font-weight-bold">Current delivery status:</span> ${ragTag(projectStatus)}</p>
     <div class="govuk-!-margin-bottom-4">
       <a href="#" class="govuk-button" data-action="export-project" data-project-id="${project.id}">Save project</a>
     </div>
