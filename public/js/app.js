@@ -408,6 +408,323 @@ const serviceStandards = [
   }
 ];
 
+const artefactsByStandard = {
+  5: [
+    {
+      id: 'accessibility-research',
+      title: 'Accessibility research and content improvements',
+      detail: 'Summaries of accessibility research, content changes for clarity, or plans for translation and alternative formats.',
+      phases: ['Discovery', 'Alpha']
+    },
+    {
+      id: 'assistive-tech-testing',
+      title: 'Assistive technology testing results',
+      detail: 'Notes or reports from early testing with screen readers, magnifiers, or voice input.',
+      phases: ['Alpha', 'Beta']
+    },
+    {
+      id: 'accessibility-audit',
+      title: 'Accessibility audit report and fixes',
+      detail: 'External audit findings with a list of issues resolved to meet WCAG 2.1/2.2 AA.',
+      phases: ['Beta']
+    },
+    {
+      id: 'accessibility-statement',
+      title: 'Accessibility statement',
+      detail: 'Draft or published statement covering compliance and known issues.',
+      phases: ['Beta', 'Live']
+    },
+    {
+      id: 'assisted-digital',
+      title: 'Assisted digital support materials',
+      detail: 'Call scripts, training guides, and evidence of tested support routes.',
+      phases: ['Beta']
+    },
+    {
+      id: 'ongoing-accessibility',
+      title: 'Ongoing accessibility checks',
+      detail: 'Plan for re-audits, continuous testing with users who have access needs, and keeping the statement current.',
+      phases: ['Beta', 'Live']
+    }
+  ],
+  6: [
+    {
+      id: 'team-roles',
+      title: 'Team composition and roles',
+      detail: 'List of team members and disciplines, showing the mix of skills for the phase.',
+      phases: ['Alpha', 'Beta']
+    },
+    {
+      id: 'role-responsibilities',
+      title: 'Role responsibilities',
+      detail: 'Brief descriptions of how each discipline contributes to delivery.',
+      phases: ['Alpha', 'Beta']
+    },
+    {
+      id: 'collaboration-evidence',
+      title: 'Evidence of collaborative working',
+      detail: 'Examples showing decisions made together across disciplines.',
+      phases: ['Alpha', 'Beta', 'Live']
+    },
+    {
+      id: 'service-owner',
+      title: 'Service owner and governance',
+      detail: 'Named service owner and how they are engaged in delivery.',
+      phases: ['Alpha', 'Beta', 'Live']
+    },
+    {
+      id: 'knowledge-transfer',
+      title: 'Knowledge transfer plan',
+      detail: 'Plan for sharing knowledge and reducing reliance on contractors.',
+      phases: ['Alpha', 'Beta']
+    },
+    {
+      id: 'live-ops-plan',
+      title: 'Live support plan',
+      detail: 'Outline of roles and responsibilities once live.',
+      phases: ['Beta', 'Live']
+    }
+  ],
+  7: [
+    {
+      id: 'agile-board',
+      title: 'Agile delivery board',
+      detail: 'Snapshot of backlog, work in progress, and iteration cadence.',
+      phases: ['Alpha', 'Beta', 'Live']
+    },
+    {
+      id: 'iteration-log',
+      title: 'Iteration records',
+      detail: 'Design history or change log showing changes based on research.',
+      phases: ['Alpha', 'Beta']
+    },
+    {
+      id: 'risk-log',
+      title: 'Risk and hypothesis log',
+      detail: 'List of key assumptions and how they were tested.',
+      phases: ['Discovery', 'Alpha']
+    },
+    {
+      id: 'governance',
+      title: 'Lightweight governance evidence',
+      detail: 'Objectives and measures used to guide work without fixed scope.',
+      phases: ['Alpha', 'Beta', 'Live']
+    },
+    {
+      id: 'delivery-pipeline',
+      title: 'Continuous delivery pipeline',
+      detail: 'Evidence of frequent deployments and automated tests.',
+      phases: ['Beta', 'Live']
+    }
+  ],
+  8: [
+    {
+      id: 'design-history',
+      title: 'Change log or design history',
+      detail: 'Record of changes over time and why they were made.',
+      phases: ['Alpha', 'Beta', 'Live']
+    },
+    {
+      id: 'analytics-feedback',
+      title: 'Analytics and feedback loop',
+      detail: 'Metrics and user feedback informing improvements.',
+      phases: ['Beta', 'Live']
+    },
+    {
+      id: 'continuous-deploy',
+      title: 'Continuous deployment evidence',
+      detail: 'Pipeline or release records showing frequent iteration.',
+      phases: ['Beta', 'Live']
+    },
+    {
+      id: 'content-review',
+      title: 'Content review process',
+      detail: 'Schedule or workflow for keeping content up to date.',
+      phases: ['Beta', 'Live']
+    },
+    {
+      id: 'improvement-backlog',
+      title: 'Improvement backlog',
+      detail: 'Visible backlog of enhancements beyond new features.',
+      phases: ['Beta', 'Live']
+    }
+  ],
+  9: [
+    {
+      id: 'privacy-mapping',
+      title: 'Data and privacy mapping',
+      detail: 'Data flow diagrams and DPIA work.',
+      phases: ['Discovery', 'Alpha']
+    },
+    {
+      id: 'security-engagement',
+      title: 'Security engagement evidence',
+      detail: 'Input from security teams or assurance process.',
+      phases: ['Alpha', 'Beta']
+    },
+    {
+      id: 'threat-model',
+      title: 'Threat model',
+      detail: 'Summary of threats and mitigations.',
+      phases: ['Alpha']
+    },
+    {
+      id: 'security-testing',
+      title: 'Security test results',
+      detail: 'Pen test results and vulnerability scan summaries.',
+      phases: ['Beta']
+    },
+    {
+      id: 'risk-register',
+      title: 'Risk register',
+      detail: 'Security risks with owners and mitigation status.',
+      phases: ['Beta', 'Live']
+    },
+    {
+      id: 'incident-prep',
+      title: 'Operational security readiness',
+      detail: 'Incident response plan and asset register.',
+      phases: ['Live']
+    }
+  ],
+  10: [
+    {
+      id: 'success-metrics',
+      title: 'Success metrics framework',
+      detail: 'KPIs, targets, and definition of success.',
+      phases: ['Discovery', 'Alpha']
+    },
+    {
+      id: 'baseline-data',
+      title: 'Baseline performance data',
+      detail: 'Current performance used as a benchmark.',
+      phases: ['Discovery', 'Alpha']
+    },
+    {
+      id: 'measurement-plan',
+      title: 'Measurement plan',
+      detail: 'How each KPI will be captured and reviewed.',
+      phases: ['Alpha']
+    },
+    {
+      id: 'analytics-dashboards',
+      title: 'Analytics implementation',
+      detail: 'Dashboards or reports with required metrics.',
+      phases: ['Beta', 'Live']
+    },
+    {
+      id: 'data-driven-changes',
+      title: 'Evidence of data-driven improvement',
+      detail: 'Examples where data led to changes.',
+      phases: ['Beta', 'Live']
+    }
+  ],
+  11: [
+    {
+      id: 'options-appraisal',
+      title: 'Options analysis and decisions',
+      detail: 'Decision records showing the chosen approach.',
+      phases: ['Alpha']
+    },
+    {
+      id: 'architecture-diagram',
+      title: 'Technical architecture',
+      detail: 'Diagram showing components and integrations.',
+      phases: ['Alpha', 'Beta']
+    },
+    {
+      id: 'tech-standards',
+      title: 'Alignment with standards and stack',
+      detail: 'Evidence the solution aligns with recommended tech choices.',
+      phases: ['Alpha', 'Beta']
+    },
+    {
+      id: 'value-for-money',
+      title: 'Value for money rationale',
+      detail: 'Cost considerations and reuse of existing services.',
+      phases: ['Alpha', 'Beta']
+    },
+    {
+      id: 'support-plan',
+      title: 'Sustainability and support plan',
+      detail: 'How the service will be maintained and patched.',
+      phases: ['Live']
+    }
+  ],
+  12: [
+    {
+      id: 'public-repo',
+      title: 'Public code repository',
+      detail: 'Link to the open source repository.',
+      phases: ['Beta', 'Live']
+    },
+    {
+      id: 'open-license',
+      title: 'Open source licence',
+      detail: 'Appropriate license in the repository.',
+      phases: ['Beta', 'Live']
+    },
+    {
+      id: 'open-dev',
+      title: 'Open development practice',
+      detail: 'Evidence of open PRs, issues, or contributions.',
+      phases: ['Live']
+    }
+  ],
+  13: [
+    {
+      id: 'design-system',
+      title: 'Use of GOV.UK patterns',
+      detail: 'Examples of components and patterns used in the service.',
+      phases: ['Alpha', 'Beta', 'Live']
+    },
+    {
+      id: 'common-platforms',
+      title: 'Use of common platforms',
+      detail: 'Integration with shared government services (where relevant).',
+      phases: ['Beta', 'Live']
+    },
+    {
+      id: 'open-standards',
+      title: 'Open standards compliance',
+      detail: 'Evidence of open formats or API standards.',
+      phases: ['Alpha', 'Beta', 'Live']
+    },
+    {
+      id: 'contributions',
+      title: 'Contributions back to the community',
+      detail: 'Design or code contributions shared for reuse.',
+      phases: ['Live']
+    }
+  ],
+  14: [
+    {
+      id: 'monitoring',
+      title: 'Uptime and performance monitoring',
+      detail: 'Dashboards showing availability and response times.',
+      phases: ['Beta', 'Live']
+    },
+    {
+      id: 'load-testing',
+      title: 'Load and performance testing',
+      detail: 'Results from load or stress tests.',
+      phases: ['Beta']
+    },
+    {
+      id: 'incident-process',
+      title: 'Incident management process',
+      detail: 'Runbooks, on-call rota, and incident review evidence.',
+      phases: ['Live']
+    },
+    {
+      id: 'disaster-recovery',
+      title: 'Disaster recovery plan',
+      detail: 'Backups, failover processes, and test results.',
+      phases: ['Live']
+    }
+  ]
+};
+
 const routes = [
   { pattern: /^\/$/, render: renderHome },
   { pattern: /^\/clear-data\/?$/, render: renderClearData },
@@ -569,6 +886,12 @@ function phaseTag(phase) {
   };
   const label = phase || 'Unknown';
   return `<strong class="govuk-tag ${classes[label] || 'govuk-tag--grey'}">${label}</strong>`;
+}
+
+function phaseTagList(phases) {
+  return phases
+    .map((phase) => `<strong class="govuk-tag govuk-tag--grey">${phase}</strong>`)
+    .join(' ');
 }
 
 function renderHome() {
@@ -970,6 +1293,35 @@ function renderStandard(match) {
   const standard = project.serviceStandards.find((item) => item.id === standardId);
   if (!standard) return renderNotFound();
 
+  const artefacts = artefactsByStandard[standard.number] || [];
+  const artefactsMarkup = artefacts.length
+    ? `
+      <div class="govuk-accordion" data-module="govuk-accordion" id="artefacts-accordion">
+        ${artefacts
+          .map(
+            (item) => `
+            <div class="govuk-accordion__section">
+              <div class="govuk-accordion__section-header ss-artefact__header">
+                <h3 class="govuk-accordion__section-heading">
+                  <span class="govuk-accordion__section-button" id="artefact-${item.id}">
+                    ${item.title}
+                  </span>
+                </h3>
+                <div class="ss-artefact__phases">
+                  ${phaseTagList(item.phases)}
+                </div>
+              </div>
+              <div class="govuk-accordion__section-content" aria-labelledby="artefact-${item.id}">
+                <p class="govuk-body">${item.detail}</p>
+              </div>
+            </div>
+          `
+          )
+          .join('')}
+      </div>
+    `
+    : `<p class="govuk-body">No typical artefacts listed yet.</p>`;
+
   const subsections = standard.subsections
     .map((subsection) => {
       const rag = calculateSubsectionStatus(subsection);
@@ -1025,6 +1377,8 @@ function renderStandard(match) {
     <p class="govuk-body">${standard.description}</p>
     <h2 class="govuk-heading-m">Overall RAG status</h2>
     <div class="govuk-!-margin-bottom-4">${ragTag(calculateStandardStatus(standard))}</div>
+    <h2 class="govuk-heading-m">Artefacts and evidence typically demonstrated at assessment</h2>
+    ${artefactsMarkup}
     <h2 class="govuk-heading-m">Subsections</h2>
     ${subsections}
   `;

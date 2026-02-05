@@ -89,6 +89,18 @@
   margin-left: 8px;
 }
 
+.ss-artefact__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ss-artefact__phases .govuk-tag {
+  margin-left: 4px;
+  margin-top: 4px;
+}
+
 @media (max-width: 900px) {
   .ss-standards-layout {
     flex-direction: column;
