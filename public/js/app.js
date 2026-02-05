@@ -410,423 +410,144 @@ const serviceStandards = [
 
 const artefactsByStandard = {
   1: [
-    {
-      id: 'user-needs',
-      title: 'User needs summary',
-      detail: 'Evidence of agreed user needs based on research with real users.',
-      phases: ['Discovery', 'Alpha']
-    },
-    {
-      id: 'research-plan',
-      title: 'Research plan and findings',
-      detail: 'Plan for ongoing research and summaries of what you learned.',
-      phases: ['Discovery', 'Alpha']
-    },
-    {
-      id: 'journey-maps',
-      title: 'User journey maps',
-      detail: 'End-to-end maps showing user goals and pain points.',
-      phases: ['Discovery', 'Alpha']
-    }
+    { id: 'user-research-plan', title: 'User research plan and approach', detail: 'Plan outlining target users, research questions and methods.', phases: ['Discovery', 'Alpha'] },
+    { id: 'user-profiles', title: 'User profiles and needs', detail: 'Personas, empathy maps or prioritised user needs derived from research.', phases: ['Discovery', 'Alpha'] },
+    { id: 'journey-maps', title: 'User journey maps / service blueprints', detail: 'End-to-end journeys showing context, pain points and non-digital steps.', phases: ['Alpha'] },
+    { id: 'research-findings', title: 'Research findings and usability reports', detail: 'Summaries of interviews, usability testing and resulting insights.', phases: ['Alpha', 'Beta'] },
+    { id: 'prototype-testing', title: 'Prototypes tested with users', detail: 'Evidence of early prototypes and iteration based on feedback.', phases: ['Alpha'] },
+    { id: 'behaviour-data', title: 'Data analysis of user behaviour', detail: 'Analytics or existing data used to validate pain points.', phases: ['Discovery', 'Alpha'] },
+    { id: 'ongoing-learning', title: 'Plans for ongoing learning', detail: 'Schedule for continuous research and feedback loops.', phases: ['Beta', 'Live'] }
   ],
   2: [
-    {
-      id: 'journey-scope',
-      title: 'End-to-end scope',
-      detail: 'Evidence the service solves the whole problem across channels.',
-      phases: ['Discovery', 'Alpha']
-    },
-    {
-      id: 'dependencies',
-      title: 'Dependency map',
-      detail: 'Map of organisations and handoffs involved in delivery.',
-      phases: ['Discovery', 'Alpha']
-    },
-    {
-      id: 'policy-collab',
-      title: 'Policy collaboration evidence',
-      detail: 'Notes or decisions showing collaboration with policy teams.',
-      phases: ['Alpha', 'Beta']
-    }
+    { id: 'service-blueprint', title: 'End-to-end service map / blueprint', detail: 'Full journey across channels and touchpoints with handoffs.', phases: ['Discovery', 'Alpha'] },
+    { id: 'stakeholder-map', title: 'Stakeholder and systems map', detail: 'Dependencies with other services, teams and systems.', phases: ['Alpha'] },
+    { id: 'policy-process', title: 'Policy and offline process understanding', detail: 'How policy and non-digital steps affect the journey.', phases: ['Alpha'] },
+    { id: 'assisted-digital', title: 'Assisted digital support plan', detail: 'Support for users who cannot complete online.', phases: ['Beta'] },
+    { id: 'collaboration', title: 'Collaboration evidence', detail: 'Workshops or sessions with related teams and services.', phases: ['Alpha', 'Beta'] },
+    { id: 'journey-demo', title: 'Prototype or demo of entire journey', detail: 'Narrative walkthrough covering full user journey.', phases: ['Alpha', 'Beta'] },
+    { id: 'beta-outcomes', title: 'Private beta outcomes', detail: 'Evidence users complete the full journey end to end.', phases: ['Beta'] },
+    { id: 'gap-roadmap', title: 'Plans to address gaps', detail: 'Roadmap for remaining gaps in solving the problem.', phases: ['Alpha', 'Beta'] }
   ],
   3: [
-    {
-      id: 'channel-strategy',
-      title: 'Channel strategy',
-      detail: 'How online, phone, paper and face-to-face channels work together.',
-      phases: ['Discovery', 'Alpha']
-    },
-    {
-      id: 'assisted-digital-plan',
-      title: 'Assisted digital plan',
-      detail: 'Plan for users who need help completing the service.',
-      phases: ['Alpha', 'Beta']
-    },
-    {
-      id: 'consistency-checks',
-      title: 'Consistency checks',
-      detail: 'Evidence of consistent content and guidance across channels.',
-      phases: ['Beta', 'Live']
-    }
+    { id: 'cross-channel-map', title: 'Cross-channel journey mapping', detail: 'Maps showing entry points, channel switches and handoffs.', phases: ['Discovery', 'Alpha'] },
+    { id: 'consistency-guidance', title: 'Consistency guidelines', detail: 'Evidence of consistent language and branding across channels.', phases: ['Alpha', 'Beta'] },
+    { id: 'common-platforms', title: 'Use of common platforms', detail: 'Shared components that enable joined-up experiences.', phases: ['Alpha', 'Beta', 'Live'] },
+    { id: 'transition-testing', title: 'Channel transition testing', detail: 'Research on moving between offline and online steps.', phases: ['Beta'] },
+    { id: 'entry-exit', title: 'Entry and exit point discovery', detail: 'Evidence of how users find and complete the service.', phases: ['Discovery', 'Alpha'] },
+    { id: 'outreach-plan', title: 'Service discovery and outreach', detail: 'Plans for communications and support across channels.', phases: ['Live'] }
   ],
   4: [
-    {
-      id: 'service-map',
-      title: 'Service map',
-      detail: 'Map of service steps showing simplified flow.',
-      phases: ['Discovery', 'Alpha']
-    },
-    {
-      id: 'prototype-tests',
-      title: 'Prototype testing notes',
-      detail: 'Evidence of usability testing and iteration.',
-      phases: ['Alpha']
-    },
-    {
-      id: 'content-simplification',
-      title: 'Content simplification',
-      detail: 'Examples of clearer wording and reduced complexity.',
-      phases: ['Alpha', 'Beta']
-    }
+    { id: 'usability-reports', title: 'Usability test reports', detail: 'Iterative testing showing task success improvements.', phases: ['Alpha', 'Beta'] },
+    { id: 'prototypes', title: 'Interactive prototypes', detail: 'Prototype iterations demonstrating simplification.', phases: ['Alpha'] },
+    { id: 'plain-english', title: 'Plain English content samples', detail: 'Before/after content improvements with evidence.', phases: ['Discovery', 'Alpha'] },
+    { id: 'design-system', title: 'Use of design system patterns', detail: 'Evidence of GOV.UK patterns and components used.', phases: ['Alpha', 'Beta'] },
+    { id: 'cross-device', title: 'Cross-device compatibility testing', detail: 'Evidence the service works across devices and browsers.', phases: ['Alpha', 'Beta'] },
+    { id: 'error-support', title: 'Error handling and support', detail: 'Improved error messaging and help content.', phases: ['Beta'] },
+    { id: 'simplicity-improvement', title: 'Continuous improvement evidence', detail: 'Data and actions showing ongoing simplification.', phases: ['Beta', 'Live'] }
   ],
   5: [
-    {
-      id: 'accessibility-research',
-      title: 'Accessibility research and content improvements',
-      detail: 'Summaries of accessibility research, content changes for clarity, or plans for translation and alternative formats.',
-      phases: ['Discovery', 'Alpha']
-    },
-    {
-      id: 'assistive-tech-testing',
-      title: 'Assistive technology testing results',
-      detail: 'Notes or reports from early testing with screen readers, magnifiers, or voice input.',
-      phases: ['Alpha', 'Beta']
-    },
-    {
-      id: 'accessibility-audit',
-      title: 'Accessibility audit report and fixes',
-      detail: 'External audit findings with a list of issues resolved to meet WCAG 2.1/2.2 AA.',
-      phases: ['Beta']
-    },
-    {
-      id: 'accessibility-statement',
-      title: 'Accessibility statement',
-      detail: 'Draft or published statement covering compliance and known issues.',
-      phases: ['Beta', 'Live']
-    },
-    {
-      id: 'assisted-digital',
-      title: 'Assisted digital support materials',
-      detail: 'Call scripts, training guides, and evidence of tested support routes.',
-      phases: ['Beta']
-    },
-    {
-      id: 'ongoing-accessibility',
-      title: 'Ongoing accessibility checks',
-      detail: 'Plan for re-audits, continuous testing with users who have access needs, and keeping the statement current.',
-      phases: ['Beta', 'Live']
-    }
+    { id: 'inclusive-research', title: 'Inclusive research outputs', detail: 'Research with users with access needs and recruitment plans.', phases: ['Discovery', 'Alpha'] },
+    { id: 'inclusive-design', title: 'Accessibility considerations in design', detail: 'Inclusive design decisions and content improvements.', phases: ['Alpha'] },
+    { id: 'assistive-tech', title: 'Assistive tech testing results', detail: 'In-house testing with screen readers or magnifiers.', phases: ['Alpha', 'Beta'] },
+    { id: 'accessibility-audit', title: 'Accessibility audit report', detail: 'External audit findings and fixes for WCAG AA.', phases: ['Beta'] },
+    { id: 'accessibility-statement', title: 'Accessibility statement', detail: 'Draft or published statement for the service.', phases: ['Beta', 'Live'] },
+    { id: 'assisted-digital', title: 'Assistive digital support materials', detail: 'Support scripts, training guides and tested routes.', phases: ['Beta'] },
+    { id: 'ongoing-checks', title: 'Ongoing accessibility checks', detail: 'Plan for re-audits, ongoing testing and updates.', phases: ['Beta', 'Live'] }
   ],
   6: [
-    {
-      id: 'team-roles',
-      title: 'Team composition and roles',
-      detail: 'List of team members and disciplines, showing the mix of skills for the phase.',
-      phases: ['Alpha', 'Beta']
-    },
-    {
-      id: 'role-responsibilities',
-      title: 'Role responsibilities',
-      detail: 'Brief descriptions of how each discipline contributes to delivery.',
-      phases: ['Alpha', 'Beta']
-    },
-    {
-      id: 'collaboration-evidence',
-      title: 'Evidence of collaborative working',
-      detail: 'Examples showing decisions made together across disciplines.',
-      phases: ['Alpha', 'Beta', 'Live']
-    },
-    {
-      id: 'service-owner',
-      title: 'Service owner and governance',
-      detail: 'Named service owner and how they are engaged in delivery.',
-      phases: ['Alpha', 'Beta', 'Live']
-    },
-    {
-      id: 'knowledge-transfer',
-      title: 'Knowledge transfer plan',
-      detail: 'Plan for sharing knowledge and reducing reliance on contractors.',
-      phases: ['Alpha', 'Beta']
-    },
-    {
-      id: 'live-ops-plan',
-      title: 'Live support plan',
-      detail: 'Outline of roles and responsibilities once live.',
-      phases: ['Beta', 'Live']
-    }
+    { id: 'team-composition', title: 'Team composition overview', detail: 'List of team members and disciplines for the phase.', phases: ['Alpha', 'Beta'] },
+    { id: 'role-responsibilities', title: 'Role descriptions and responsibilities', detail: 'How each discipline contributes to delivery.', phases: ['Alpha', 'Beta'] },
+    { id: 'collaboration-evidence', title: 'Evidence of collaborative working', detail: 'Examples of joint decision-making across roles.', phases: ['Alpha', 'Beta', 'Live'] },
+    { id: 'service-owner', title: 'Service owner identification', detail: 'Named owner and engagement approach.', phases: ['Alpha', 'Beta', 'Live'] },
+    { id: 'knowledge-transfer', title: 'Knowledge transfer plan', detail: 'Handover and skills transfer plan for contractors.', phases: ['Alpha', 'Beta'] },
+    { id: 'scaling-plan', title: 'Scaling plan for Live', detail: 'RACI or operating model for Live support.', phases: ['Beta', 'Live'] },
+    { id: 'decision-logs', title: 'Decision logs / meeting notes', detail: 'Evidence multiple disciplines input to decisions.', phases: ['Alpha', 'Beta', 'Live'] },
+    { id: 'team-health', title: 'Team health materials', detail: 'Retrospectives or team health checks.', phases: ['Beta', 'Live'] }
   ],
   7: [
-    {
-      id: 'agile-board',
-      title: 'Agile delivery board',
-      detail: 'Snapshot of backlog, work in progress, and iteration cadence.',
-      phases: ['Alpha', 'Beta', 'Live']
-    },
-    {
-      id: 'iteration-log',
-      title: 'Iteration records',
-      detail: 'Design history or change log showing changes based on research.',
-      phases: ['Alpha', 'Beta']
-    },
-    {
-      id: 'risk-log',
-      title: 'Risk and hypothesis log',
-      detail: 'List of key assumptions and how they were tested.',
-      phases: ['Discovery', 'Alpha']
-    },
-    {
-      id: 'governance',
-      title: 'Lightweight governance evidence',
-      detail: 'Objectives and measures used to guide work without fixed scope.',
-      phases: ['Alpha', 'Beta', 'Live']
-    },
-    {
-      id: 'delivery-pipeline',
-      title: 'Continuous delivery pipeline',
-      detail: 'Evidence of frequent deployments and automated tests.',
-      phases: ['Beta', 'Live']
-    }
+    { id: 'agile-tools', title: 'Agile project tools', detail: 'Backlog, WIP and iteration cadence from tools.', phases: ['Alpha', 'Beta', 'Live'] },
+    { id: 'iteration-records', title: 'Iteration records (design/tech)', detail: 'Design history or change log by sprint.', phases: ['Alpha', 'Beta'] },
+    { id: 'risk-log', title: 'Risk and hypothesis log', detail: 'Assumptions and how they were tested.', phases: ['Discovery', 'Alpha'] },
+    { id: 'governance', title: 'Governance evidence with agility', detail: 'OKRs or outcomes-led governance evidence.', phases: ['Alpha', 'Beta', 'Live'] },
+    { id: 'stakeholder-logs', title: 'Stakeholder decision logs', detail: 'Examples of rapid decisions and pivots.', phases: ['Alpha', 'Beta'] },
+    { id: 'velocity', title: 'Team velocity and cadence info', detail: 'Sprints, show-and-tells, burn-downs.', phases: ['Beta'] },
+    { id: 'continuous-delivery', title: 'Continuous delivery pipeline', detail: 'Automated pipeline and frequent deployments.', phases: ['Beta', 'Live'] }
   ],
   8: [
-    {
-      id: 'design-history',
-      title: 'Change log or design history',
-      detail: 'Record of changes over time and why they were made.',
-      phases: ['Alpha', 'Beta', 'Live']
-    },
-    {
-      id: 'analytics-feedback',
-      title: 'Analytics and feedback loop',
-      detail: 'Metrics and user feedback informing improvements.',
-      phases: ['Beta', 'Live']
-    },
-    {
-      id: 'continuous-deploy',
-      title: 'Continuous deployment evidence',
-      detail: 'Pipeline or release records showing frequent iteration.',
-      phases: ['Beta', 'Live']
-    },
-    {
-      id: 'content-review',
-      title: 'Content review process',
-      detail: 'Schedule or workflow for keeping content up to date.',
-      phases: ['Beta', 'Live']
-    },
-    {
-      id: 'improvement-backlog',
-      title: 'Improvement backlog',
-      detail: 'Visible backlog of enhancements beyond new features.',
-      phases: ['Beta', 'Live']
-    }
+    { id: 'design-history', title: 'Change log / design history', detail: 'Record of iterative improvements and reasons.', phases: ['Alpha', 'Beta', 'Live'] },
+    { id: 'analytics-feedback', title: 'Analytics and feedback loops', detail: 'Metrics and user feedback driving changes.', phases: ['Beta', 'Live'] },
+    { id: 'continuous-deploy', title: 'Continuous deployment evidence', detail: 'Pipeline and release frequency.', phases: ['Beta', 'Live'] },
+    { id: 'content-review', title: 'Content review process', detail: 'Plan to keep content accurate and current.', phases: ['Beta', 'Live'] },
+    { id: 'improvement-backlog', title: 'Backlog of improvements', detail: 'Visible backlog for continuous improvement.', phases: ['Beta', 'Live'] },
+    { id: 'iterative-examples', title: 'Examples of iterative changes', detail: 'Before/after examples supported by data.', phases: ['Beta', 'Live'] },
+    { id: 'future-evolution', title: 'Plan for future evolution', detail: 'Roadmap of upcoming iterations and needs.', phases: ['Live'] }
   ],
   9: [
-    {
-      id: 'privacy-mapping',
-      title: 'Data and privacy mapping',
-      detail: 'Data flow diagrams and DPIA work.',
-      phases: ['Discovery', 'Alpha']
-    },
-    {
-      id: 'security-engagement',
-      title: 'Security engagement evidence',
-      detail: 'Input from security teams or assurance process.',
-      phases: ['Alpha', 'Beta']
-    },
-    {
-      id: 'threat-model',
-      title: 'Threat model',
-      detail: 'Summary of threats and mitigations.',
-      phases: ['Alpha']
-    },
-    {
-      id: 'security-testing',
-      title: 'Security test results',
-      detail: 'Pen test results and vulnerability scan summaries.',
-      phases: ['Beta']
-    },
-    {
-      id: 'risk-register',
-      title: 'Risk register',
-      detail: 'Security risks with owners and mitigation status.',
-      phases: ['Beta', 'Live']
-    },
-    {
-      id: 'incident-prep',
-      title: 'Operational security readiness',
-      detail: 'Incident response plan and asset register.',
-      phases: ['Live']
-    }
+    { id: 'privacy-mapping', title: 'Data and privacy mapping', detail: 'Data flows and DPIA work.', phases: ['Discovery', 'Alpha'] },
+    { id: 'security-engagement', title: 'Security engagement evidence', detail: 'Early input from security specialists.', phases: ['Alpha', 'Beta'] },
+    { id: 'threat-model', title: 'Threat model artefacts', detail: 'Threats and mitigations identified.', phases: ['Alpha'] },
+    { id: 'tech-architecture', title: 'Technical architecture and feasibility', detail: 'Security features and compliance in architecture.', phases: ['Alpha', 'Beta'] },
+    { id: 'security-testing', title: 'Security test results', detail: 'Pen tests and vulnerability scans.', phases: ['Beta'] },
+    { id: 'risk-register', title: 'Risk register', detail: 'Security risks with owners and status.', phases: ['Beta', 'Live'] },
+    { id: 'security-policies', title: 'Security policies and compliance', detail: 'GDPR compliance and security standards.', phases: ['Beta', 'Live'] },
+    { id: 'operational-security', title: 'Operational security preparedness', detail: 'Asset register and incident response plan.', phases: ['Live'] },
+    { id: 'privacy-plans', title: 'Privacy and decommissioning plans', detail: 'Retention, deletion and retirement plans.', phases: ['Live'] }
   ],
   10: [
-    {
-      id: 'success-metrics',
-      title: 'Success metrics framework',
-      detail: 'KPIs, targets, and definition of success.',
-      phases: ['Discovery', 'Alpha']
-    },
-    {
-      id: 'baseline-data',
-      title: 'Baseline performance data',
-      detail: 'Current performance used as a benchmark.',
-      phases: ['Discovery', 'Alpha']
-    },
-    {
-      id: 'measurement-plan',
-      title: 'Measurement plan',
-      detail: 'How each KPI will be captured and reviewed.',
-      phases: ['Alpha']
-    },
-    {
-      id: 'analytics-dashboards',
-      title: 'Analytics implementation',
-      detail: 'Dashboards or reports with required metrics.',
-      phases: ['Beta', 'Live']
-    },
-    {
-      id: 'data-driven-changes',
-      title: 'Evidence of data-driven improvement',
-      detail: 'Examples where data led to changes.',
-      phases: ['Beta', 'Live']
-    }
+    { id: 'metrics-framework', title: 'Success metrics framework', detail: 'KPIs and definition of success.', phases: ['Discovery', 'Alpha'] },
+    { id: 'baseline-data', title: 'Baseline data and analysis', detail: 'Current performance baseline.', phases: ['Discovery', 'Alpha'] },
+    { id: 'measurement-plan', title: 'Performance measurement plan', detail: 'How each KPI will be captured and reviewed.', phases: ['Alpha'] },
+    { id: 'analytics-implementation', title: 'Analytics implementation evidence', detail: 'Dashboards and tracked metrics.', phases: ['Beta', 'Live'] },
+    { id: 'performance-reports', title: 'Performance reports and reviews', detail: 'Reports showing interpretation and action.', phases: ['Beta', 'Live'] },
+    { id: 'qualitative-feedback', title: 'Qualitative feedback integration', detail: 'Themes, case studies or satisfaction insights.', phases: ['Beta', 'Live'] },
+    { id: 'data-driven-improvement', title: 'Evidence of data-driven improvement', detail: 'Examples of changes driven by data.', phases: ['Beta', 'Live'] },
+    { id: 'stakeholder-metrics', title: 'Stakeholder engagement with metrics', detail: 'Evidence metrics inform decisions.', phases: ['Beta', 'Live'] },
+    { id: 'publishing', title: 'Publishing and transparency', detail: 'Public reporting of required metrics.', phases: ['Live'] }
   ],
   11: [
-    {
-      id: 'options-appraisal',
-      title: 'Options analysis and decisions',
-      detail: 'Decision records showing the chosen approach.',
-      phases: ['Alpha']
-    },
-    {
-      id: 'architecture-diagram',
-      title: 'Technical architecture',
-      detail: 'Diagram showing components and integrations.',
-      phases: ['Alpha', 'Beta']
-    },
-    {
-      id: 'tech-standards',
-      title: 'Alignment with standards and stack',
-      detail: 'Evidence the solution aligns with recommended tech choices.',
-      phases: ['Alpha', 'Beta']
-    },
-    {
-      id: 'value-for-money',
-      title: 'Value for money rationale',
-      detail: 'Cost considerations and reuse of existing services.',
-      phases: ['Alpha', 'Beta']
-    },
-    {
-      id: 'support-plan',
-      title: 'Sustainability and support plan',
-      detail: 'How the service will be maintained and patched.',
-      phases: ['Live']
-    }
+    { id: 'options-analysis', title: 'Options analysis and decision records', detail: 'Appraisal of options and rationale.', phases: ['Alpha'] },
+    { id: 'architecture-diagram', title: 'Technical architecture diagram', detail: 'High-level architecture and integrations.', phases: ['Alpha', 'Beta'] },
+    { id: 'stack-alignment', title: 'Alignment with standards/stacks', detail: 'Evidence solution aligns with recommended stack.', phases: ['Alpha', 'Beta'] },
+    { id: 'security-accessibility', title: 'Security and accessibility in tech choices', detail: 'Non-functional requirements in selection.', phases: ['Alpha', 'Beta'] },
+    { id: 'value-for-money', title: 'Value for money rationale', detail: 'Cost comparison or reuse evidence.', phases: ['Alpha', 'Beta'] },
+    { id: 'tech-feasibility', title: 'Proof of technical feasibility', detail: 'Spikes or prototypes that de-risk choices.', phases: ['Alpha'] },
+    { id: 'architecture-docs', title: 'Documentation of architecture and plans', detail: 'Reviewed docs and decision records.', phases: ['Alpha', 'Beta'] },
+    { id: 'revisit-decisions', title: 'Plan to revisit decisions', detail: 'Roadmap or ADRs for future review.', phases: ['Beta', 'Live'] },
+    { id: 'support-plan', title: 'Sustainability and support plans', detail: 'Maintenance and support arrangements.', phases: ['Live'] }
   ],
   12: [
-    {
-      id: 'public-repo',
-      title: 'Public code repository',
-      detail: 'Link to the open source repository.',
-      phases: ['Beta', 'Live']
-    },
-    {
-      id: 'open-license',
-      title: 'Open source licence',
-      detail: 'Appropriate license in the repository.',
-      phases: ['Beta', 'Live']
-    },
-    {
-      id: 'open-dev',
-      title: 'Open development practice',
-      detail: 'Evidence of open PRs, issues, or contributions.',
-      phases: ['Live']
-    }
+    { id: 'public-repo', title: 'Public repository links', detail: 'Links to open source repositories.', phases: ['Beta', 'Live'] },
+    { id: 'open-license', title: 'Open source licence', detail: 'Appropriate licence in the repo.', phases: ['Beta', 'Live'] },
+    { id: 'no-secrets', title: 'No secrets in repo', detail: 'Evidence of secure configuration handling.', phases: ['Beta', 'Live'] },
+    { id: 'contribution-docs', title: 'Contribution docs', detail: 'README or contribution guidance.', phases: ['Beta', 'Live'] },
+    { id: 'published-packages', title: 'Published packages (if applicable)', detail: 'Reusable libraries published publicly.', phases: ['Live'] },
+    { id: 'open-process', title: 'Open development process', detail: 'Evidence of open PRs and issue tracking.', phases: ['Live'] },
+    { id: 'open-exceptions', title: 'Plan for remaining closed parts', detail: 'Plan to open any exceptions over time.', phases: ['Live'] }
   ],
   13: [
-    {
-      id: 'design-system',
-      title: 'Use of GOV.UK patterns',
-      detail: 'Examples of components and patterns used in the service.',
-      phases: ['Alpha', 'Beta', 'Live']
-    },
-    {
-      id: 'common-platforms',
-      title: 'Use of common platforms',
-      detail: 'Integration with shared government services (where relevant).',
-      phases: ['Beta', 'Live']
-    },
-    {
-      id: 'open-standards',
-      title: 'Open standards compliance',
-      detail: 'Evidence of open formats or API standards.',
-      phases: ['Alpha', 'Beta', 'Live']
-    },
-    {
-      id: 'contributions',
-      title: 'Contributions back to the community',
-      detail: 'Design or code contributions shared for reuse.',
-      phases: ['Live']
-    }
+    { id: 'design-system', title: 'Use of GOV.UK design system and patterns', detail: 'Annotated examples of patterns used.', phases: ['Alpha', 'Beta', 'Live'] },
+    { id: 'common-platforms', title: 'Reuse of common platforms', detail: 'Integrations with shared government components.', phases: ['Beta', 'Live'] },
+    { id: 'open-standards', title: 'Open standards adherence', detail: 'Evidence of open data/API standards.', phases: ['Alpha', 'Beta', 'Live'] },
+    { id: 'contributions', title: 'Contribution back to community', detail: 'PRs or shared components/patterns.', phases: ['Live'] },
+    { id: 'design-history', title: 'Design history / decision logs', detail: 'Design history site or ADRs shared openly.', phases: ['Beta', 'Live'] },
+    { id: 'collaboration', title: 'Collaboration with other teams', detail: 'Evidence of cross-government collaboration.', phases: ['Alpha', 'Beta', 'Live'] },
+    { id: 'no-reinvention', title: 'No reinvention evidence', detail: 'Survey of existing solutions and rationale.', phases: ['Alpha', 'Beta'] },
+    { id: 'open-tech', title: 'Exemplar use of open tech', detail: 'Open-source stack or components used.', phases: ['Alpha', 'Beta', 'Live'] }
   ],
   14: [
-    {
-      id: 'monitoring',
-      title: 'Uptime and performance monitoring',
-      detail: 'Dashboards showing availability and response times.',
-      phases: ['Beta', 'Live']
-    },
-    {
-      id: 'load-testing',
-      title: 'Load and performance testing',
-      detail: 'Results from load or stress tests.',
-      phases: ['Beta']
-    },
-    {
-      id: 'incident-process',
-      title: 'Incident management process',
-      detail: 'Runbooks, on-call rota, and incident review evidence.',
-      phases: ['Live']
-    },
-    {
-      id: 'disaster-recovery',
-      title: 'Disaster recovery plan',
-      detail: 'Backups, failover processes, and test results.',
-      phases: ['Live']
-    }
+    { id: 'monitoring', title: 'Uptime and performance monitoring', detail: 'Dashboards showing uptime and errors.', phases: ['Beta', 'Live'] },
+    { id: 'cicd', title: 'Continuous integration and delivery', detail: 'Pipeline enabling frequent low-risk releases.', phases: ['Beta', 'Live'] },
+    { id: 'load-testing', title: 'Load testing results', detail: 'Performance testing evidence.', phases: ['Beta'] },
+    { id: 'disaster-recovery', title: 'Failover and disaster recovery plans', detail: 'DR plans and tested recovery processes.', phases: ['Live'] },
+    { id: 'runbooks', title: 'Runbooks and ops manuals', detail: 'Operational procedures and runbooks.', phases: ['Live'] },
+    { id: 'incident-management', title: 'Incident management process', detail: 'Process and examples of incident reviews.', phases: ['Live'] },
+    { id: 'on-call', title: 'On-call rota and support arrangement', detail: 'Support model and escalation paths.', phases: ['Live'] },
+    { id: 'slas', title: 'Service level targets', detail: 'SLAs or SLOs and how they are tracked.', phases: ['Live'] },
+    { id: 'capacity-planning', title: 'Capacity planning docs', detail: 'Scaling and capacity evidence.', phases: ['Live'] },
+    { id: 'maintenance', title: 'Maintenance and patching strategy', detail: 'Approach for updates and patches.', phases: ['Live'] },
+    { id: 'exemplars', title: 'Reliability exemplars', detail: 'Evidence of learning from incidents and improvements.', phases: ['Live'] }
   ]
 };
-
-function fallbackArtefacts(standardNumber) {
-  return [
-    {
-      id: `generic-${standardNumber}-1`,
-      title: 'Evidence summary',
-      detail: 'A short summary of evidence gathered for this standard.',
-      phases: ['Discovery', 'Alpha']
-    },
-    {
-      id: `generic-${standardNumber}-2`,
-      title: 'Decision records',
-      detail: 'Notes or records showing decisions and trade-offs.',
-      phases: ['Alpha', 'Beta']
-    },
-    {
-      id: `generic-${standardNumber}-3`,
-      title: 'Operational evidence',
-      detail: 'Evidence of how the service will be run or improved.',
-      phases: ['Beta', 'Live']
-    }
-  ];
-}
 
 const routes = [
   { pattern: /^\/$/, render: renderHome },
@@ -1396,7 +1117,7 @@ function renderStandard(match) {
   const standard = project.serviceStandards.find((item) => item.id === standardId);
   if (!standard) return renderNotFound();
 
-  const artefacts = artefactsByStandard[standard.number] || fallbackArtefacts(standard.number);
+  const artefacts = artefactsByStandard[standard.number] || [];
   const artefactsMarkup = artefacts.length
     ? `
       <ol class="ss-artefacts-tasklist">
