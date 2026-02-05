@@ -885,13 +885,17 @@ function renderProject(match) {
 
   return `
     <a href="#/" class="govuk-back-link">Back</a>
-    <h1 class="govuk-heading-l ss-project-title">
-      <span>${project.name}</span>
-      ${phaseTag(project.currentPhase)}
-    </h1>
-    <p class="govuk-body"><span class="govuk-!-font-weight-bold">Current delivery status:</span> ${ragTag(projectStatus)}</p>
-    <div class="govuk-!-margin-bottom-4">
-      <a href="#" class="govuk-button" data-action="export-project" data-project-id="${project.id}">Save project</a>
+    <div class="ss-project-header">
+      <div>
+        <h1 class="govuk-heading-l ss-project-title">
+          <span>${project.name}</span>
+          ${phaseTag(project.currentPhase)}
+        </h1>
+        <p class="govuk-body"><span class="govuk-!-font-weight-bold">Current delivery status:</span> ${ragTag(projectStatus)}</p>
+      </div>
+      <div class="ss-project-header__action">
+        <a href="#" class="govuk-button" data-action="export-project" data-project-id="${project.id}">Save project</a>
+      </div>
     </div>
 
     <div class="ss-card govuk-!-margin-bottom-6">
