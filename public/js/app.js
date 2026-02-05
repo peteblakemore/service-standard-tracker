@@ -1296,25 +1296,27 @@ function renderStandard(match) {
   const artefacts = artefactsByStandard[standard.number] || [];
   const artefactsMarkup = artefacts.length
     ? `
-      <div class="ss-artefacts-list">
+      <ol class="ss-artefacts-tasklist">
         ${artefacts
           .map(
             (item) => `
-            <details class="govuk-details ss-artefact">
-              <summary class="govuk-details__summary">
-                <span class="govuk-details__summary-text">
-                  <span class="ss-artefact__title">${item.title}</span>
-                  <span class="ss-artefact__phases">${phaseTagList(item.phases)}</span>
-                </span>
-              </summary>
-              <div class="govuk-details__text">
-                <p class="govuk-body">${item.detail}</p>
-              </div>
-            </details>
+            <li class="ss-artefacts-tasklist__item">
+              <details class="govuk-details ss-artefact">
+                <summary class="govuk-details__summary">
+                  <span class="govuk-details__summary-text ss-artefact__summary">
+                    <span class="ss-artefact__title">${item.title}</span>
+                    <span class="ss-artefact__phases">${phaseTagList(item.phases)}</span>
+                  </span>
+                </summary>
+                <div class="govuk-details__text">
+                  <p class="govuk-body">${item.detail}</p>
+                </div>
+              </details>
+            </li>
           `
           )
           .join('')}
-      </div>
+      </ol>
     `
     : `<p class="govuk-body">No typical artefacts listed yet.</p>`;
 
