@@ -889,7 +889,6 @@ function renderProject(match) {
       <div>
         <h1 class="govuk-heading-l ss-project-title">
           <span>${project.name}</span>
-          ${phaseTag(project.currentPhase)}
         </h1>
         <p class="govuk-body"><span class="govuk-!-font-weight-bold">Current delivery status:</span> ${ragTag(projectStatus)}</p>
       </div>
