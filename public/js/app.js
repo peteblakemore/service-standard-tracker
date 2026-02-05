@@ -1296,25 +1296,21 @@ function renderStandard(match) {
   const artefacts = artefactsByStandard[standard.number] || [];
   const artefactsMarkup = artefacts.length
     ? `
-      <div class="govuk-accordion" data-module="govuk-accordion" id="artefacts-accordion">
+      <div class="ss-artefacts-list">
         ${artefacts
           .map(
             (item) => `
-            <div class="govuk-accordion__section">
-              <div class="govuk-accordion__section-header ss-artefact__header">
-                <h3 class="govuk-accordion__section-heading">
-                  <span class="govuk-accordion__section-button" id="artefact-${item.id}">
-                    ${item.title}
-                  </span>
-                </h3>
-                <div class="ss-artefact__phases">
-                  ${phaseTagList(item.phases)}
-                </div>
-              </div>
-              <div class="govuk-accordion__section-content" aria-labelledby="artefact-${item.id}">
+            <details class="govuk-details ss-artefact">
+              <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  <span class="ss-artefact__title">${item.title}</span>
+                  <span class="ss-artefact__phases">${phaseTagList(item.phases)}</span>
+                </span>
+              </summary>
+              <div class="govuk-details__text">
                 <p class="govuk-body">${item.detail}</p>
               </div>
-            </div>
+            </details>
           `
           )
           .join('')}
@@ -1377,10 +1373,10 @@ function renderStandard(match) {
     <p class="govuk-body">${standard.description}</p>
     <h2 class="govuk-heading-m">Overall RAG status</h2>
     <div class="govuk-!-margin-bottom-4">${ragTag(calculateStandardStatus(standard))}</div>
-    <h2 class="govuk-heading-m">Artefacts and evidence typically demonstrated at assessment</h2>
-    ${artefactsMarkup}
     <h2 class="govuk-heading-m">Subsections</h2>
     ${subsections}
+    <h2 class="govuk-heading-m">Artefacts and evidence typically demonstrated at assessment</h2>
+    ${artefactsMarkup}
   `;
 }
 
