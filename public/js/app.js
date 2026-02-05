@@ -604,7 +604,7 @@ function renderHome() {
   `;
 
   return `
-    <h2 class="govuk-heading-m">Project overview</h2>
+    <h2 class="govuk-heading-m">Projects</h2>
     <p class="govuk-body">Track one or more services against the 14 points of the GDS Service Standard. Add notes, set RAG statuses, and prepare for assessments.</p>
     ${projects.length === 0 ? emptyState : `
       ${table}
