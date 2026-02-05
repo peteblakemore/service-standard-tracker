@@ -1046,7 +1046,7 @@ function renderCommentEdit(match) {
 }
 
 function commentFormMarkup(project, standard, subsection, comment) {
-  const backLink = `/projects/${project.id}/standards/${standard.id}`;
+  const backLink = `#/projects/${project.id}/standards/${standard.id}`;
   return `
     <a href="${backLink}" class="govuk-back-link">Back</a>
     <h1 class="govuk-heading-l">${subsection.title}</h1>
