@@ -443,13 +443,24 @@ function navigate(path) {
 
 function renderRoute(path) {
   const main = document.getElementById('app-content');
+  const backLinkContainer = document.getElementById('app-back-link');
   const route = routes.find((entry) => entry.pattern.test(path));
   if (!route) {
     main.innerHTML = renderNotFound();
+    if (backLinkContainer) {
+      backLinkContainer.innerHTML = '';
+    }
     return;
   }
   const match = path.match(route.pattern);
   main.innerHTML = route.render(match);
+  if (backLinkContainer) {
+    backLinkContainer.innerHTML = '';
+    const backLink = main.querySelector('.govuk-back-link');
+    if (backLink) {
+      backLinkContainer.appendChild(backLink);
+    }
+  }
   if (window.GOVUKFrontend && window.GOVUKFrontend.initAll) {
     window.GOVUKFrontend.initAll();
   }
