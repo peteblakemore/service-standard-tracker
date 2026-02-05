@@ -799,11 +799,7 @@ function renderAddProject() {
         <input class="govuk-input" id="department" name="department" type="text" />
       </div>
       <div class="govuk-form-group">
-        <label class="govuk-label" for="objectives">Project or service objectives</label>
-        <textarea class="govuk-textarea" id="objectives" name="objectives" rows="4"></textarea>
-      </div>
-      <div class="govuk-form-group">
-        <label class="govuk-label" for="description">Short description of the service</label>
+        <label class="govuk-label" for="description">Service description</label>
         <textarea class="govuk-textarea" id="description" name="description" rows="4"></textarea>
       </div>
       <div class="govuk-form-group">
@@ -876,12 +872,8 @@ function renderProject(match) {
   const projectStatus = calculateProjectStatus(project);
 
   const descriptionMarkup = project.description
-    ? `<h2 class="govuk-heading-m">Description</h2><p class="govuk-body">${escapeHtml(project.description)}</p>`
-    : `<h2 class="govuk-heading-m">Description</h2><p class="govuk-body">No description has been added yet.</p>`;
-
-  const objectivesMarkup = project.objectives
-    ? `<h2 class="govuk-heading-m">Objectives</h2><p class="govuk-body">${escapeHtml(project.objectives)}</p>`
-    : `<h2 class="govuk-heading-m">Objectives</h2><p class="govuk-body">No objectives have been added yet.</p>`;
+    ? `<h2 class="govuk-heading-m">Service description</h2><p class="govuk-body">${escapeHtml(project.description)}</p>`
+    : `<h2 class="govuk-heading-m">Service description</h2><p class="govuk-body">No description has been added yet.</p>`;
 
   const lastUpdatedText = formatDisplayDate(project.lastUpdated);
   const lastUpdatedMarkup = lastUpdatedText
@@ -903,7 +895,6 @@ function renderProject(match) {
     </div>
 
     ${descriptionMarkup}
-    ${objectivesMarkup}
     ${lastUpdatedMarkup}
 
     <div class="govuk-tabs govuk-!-margin-top-6" data-module="govuk-tabs">
