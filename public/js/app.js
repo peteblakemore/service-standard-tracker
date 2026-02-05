@@ -902,19 +902,18 @@ function renderProject(match) {
 
     <div class="govuk-tabs govuk-!-margin-top-6" data-module="govuk-tabs">
       <h2 class="govuk-tabs__title">Service Standard details</h2>
-      <ul class="govuk-tabs__list">
-        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
-          <a class="govuk-tabs__tab" href="#service-standard">Service Standard points</a>
-        </li>
-      </ul>
-      <div class="govuk-tabs__panel" id="service-standard">
-        <div class="ss-standards-layout">
-          <div class="ss-standards-sidebar">
-            <h2 class="govuk-heading-m">Project details</h2>
-            <div class="ss-details">
-              <div class="ss-details__item">
-                <p class="govuk-body govuk-!-font-weight-bold">Department</p>
-                <p class="govuk-body">${escapeHtml(project.department || '')}</p>
+          <ul class="govuk-tabs__list">
+            <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+              <a class="govuk-tabs__tab" href="#service-standard">Service Standard compliance</a>
+            </li>
+          </ul>
+          <div class="govuk-tabs__panel" id="service-standard">
+            <div class="ss-standards-layout">
+              <div class="ss-standards-sidebar">
+                <div class="ss-details">
+                  <div class="ss-details__item">
+                    <p class="govuk-body govuk-!-font-weight-bold">Department</p>
+                    <p class="govuk-body">${escapeHtml(project.department || '')}</p>
               </div>
               <div class="ss-details__item">
                 <p class="govuk-body govuk-!-font-weight-bold">Phase</p>
@@ -944,12 +943,12 @@ function renderProject(match) {
                 <p class="govuk-body">${escapeHtml(project.nextAssessmentType || '')}</p>
               </div>
             </div>
-          </div>
-          <div class="ss-standards-main">
-            <h2 class="govuk-heading-m">Service Standard points</h2>
-            <ol class="ss-standards">${standardsList}</ol>
-          </div>
-        </div>
+              </div>
+              <div class="ss-standards-main">
+                <h2 class="govuk-heading-m">Service Standard compliance</h2>
+                <ol class="ss-standards">${standardsList}</ol>
+              </div>
+            </div>
       </div>
     </div>
   `;
