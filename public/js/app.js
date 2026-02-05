@@ -409,6 +409,86 @@ const serviceStandards = [
 ];
 
 const artefactsByStandard = {
+  1: [
+    {
+      id: 'user-needs',
+      title: 'User needs summary',
+      detail: 'Evidence of agreed user needs based on research with real users.',
+      phases: ['Discovery', 'Alpha']
+    },
+    {
+      id: 'research-plan',
+      title: 'Research plan and findings',
+      detail: 'Plan for ongoing research and summaries of what you learned.',
+      phases: ['Discovery', 'Alpha']
+    },
+    {
+      id: 'journey-maps',
+      title: 'User journey maps',
+      detail: 'End-to-end maps showing user goals and pain points.',
+      phases: ['Discovery', 'Alpha']
+    }
+  ],
+  2: [
+    {
+      id: 'journey-scope',
+      title: 'End-to-end scope',
+      detail: 'Evidence the service solves the whole problem across channels.',
+      phases: ['Discovery', 'Alpha']
+    },
+    {
+      id: 'dependencies',
+      title: 'Dependency map',
+      detail: 'Map of organisations and handoffs involved in delivery.',
+      phases: ['Discovery', 'Alpha']
+    },
+    {
+      id: 'policy-collab',
+      title: 'Policy collaboration evidence',
+      detail: 'Notes or decisions showing collaboration with policy teams.',
+      phases: ['Alpha', 'Beta']
+    }
+  ],
+  3: [
+    {
+      id: 'channel-strategy',
+      title: 'Channel strategy',
+      detail: 'How online, phone, paper and face-to-face channels work together.',
+      phases: ['Discovery', 'Alpha']
+    },
+    {
+      id: 'assisted-digital-plan',
+      title: 'Assisted digital plan',
+      detail: 'Plan for users who need help completing the service.',
+      phases: ['Alpha', 'Beta']
+    },
+    {
+      id: 'consistency-checks',
+      title: 'Consistency checks',
+      detail: 'Evidence of consistent content and guidance across channels.',
+      phases: ['Beta', 'Live']
+    }
+  ],
+  4: [
+    {
+      id: 'service-map',
+      title: 'Service map',
+      detail: 'Map of service steps showing simplified flow.',
+      phases: ['Discovery', 'Alpha']
+    },
+    {
+      id: 'prototype-tests',
+      title: 'Prototype testing notes',
+      detail: 'Evidence of usability testing and iteration.',
+      phases: ['Alpha']
+    },
+    {
+      id: 'content-simplification',
+      title: 'Content simplification',
+      detail: 'Examples of clearer wording and reduced complexity.',
+      phases: ['Alpha', 'Beta']
+    }
+  ],
   5: [
     {
       id: 'accessibility-research',
@@ -724,6 +804,29 @@ const artefactsByStandard = {
     }
   ]
 };
+
+function fallbackArtefacts(standardNumber) {
+  return [
+    {
+      id: `generic-${standardNumber}-1`,
+      title: 'Evidence summary',
+      detail: 'A short summary of evidence gathered for this standard.',
+      phases: ['Discovery', 'Alpha']
+    },
+    {
+      id: `generic-${standardNumber}-2`,
+      title: 'Decision records',
+      detail: 'Notes or records showing decisions and trade-offs.',
+      phases: ['Alpha', 'Beta']
+    },
+    {
+      id: `generic-${standardNumber}-3`,
+      title: 'Operational evidence',
+      detail: 'Evidence of how the service will be run or improved.',
+      phases: ['Beta', 'Live']
+    }
+  ];
+}
 
 const routes = [
   { pattern: /^\/$/, render: renderHome },
@@ -1293,7 +1396,7 @@ function renderStandard(match) {
   const standard = project.serviceStandards.find((item) => item.id === standardId);
   if (!standard) return renderNotFound();
 
-  const artefacts = artefactsByStandard[standard.number] || [];
+  const artefacts = artefactsByStandard[standard.number] || fallbackArtefacts(standard.number);
   const artefactsMarkup = artefacts.length
     ? `
       <ol class="ss-artefacts-tasklist">

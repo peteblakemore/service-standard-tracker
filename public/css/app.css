@@ -110,7 +110,7 @@
 
 .ss-artefacts-tasklist__item {
   border-bottom: 1px solid #b1b4b6;
-  padding: 8px 0;
+  padding: 12px 0;
 }
 
 .ss-artefact__summary {
@@ -119,6 +119,10 @@
   justify-content: space-between;
   gap: 12px;
   font-size: 1rem;
+}
+
+.ss-artefact .govuk-details__summary {
+  padding-left: 0;
 }
 
 .ss-artefact .govuk-details__text {
