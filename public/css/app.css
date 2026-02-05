@@ -22,6 +22,10 @@
   margin-bottom: 0;
 }
 
+.govuk-back-link {
+  margin-bottom: 8px;
+}
+
 .ss-card {
   border: 1px solid #b1b4b6;
   padding: 16px;
