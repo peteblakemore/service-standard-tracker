@@ -66,6 +66,20 @@
   flex: 1;
 }
 
+.ss-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ss-details__item .govuk-body {
+  margin-bottom: 4px;
+}
+
+.ss-details__item .govuk-link {
+  margin-left: 8px;
+}
+
 @media (max-width: 900px) {
   .ss-standards-layout {
     flex-direction: column;

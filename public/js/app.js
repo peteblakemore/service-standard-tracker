@@ -898,41 +898,6 @@ function renderProject(match) {
       </div>
     </div>
 
-    <div class="ss-card govuk-!-margin-bottom-6">
-      <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Project overview</h2>
-      <dl class="govuk-summary-list">
-        ${summaryRow('Department', project.department)}
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">Phase</dt>
-          <dd class="govuk-summary-list__value">${escapeHtml(project.currentPhase || '')}</dd>
-          <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="#" data-action="show-phase-edit" data-project-id="${project.id}">Change</a>
-          </dd>
-        </div>
-        <div class="govuk-summary-list__row govuk-!-display-none" id="phase-edit-row-${project.id}">
-          <dt class="govuk-summary-list__key">Update phase</dt>
-          <dd class="govuk-summary-list__value" colspan="2">
-            <form data-action="update-phase" data-project-id="${project.id}">
-              <div class="govuk-form-group govuk-!-margin-bottom-2">
-                <label class="govuk-label govuk-!-font-size-16" for="currentPhase-${project.id}">Select a new phase</label>
-                <select class="govuk-select" id="currentPhase-${project.id}" name="currentPhase">
-                  ${['Discovery', 'Alpha', 'Beta', 'Live']
-                    .map((phase) => `<option value="${phase}" ${project.currentPhase === phase ? 'selected' : ''}>${phase}</option>`)
-                    .join('')}
-                </select>
-              </div>
-              <div class="govuk-button-group">
-                <button class="govuk-button govuk-button--secondary" type="submit">Save phase</button>
-                <a class="govuk-link" href="#" data-action="cancel-phase-edit" data-project-id="${project.id}">Cancel</a>
-              </div>
-            </form>
-          </dd>
-          <dd class="govuk-summary-list__actions"></dd>
-        </div>
-        ${summaryRow('Next assessment', project.nextAssessmentType)}
-      </dl>
-    </div>
-
     ${descriptionMarkup}
     ${objectivesMarkup}
 
@@ -947,11 +912,39 @@ function renderProject(match) {
         <div class="ss-standards-layout">
           <div class="ss-standards-sidebar">
             <h2 class="govuk-heading-m">Project details</h2>
-            <dl class="govuk-summary-list">
-              ${summaryRow('Department', project.department)}
-              ${summaryRow('Phase', project.currentPhase)}
-              ${summaryRow('Next assessment', project.nextAssessmentType)}
-            </dl>
+            <div class="ss-details">
+              <div class="ss-details__item">
+                <p class="govuk-body govuk-!-font-weight-bold">Department</p>
+                <p class="govuk-body">${escapeHtml(project.department || '')}</p>
+              </div>
+              <div class="ss-details__item">
+                <p class="govuk-body govuk-!-font-weight-bold">Phase</p>
+                <p class="govuk-body">
+                  ${escapeHtml(project.currentPhase || '')}
+                  <a class="govuk-link" href="#" data-action="show-phase-edit" data-project-id="${project.id}">Change</a>
+                </p>
+                <div class="govuk-!-display-none" id="phase-edit-row-${project.id}">
+                  <form data-action="update-phase" data-project-id="${project.id}">
+                    <div class="govuk-form-group govuk-!-margin-bottom-2">
+                      <label class="govuk-label govuk-!-font-size-16" for="currentPhase-${project.id}">Select a new phase</label>
+                      <select class="govuk-select" id="currentPhase-${project.id}" name="currentPhase">
+                        ${['Discovery', 'Alpha', 'Beta', 'Live']
+                          .map((phase) => `<option value="${phase}" ${project.currentPhase === phase ? 'selected' : ''}>${phase}</option>`)
+                          .join('')}
+                      </select>
+                    </div>
+                    <div class="govuk-button-group">
+                      <button class="govuk-button govuk-button--secondary" type="submit">Save phase</button>
+                      <a class="govuk-link" href="#" data-action="cancel-phase-edit" data-project-id="${project.id}">Cancel</a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="ss-details__item">
+                <p class="govuk-body govuk-!-font-weight-bold">Next assessment</p>
+                <p class="govuk-body">${escapeHtml(project.nextAssessmentType || '')}</p>
+              </div>
+            </div>
           </div>
           <div class="ss-standards-main">
             <h2 class="govuk-heading-m">Service Standard points</h2>
