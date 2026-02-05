@@ -883,6 +883,11 @@ function renderProject(match) {
     ? `<h2 class="govuk-heading-m">Objectives</h2><p class="govuk-body">${escapeHtml(project.objectives)}</p>`
     : `<h2 class="govuk-heading-m">Objectives</h2><p class="govuk-body">No objectives have been added yet.</p>`;
 
+  const lastUpdatedText = formatDisplayDate(project.lastUpdated);
+  const lastUpdatedMarkup = lastUpdatedText
+    ? `<p class="govuk-body"><span class="govuk-!-font-weight-bold">Last updated:</span> ${lastUpdatedText}</p>`
+    : '';
+
   return `
     <a href="#/" class="govuk-back-link">Back</a>
     <div class="ss-project-header">
@@ -899,6 +904,7 @@ function renderProject(match) {
 
     ${descriptionMarkup}
     ${objectivesMarkup}
+    ${lastUpdatedMarkup}
 
     <div class="govuk-tabs govuk-!-margin-top-6" data-module="govuk-tabs">
       <h2 class="govuk-tabs__title">Service Standard details</h2>
@@ -1109,6 +1115,21 @@ function escapeHtml(value) {
     .replace(/'/g, '&#039;');
 }
 
+function formatDisplayDate(value) {
+  if (!value) return '';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(date);
+}
+
+function touchProject(project) {
+  project.lastUpdated = new Date().toISOString();
+}
+
 function clearAllData() {
   window.localStorage.removeItem(STORAGE_KEY);
   clearFlowState.downloadedCount = 0;
@@ -1189,6 +1210,7 @@ function handleFormSubmit(event) {
       if (comment && commentText) {
         comment.text = commentText;
         comment.ragStatus = ragStatus;
+        touchProject(project);
       }
     } else if (commentText) {
       subsection.comments.push({
@@ -1196,6 +1218,7 @@ function handleFormSubmit(event) {
         text: commentText,
         ragStatus
       });
+      touchProject(project);
     }
 
     saveProjects(projects);
@@ -1255,6 +1278,7 @@ function handleFormSubmit(event) {
     if (project && selectedPhase) {
       project.currentPhase = selectedPhase;
       project.nextAssessmentType = defaultAssessmentForPhase(selectedPhase) || project.nextAssessmentType;
+      touchProject(project);
       saveProjects(projects);
     }
     const row = document.getElementById(`phase-edit-row-${projectId}`);
@@ -1316,6 +1340,7 @@ function hydrateImportedProject(payload) {
     description: payload.description || '',
     currentPhase: payload.currentPhase || 'Discovery',
     nextAssessmentType: payload.nextAssessmentType || '',
+    lastUpdated: payload.lastUpdated || new Date().toISOString(),
     serviceStandards: payload.serviceStandards || []
   };
 
