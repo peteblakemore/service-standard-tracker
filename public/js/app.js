@@ -1503,6 +1503,9 @@ function handleActionClick(event) {
     if (targetPanel) {
       targetPanel.classList.remove('govuk-tabs__panel--hidden');
     }
+    if (window.GOVUKFrontend && window.GOVUKFrontend.initAll) {
+      window.GOVUKFrontend.initAll();
+    }
     return;
   }
   if (!button) return;
