@@ -578,6 +578,7 @@ function init() {
     window.GOVUKFrontend.initAll();
   }
   initAccordions();
+  initTabs();
 }
 
 function getCurrentPath() {
@@ -619,6 +620,7 @@ function renderRoute(path) {
     window.GOVUKFrontend.initAll();
   }
   initAccordions();
+  initTabs();
 }
 
 function initAccordions() {
@@ -628,6 +630,32 @@ function initAccordions() {
     const instance = new window.GOVUKFrontend.Accordion(accordion);
     instance.init();
     accordion.dataset.ssAccordionInit = 'true';
+  });
+}
+
+function initTabs() {
+  document.querySelectorAll('.govuk-tabs').forEach((tabs) => {
+    if (tabs.dataset.ssTabsInit === 'true') return;
+    const tabLinks = tabs.querySelectorAll('.govuk-tabs__tab');
+    const panels = tabs.querySelectorAll('.govuk-tabs__panel');
+    tabLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const targetId = link.getAttribute('href')?.replace('#', '');
+        if (!targetId) return;
+        tabs.querySelectorAll('.govuk-tabs__list-item').forEach((item) => {
+          item.classList.remove('govuk-tabs__list-item--selected');
+        });
+        link.closest('.govuk-tabs__list-item')?.classList.add('govuk-tabs__list-item--selected');
+        panels.forEach((panel) => panel.classList.add('govuk-tabs__panel--hidden'));
+        const targetPanel = tabs.querySelector(`#${targetId}`);
+        if (targetPanel) {
+          targetPanel.classList.remove('govuk-tabs__panel--hidden');
+        }
+        initAccordions();
+      });
+    });
+    tabs.dataset.ssTabsInit = 'true';
   });
 }
 
