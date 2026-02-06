@@ -409,7 +409,147 @@ const serviceStandards = [
   }
 ];
 
-const artefactsByStandard = {};
+const artefactsByStandard = {
+  1: [
+    { id: 'user-research-plan', title: 'User research plan and approach', detail: 'Documented plan outlining target users, research questions and methods, aligned to the roadmap.' },
+    { id: 'user-profiles', title: 'User profiles and needs', detail: 'Personas, empathy maps or prioritised user needs derived from research.' },
+    { id: 'journey-maps', title: 'User journey maps or service blueprints', detail: 'End-to-end journey maps showing context and pain points beyond the digital service.' },
+    { id: 'research-findings', title: 'Research findings and usability reports', detail: 'Summaries of insights from interviews, contextual inquiry and usability testing.' },
+    { id: 'prototypes', title: 'Prototypes tested with users', detail: 'Evidence of quick prototypes tested early and iterated based on feedback.' },
+    { id: 'behaviour-data', title: 'Data analysis of user behaviour', detail: 'Analytics or existing service data used to validate user needs and pain points.' },
+    { id: 'ongoing-learning', title: 'Plans for ongoing learning', detail: 'Schedule or approach for continuous research and feedback loops.' }
+  ],
+  2: [
+    { id: 'service-map', title: 'End-to-end service map or blueprint', detail: 'Full journey across channels, touchpoints and handoffs.' },
+    { id: 'stakeholder-map', title: 'Stakeholder and systems map', detail: 'Dependencies on other services, policy teams and systems.' },
+    { id: 'policy-process', title: 'Policy and offline process understanding', detail: 'Evidence of policy constraints and non-digital steps in the journey.' },
+    { id: 'assisted-digital', title: 'Assisted digital support plan', detail: 'Support model for users who cannot complete the service online.' },
+    { id: 'collaboration', title: 'Collaboration evidence', detail: 'Outputs from workshops or sessions with related teams to avoid duplication.' },
+    { id: 'journey-demo', title: 'Prototype or demo of entire journey', detail: 'Walkthrough showing the user journey end to end.' },
+    { id: 'beta-outcomes', title: 'Private beta outcomes', detail: 'Evidence that users complete the full journey successfully.' },
+    { id: 'gap-roadmap', title: 'Plans to address gaps', detail: 'Roadmap for any remaining gaps in the whole problem.' }
+  ],
+  3: [
+    { id: 'cross-channel-map', title: 'Cross-channel journey mapping', detail: 'Maps of entry points, channel switches and return loops.' },
+    { id: 'consistency-guidance', title: 'Consistency guidelines', detail: 'Evidence of consistent language, tone and branding across channels.' },
+    { id: 'common-platforms', title: 'Use of common platforms', detail: 'Reuse of shared components that support joined-up experiences.' },
+    { id: 'transition-testing', title: 'Channel transition testing', detail: 'Testing evidence for journeys that move between offline and online.' },
+    { id: 'entry-exit', title: 'Discovery of entry and exit points', detail: 'How users find the service and what happens after it ends.' },
+    { id: 'outreach', title: 'Service discovery and outreach', detail: 'Plans for onboarding, support channels and communications.' }
+  ],
+  4: [
+    { id: 'usability', title: 'Usability test reports', detail: 'Evidence of iterative usability testing and improvements.' },
+    { id: 'prototypes', title: 'Interactive prototypes', detail: 'Prototype iterations showing simplification of the journey.' },
+    { id: 'plain-english', title: 'Plain English content samples', detail: 'Before/after examples of content improved for clarity.' },
+    { id: 'design-system', title: 'Use of design system patterns', detail: 'Evidence of GOV.UK patterns and components used.' },
+    { id: 'cross-device', title: 'Cross-device compatibility testing', detail: 'Results from testing across browsers and devices.' },
+    { id: 'error-support', title: 'Error handling and support', detail: 'Improved error messages and embedded help content.' },
+    { id: 'continuous-improvement', title: 'Continuous improvement evidence', detail: 'Data and actions showing ongoing simplification of the service.' }
+  ],
+  5: [
+    { id: 'inclusive-research', title: 'Inclusive research outputs', detail: 'Research with users with access needs and recruitment plans.' },
+    { id: 'inclusive-design', title: 'Accessibility considerations in design', detail: 'Inclusive design adjustments and content improvements.' },
+    { id: 'assistive-tech', title: 'Assistive tech testing results', detail: 'Testing with screen readers, magnifiers or voice input.' },
+    { id: 'audit', title: 'Accessibility audit report', detail: 'External audit findings and fixes for WCAG 2.1/2.2 AA.' },
+    { id: 'statement', title: 'Accessibility statement', detail: 'Draft or published accessibility statement for the service.' },
+    { id: 'assisted-digital', title: 'Assistive digital support materials', detail: 'Support scripts, training guides and tested routes.' },
+    { id: 'ongoing-checks', title: 'Ongoing accessibility checks', detail: 'Plan for re-audits, ongoing testing and updates.' }
+  ],
+  6: [
+    { id: 'team-composition', title: 'Team composition overview', detail: 'List of team members and disciplines for the current phase.' },
+    { id: 'role-responsibilities', title: 'Role descriptions and responsibilities', detail: 'How each discipline contributes to delivery.' },
+    { id: 'collaboration', title: 'Evidence of collaborative working', detail: 'Examples of joint decision-making across roles.' },
+    { id: 'service-owner', title: 'Service owner identification', detail: 'Named service owner and engagement approach.' },
+    { id: 'knowledge-transfer', title: 'Knowledge transfer plan', detail: 'Handover and skills transfer plan for contractors.' },
+    { id: 'scaling-plan', title: 'Scaling plan for Live', detail: 'RACI or operating model for Live support.' },
+    { id: 'decision-logs', title: 'Decision logs and meeting notes', detail: 'Evidence that multiple disciplines input to decisions.' },
+    { id: 'team-health', title: 'Team health materials', detail: 'Retrospectives or team health checks.' }
+  ],
+  7: [
+    { id: 'agile-tools', title: 'Agile project tools', detail: 'Backlog, work in progress and iteration cadence evidence.' },
+    { id: 'iteration-records', title: 'Iteration records (design/tech)', detail: 'Design history or change log by sprint.' },
+    { id: 'risk-log', title: 'Risk and hypothesis log', detail: 'Assumptions and how they were tested.' },
+    { id: 'governance', title: 'Governance evidence with agility', detail: 'OKRs or outcomes-led governance evidence.' },
+    { id: 'stakeholder-logs', title: 'Stakeholder decision logs', detail: 'Examples of rapid decisions and pivots.' },
+    { id: 'velocity', title: 'Team velocity and cadence info', detail: 'Sprints, show-and-tells or burn-downs.' },
+    { id: 'continuous-delivery', title: 'Continuous delivery pipeline', detail: 'Automated pipeline and frequent deployments.' }
+  ],
+  8: [
+    { id: 'design-history', title: 'Change log or design history', detail: 'Record of iterative improvements and reasons.' },
+    { id: 'analytics-feedback', title: 'Analytics and feedback loops', detail: 'Metrics and feedback driving changes.' },
+    { id: 'continuous-deploy', title: 'Continuous deployment evidence', detail: 'Pipeline and release frequency.' },
+    { id: 'content-review', title: 'Content review process', detail: 'Plan to keep content accurate and current.' },
+    { id: 'improvement-backlog', title: 'Backlog of improvements', detail: 'Visible backlog for continuous improvement.' },
+    { id: 'iterative-examples', title: 'Examples of iterative changes', detail: 'Before/after examples supported by data.' },
+    { id: 'future-evolution', title: 'Plan for future evolution', detail: 'Roadmap of upcoming iterations and needs.' }
+  ],
+  9: [
+    { id: 'privacy-mapping', title: 'Data and privacy mapping', detail: 'Data flows and DPIA work.' },
+    { id: 'security-engagement', title: 'Security engagement evidence', detail: 'Early input from security specialists.' },
+    { id: 'threat-model', title: 'Threat model artefacts', detail: 'Threats and mitigations identified.' },
+    { id: 'tech-architecture', title: 'Technical architecture and feasibility', detail: 'Security features and compliance in architecture.' },
+    { id: 'security-testing', title: 'Security test results', detail: 'Pen tests and vulnerability scans.' },
+    { id: 'risk-register', title: 'Risk register', detail: 'Security risks with owners and status.' },
+    { id: 'security-policies', title: 'Security policies and compliance', detail: 'GDPR compliance and security standards.' },
+    { id: 'operational-security', title: 'Operational security preparedness', detail: 'Asset register and incident response plan.' },
+    { id: 'privacy-plans', title: 'Privacy and decommissioning plans', detail: 'Retention, deletion and retirement plans.' }
+  ],
+  10: [
+    { id: 'metrics-framework', title: 'Success metrics framework', detail: 'KPIs and definition of success.' },
+    { id: 'baseline-data', title: 'Baseline data and analysis', detail: 'Current performance baseline.' },
+    { id: 'measurement-plan', title: 'Performance measurement plan', detail: 'How each KPI will be captured and reviewed.' },
+    { id: 'analytics-implementation', title: 'Analytics implementation evidence', detail: 'Dashboards and tracked metrics.' },
+    { id: 'performance-reports', title: 'Performance reports and reviews', detail: 'Reports showing interpretation and action.' },
+    { id: 'qualitative-feedback', title: 'Qualitative feedback integration', detail: 'Themes, case studies or satisfaction insights.' },
+    { id: 'data-driven-improvement', title: 'Evidence of data-driven improvement', detail: 'Examples of changes driven by data.' },
+    { id: 'stakeholder-metrics', title: 'Stakeholder engagement with metrics', detail: 'Evidence metrics inform decisions.' },
+    { id: 'publishing', title: 'Publishing and transparency', detail: 'Public reporting of required metrics.' }
+  ],
+  11: [
+    { id: 'options-analysis', title: 'Options analysis and decision records', detail: 'Appraisal of options and rationale.' },
+    { id: 'architecture-diagram', title: 'Technical architecture diagram', detail: 'High-level architecture and integrations.' },
+    { id: 'stack-alignment', title: 'Alignment with standards and stacks', detail: 'Evidence solution aligns with recommended stack.' },
+    { id: 'security-accessibility', title: 'Security and accessibility in tech choices', detail: 'Non-functional requirements in selection.' },
+    { id: 'value-for-money', title: 'Value for money rationale', detail: 'Cost comparison or reuse evidence.' },
+    { id: 'tech-feasibility', title: 'Proof of technical feasibility', detail: 'Spikes or prototypes that de-risk choices.' },
+    { id: 'architecture-docs', title: 'Documentation of architecture and plans', detail: 'Reviewed docs and decision records.' },
+    { id: 'revisit-decisions', title: 'Plan to revisit decisions', detail: 'Roadmap or ADRs for future review.' },
+    { id: 'support-plan', title: 'Sustainability and support plans', detail: 'Maintenance and support arrangements.' }
+  ],
+  12: [
+    { id: 'public-repo', title: 'Public repository links', detail: 'Links to open source repositories.' },
+    { id: 'open-license', title: 'Open source licence', detail: 'Appropriate licence in the repo.' },
+    { id: 'no-secrets', title: 'No secrets in repo', detail: 'Evidence of secure configuration handling.' },
+    { id: 'contribution-docs', title: 'Contribution docs', detail: 'README or contribution guidance.' },
+    { id: 'published-packages', title: 'Published packages (if applicable)', detail: 'Reusable libraries published publicly.' },
+    { id: 'open-process', title: 'Open development process', detail: 'Evidence of open PRs and issue tracking.' },
+    { id: 'open-exceptions', title: 'Plan for remaining closed parts', detail: 'Plan to open any exceptions over time.' }
+  ],
+  13: [
+    { id: 'design-system', title: 'Use of GOV.UK design system and patterns', detail: 'Annotated examples of patterns used.' },
+    { id: 'common-platforms', title: 'Reuse of common platforms', detail: 'Integrations with shared government components.' },
+    { id: 'open-standards', title: 'Open standards adherence', detail: 'Evidence of open data or API standards.' },
+    { id: 'contributions', title: 'Contribution back to community', detail: 'PRs or shared components and patterns.' },
+    { id: 'design-history', title: 'Design history or decision logs', detail: 'Design history site or ADRs shared openly.' },
+    { id: 'collaboration', title: 'Collaboration with other teams', detail: 'Evidence of cross-government collaboration.' },
+    { id: 'no-reinvention', title: 'No reinvention evidence', detail: 'Survey of existing solutions and rationale.' },
+    { id: 'open-tech', title: 'Exemplar use of open tech', detail: 'Open-source stack or components used.' },
+    { id: 'open-standards-challenge', title: 'Open standards challenge solutions', detail: 'Evidence of compliance with relevant open standards.' }
+  ],
+  14: [
+    { id: 'monitoring', title: 'Uptime and performance monitoring', detail: 'Dashboards showing uptime and errors.' },
+    { id: 'cicd', title: 'Continuous integration and delivery', detail: 'Pipeline enabling frequent low-risk releases.' },
+    { id: 'load-testing', title: 'Load testing results', detail: 'Performance testing evidence.' },
+    { id: 'disaster-recovery', title: 'Failover and disaster recovery plans', detail: 'DR plans and tested recovery processes.' },
+    { id: 'runbooks', title: 'Runbooks and ops manuals', detail: 'Operational procedures and runbooks.' },
+    { id: 'incident-management', title: 'Incident management process', detail: 'Process and examples of incident reviews.' },
+    { id: 'on-call', title: 'On-call rota and support arrangement', detail: 'Support model and escalation paths.' },
+    { id: 'slas', title: 'Service level agreements or objectives', detail: 'SLAs or SLOs and how they are tracked.' },
+    { id: 'capacity-planning', title: 'Capacity planning docs', detail: 'Scaling and capacity evidence.' },
+    { id: 'maintenance', title: 'Maintenance and patching strategy', detail: 'Approach for updates and patches.' },
+    { id: 'exemplars', title: 'Reliability exemplars', detail: 'Evidence of learning from incidents and improvements.' }
+  ]
+};
 
 const routes = [
   { pattern: /^\/$/, render: renderHome },
@@ -1011,6 +1151,30 @@ function renderStandard(match) {
   const standard = project.serviceStandards.find((item) => item.id === standardId);
   if (!standard) return renderNotFound();
 
+  const artefacts = artefactsByStandard[standard.number] || [];
+  const artefactsMarkup = `
+    <div class="govuk-accordion" data-module="govuk-accordion" id="artefacts-accordion-${standard.id}">
+      ${artefacts
+        .map(
+          (item) => `
+          <div class="govuk-accordion__section">
+            <div class="govuk-accordion__section-header">
+              <h3 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button">
+                  ${item.title}
+                </span>
+              </h3>
+            </div>
+            <div class="govuk-accordion__section-content">
+              <p class="govuk-body">${item.detail}</p>
+            </div>
+          </div>
+        `
+        )
+        .join('')}
+    </div>
+  `;
+
   const subsections = standard.subsections
     .map((subsection) => {
       const rag = calculateSubsectionStatus(subsection);
@@ -1066,8 +1230,25 @@ function renderStandard(match) {
     <p class="govuk-body">${standard.description}</p>
     <h2 class="govuk-heading-m">Overall RAG status</h2>
     <div class="govuk-!-margin-bottom-4">${ragTag(calculateStandardStatus(standard))}</div>
-    <h2 class="govuk-heading-m">Subsections</h2>
-    ${subsections}
+    <div class="govuk-tabs govuk-!-margin-top-4" data-module="govuk-tabs">
+      <h2 class="govuk-tabs__title">Standard details</h2>
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#standard-subsections">Subsections</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#standard-artefacts">Artefacts and evidence</a>
+        </li>
+      </ul>
+      <div class="govuk-tabs__panel" id="standard-subsections">
+        <h2 class="govuk-heading-m">Subsections</h2>
+        ${subsections}
+      </div>
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="standard-artefacts">
+        <h2 class="govuk-heading-m">Artefacts and evidence</h2>
+        ${artefactsMarkup}
+      </div>
+    </div>
   `;
 }
 
