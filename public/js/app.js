@@ -755,6 +755,7 @@ function phaseTag(phase) {
 function extractPhases(text) {
   const phases = [];
   const source = (text || '').toLowerCase();
+  if (source.includes('discovery')) phases.push('Discovery');
   if (source.includes('alpha')) phases.push('Alpha');
   if (source.includes('beta')) phases.push('Beta');
   if (source.includes('live')) phases.push('Live');
@@ -763,8 +764,16 @@ function extractPhases(text) {
 
 function phaseTagsFromText(text) {
   const phases = extractPhases(text);
-  if (!phases.length) return '';
-  return phases.map((phase) => `<strong class="govuk-tag govuk-tag--grey">${phase}</strong>`).join(' ');
+  const safePhases = phases.length ? phases : ['Alpha', 'Beta', 'Live'];
+  const classes = {
+    Discovery: 'govuk-tag--blue',
+    Alpha: 'govuk-tag--yellow',
+    Beta: 'govuk-tag--orange',
+    Live: 'govuk-tag--green'
+  };
+  return safePhases
+    .map((phase) => `<strong class="govuk-tag ${classes[phase] || 'govuk-tag--grey'}">${phase}</strong>`)
+    .join(' ');
 }
 
 function renderHome() {
