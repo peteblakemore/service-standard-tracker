@@ -95,6 +95,7 @@
   justify-content: space-between;
   gap: 12px;
   width: 100%;
+  text-align: left;
 }
 
 .ss-artefact__title {

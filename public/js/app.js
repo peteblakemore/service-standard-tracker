@@ -1139,10 +1139,10 @@ function renderStandard(match) {
             <div class="govuk-accordion__section">
               <div class="govuk-accordion__section-header">
                 <h3 class="govuk-accordion__section-heading">
-                  <span class="govuk-accordion__section-button ss-artefact__button" id="artefact-${item.id}">
+                  <button type="button" class="govuk-accordion__section-button ss-artefact__button" id="artefact-${item.id}">
                     <span class="ss-artefact__title">${item.title}</span>
                     <span class="ss-artefact__phases">${phaseTagList(item.phases)}</span>
-                  </span>
+                  </button>
                 </h3>
               </div>
               <div class="govuk-accordion__section-content" aria-labelledby="artefact-${item.id}">
