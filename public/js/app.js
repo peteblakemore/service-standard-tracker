@@ -1205,10 +1205,10 @@ function renderStandard(match) {
       <h2 class="govuk-tabs__title">Standard details</h2>
       <ul class="govuk-tabs__list">
         <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
-          <a class="govuk-tabs__tab" href="#standard-subsections">Subsections</a>
+          <a class="govuk-tabs__tab" href="#" data-tab-target="standard-subsections">Subsections</a>
         </li>
         <li class="govuk-tabs__list-item">
-          <a class="govuk-tabs__tab" href="#standard-artefacts">Artefacts and evidence</a>
+          <a class="govuk-tabs__tab" href="#" data-tab-target="standard-artefacts">Artefacts and evidence</a>
         </li>
       </ul>
       <div class="govuk-tabs__panel" id="standard-subsections">
@@ -1490,6 +1490,23 @@ function handleFormSubmit(event) {
 
 function handleActionClick(event) {
   const button = event.target.closest('[data-action]');
+  const tabLink = event.target.closest('[data-tab-target]');
+  if (tabLink) {
+    event.preventDefault();
+    const targetId = tabLink.getAttribute('data-tab-target');
+    const tabs = tabLink.closest('.govuk-tabs');
+    if (!tabs || !targetId) return;
+    const listItems = tabs.querySelectorAll('.govuk-tabs__list-item');
+    const panels = tabs.querySelectorAll('.govuk-tabs__panel');
+    listItems.forEach((item) => item.classList.remove('govuk-tabs__list-item--selected'));
+    tabLink.closest('.govuk-tabs__list-item')?.classList.add('govuk-tabs__list-item--selected');
+    panels.forEach((panel) => panel.classList.add('govuk-tabs__panel--hidden'));
+    const targetPanel = tabs.querySelector(`#${targetId}`);
+    if (targetPanel) {
+      targetPanel.classList.remove('govuk-tabs__panel--hidden');
+    }
+    return;
+  }
   if (!button) return;
   const action = button.getAttribute('data-action');
 
