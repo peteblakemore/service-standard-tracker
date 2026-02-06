@@ -1125,15 +1125,13 @@ function renderStandard(match) {
           .map(
             (item) => `
             <div class="govuk-accordion__section">
-              <div class="govuk-accordion__section-header ss-artefact__header">
+              <div class="govuk-accordion__section-header">
                 <h3 class="govuk-accordion__section-heading">
-                  <span class="govuk-accordion__section-button" id="artefact-${item.id}">
-                    ${item.title}
+                  <span class="govuk-accordion__section-button ss-artefact__button" id="artefact-${item.id}">
+                    <span class="ss-artefact__title">${item.title}</span>
+                    <span class="ss-artefact__phases">${phaseTagList(item.phases)}</span>
                   </span>
                 </h3>
-                <div class="ss-artefact__phases">
-                  ${phaseTagList(item.phases)}
-                </div>
               </div>
               <div class="govuk-accordion__section-content" aria-labelledby="artefact-${item.id}">
                 <p class="govuk-body">${item.detail}</p>
