@@ -1153,26 +1153,18 @@ function renderStandard(match) {
 
   const artefacts = artefactsByStandard[standard.number] || [];
   const artefactsMarkup = `
-    <div class="govuk-accordion" data-module="govuk-accordion" id="artefacts-accordion-${standard.id}">
+    <dl class="govuk-summary-list">
       ${artefacts
         .map(
           (item) => `
-          <div class="govuk-accordion__section">
-            <div class="govuk-accordion__section-header">
-              <h3 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button">
-                  ${item.title}
-                </span>
-              </h3>
-            </div>
-            <div class="govuk-accordion__section-content">
-              <p class="govuk-body">${item.detail}</p>
-            </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">${item.title}</dt>
+            <dd class="govuk-summary-list__value">${item.detail}</dd>
           </div>
         `
         )
         .join('')}
-    </div>
+    </dl>
   `;
 
   const subsections = standard.subsections
