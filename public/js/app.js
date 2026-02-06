@@ -570,6 +570,7 @@ function init() {
   if (window.GOVUKFrontend && window.GOVUKFrontend.initAll) {
     window.GOVUKFrontend.initAll();
   }
+  initAccordions();
 }
 
 function getCurrentPath() {
@@ -605,6 +606,17 @@ function renderRoute(path) {
   if (window.GOVUKFrontend && window.GOVUKFrontend.initAll) {
     window.GOVUKFrontend.initAll();
   }
+  initAccordions();
+}
+
+function initAccordions() {
+  if (!window.GOVUKFrontend || !window.GOVUKFrontend.Accordion) return;
+  document.querySelectorAll('.govuk-accordion').forEach((element) => {
+    if (element.dataset.ssAccordionInit === 'true') return;
+    const accordion = new window.GOVUKFrontend.Accordion(element);
+    accordion.init();
+    element.dataset.ssAccordionInit = 'true';
+  });
 }
 
 function getProjects() {
@@ -1506,6 +1518,7 @@ function handleActionClick(event) {
     if (window.GOVUKFrontend && window.GOVUKFrontend.initAll) {
       window.GOVUKFrontend.initAll();
     }
+    initAccordions();
     return;
   }
   if (!button) return;
