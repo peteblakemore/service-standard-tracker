@@ -575,7 +575,10 @@ function init() {
 
 function getCurrentPath() {
   const hash = window.location.hash.replace(/^#/, '');
-  return hash || '/';
+  if (!hash) return '/';
+  if (hash.startsWith('standard-')) return '/';
+  if (hash.startsWith('service-standard')) return '/';
+  return hash;
 }
 
 function navigate(path) {
@@ -610,56 +613,11 @@ function renderRoute(path) {
 }
 
 function initAccordions() {
+  if (!window.GOVUKFrontend || !window.GOVUKFrontend.Accordion) return;
   document.querySelectorAll('.govuk-accordion').forEach((accordion) => {
     if (accordion.dataset.ssAccordionInit === 'true') return;
-
-    if (window.GOVUKFrontend && window.GOVUKFrontend.Accordion) {
-      const instance = new window.GOVUKFrontend.Accordion(accordion);
-      instance.init();
-    }
-
-    // Fallback: if GOV.UK JS did not enhance, add toggle controls and behavior.
-    const sections = accordion.querySelectorAll('.govuk-accordion__section');
-    sections.forEach((section, index) => {
-      const button = section.querySelector('.govuk-accordion__section-button');
-      const content = section.querySelector('.govuk-accordion__section-content');
-      if (!button || !content) return;
-
-      const contentId = content.id || `accordion-${accordion.id || 'section'}-${index}`;
-      content.id = contentId;
-      button.setAttribute('aria-controls', contentId);
-
-      if (!button.querySelector('.govuk-accordion__section-toggle')) {
-        button.setAttribute('aria-expanded', 'false');
-        content.hidden = true;
-        const toggle = document.createElement('span');
-        toggle.className = 'govuk-accordion__section-toggle';
-        const toggleText = document.createElement('span');
-        toggleText.className = 'govuk-accordion__section-toggle-text';
-        toggleText.textContent = 'Show';
-        const toggleVisuallyHidden = document.createElement('span');
-        toggleVisuallyHidden.className = 'govuk-visually-hidden';
-        toggleVisuallyHidden.textContent = ' section';
-        toggle.appendChild(toggleText);
-        toggle.appendChild(toggleVisuallyHidden);
-        button.appendChild(toggle);
-      }
-
-      if (!button.dataset.ssAccordionBound) {
-        button.addEventListener('click', () => {
-          const isExpanded = button.getAttribute('aria-expanded') === 'true';
-          button.setAttribute('aria-expanded', String(!isExpanded));
-          section.classList.toggle('govuk-accordion__section--expanded', !isExpanded);
-          content.hidden = isExpanded;
-          const toggleText = button.querySelector('.govuk-accordion__section-toggle-text');
-          if (toggleText) {
-            toggleText.textContent = isExpanded ? 'Show' : 'Hide';
-          }
-        });
-        button.dataset.ssAccordionBound = 'true';
-      }
-    });
-
+    const instance = new window.GOVUKFrontend.Accordion(accordion);
+    instance.init();
     accordion.dataset.ssAccordionInit = 'true';
   });
 }
@@ -1260,10 +1218,10 @@ function renderStandard(match) {
       <h2 class="govuk-tabs__title">Standard details</h2>
       <ul class="govuk-tabs__list">
         <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
-          <a class="govuk-tabs__tab" href="#" data-tab-target="standard-subsections">Subsections</a>
+          <a class="govuk-tabs__tab" href="#standard-subsections">Subsections</a>
         </li>
         <li class="govuk-tabs__list-item">
-          <a class="govuk-tabs__tab" href="#" data-tab-target="standard-artefacts">Artefacts and evidence</a>
+          <a class="govuk-tabs__tab" href="#standard-artefacts">Artefacts and evidence</a>
         </li>
       </ul>
       <div class="govuk-tabs__panel" id="standard-subsections">
@@ -1545,27 +1503,6 @@ function handleFormSubmit(event) {
 
 function handleActionClick(event) {
   const button = event.target.closest('[data-action]');
-  const tabLink = event.target.closest('[data-tab-target]');
-  if (tabLink) {
-    event.preventDefault();
-    const targetId = tabLink.getAttribute('data-tab-target');
-    const tabs = tabLink.closest('.govuk-tabs');
-    if (!tabs || !targetId) return;
-    const listItems = tabs.querySelectorAll('.govuk-tabs__list-item');
-    const panels = tabs.querySelectorAll('.govuk-tabs__panel');
-    listItems.forEach((item) => item.classList.remove('govuk-tabs__list-item--selected'));
-    tabLink.closest('.govuk-tabs__list-item')?.classList.add('govuk-tabs__list-item--selected');
-    panels.forEach((panel) => panel.classList.add('govuk-tabs__panel--hidden'));
-    const targetPanel = tabs.querySelector(`#${targetId}`);
-    if (targetPanel) {
-      targetPanel.classList.remove('govuk-tabs__panel--hidden');
-    }
-    if (window.GOVUKFrontend && window.GOVUKFrontend.initAll) {
-      window.GOVUKFrontend.initAll();
-    }
-    initAccordions();
-    return;
-  }
   if (!button) return;
   const action = button.getAttribute('data-action');
 
