@@ -566,7 +566,13 @@ const routes = [
 ];
 
 function init() {
-  window.addEventListener('hashchange', () => renderRoute(getCurrentPath()));
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.replace(/^#/, '');
+    if (hash.startsWith('standard-') || hash.startsWith('service-standard')) {
+      return;
+    }
+    renderRoute(getCurrentPath());
+  });
   renderRoute(getCurrentPath());
   if (window.GOVUKFrontend && window.GOVUKFrontend.initAll) {
     window.GOVUKFrontend.initAll();
