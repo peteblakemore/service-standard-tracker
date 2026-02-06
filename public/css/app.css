@@ -103,6 +103,17 @@
   margin: 0;
 }
 
+.ss-artefacts__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ss-artefacts__phases .govuk-tag {
+  margin-left: 4px;
+}
+
 
 .ss-artefact__phases .govuk-tag {
   font-size: 0.9rem;

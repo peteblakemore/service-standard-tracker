@@ -752,6 +752,21 @@ function phaseTag(phase) {
   return `<strong class="govuk-tag ${classes[label] || 'govuk-tag--grey'}">${label}</strong>`;
 }
 
+function extractPhases(text) {
+  const phases = [];
+  const source = (text || '').toLowerCase();
+  if (source.includes('alpha')) phases.push('Alpha');
+  if (source.includes('beta')) phases.push('Beta');
+  if (source.includes('live')) phases.push('Live');
+  return phases;
+}
+
+function phaseTagsFromText(text) {
+  const phases = extractPhases(text);
+  if (!phases.length) return '';
+  return phases.map((phase) => `<strong class="govuk-tag govuk-tag--grey">${phase}</strong>`).join(' ');
+}
+
 function renderHome() {
   const projects = getProjects();
   const emptyState = `
@@ -1158,7 +1173,10 @@ function renderStandard(match) {
         .map(
           (item) => `
           <div class="ss-artefacts__item">
-            <h3 class="govuk-heading-s ss-artefacts__title">${item.title}</h3>
+            <div class="ss-artefacts__heading">
+              <h3 class="govuk-heading-s ss-artefacts__title">${item.title}</h3>
+              <div class="ss-artefacts__phases">${phaseTagsFromText(item.detail)}</div>
+            </div>
             <p class="govuk-body ss-artefacts__detail">${item.detail}</p>
           </div>
         `
