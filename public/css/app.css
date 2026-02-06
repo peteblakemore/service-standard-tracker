@@ -92,26 +92,43 @@
 .ss-artefacts {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .ss-artefacts__title {
-  margin-bottom: 4px;
+  margin-bottom: 0;
 }
 
 .ss-artefacts__detail {
-  margin: 0;
+  margin: 6px 0 0;
 }
 
 .ss-artefacts__heading {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.ss-artefacts__item {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #b1b4b6;
+}
+
+.ss-artefacts__item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.ss-artefacts__phases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .ss-artefacts__phases .govuk-tag {
-  margin-left: 4px;
+  margin: 0;
+  font-size: 0.85rem;
 }
 
 
