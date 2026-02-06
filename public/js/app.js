@@ -1265,6 +1265,7 @@ function renderStandard(match) {
       </div>
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="standard-artefacts">
         <h2 class="govuk-heading-m">Artefacts and evidence</h2>
+        <p class="govuk-body">Below are examples of artefacts or evidence a multidisciplinary team commonly presents at Alpha, Beta, or Live service assessments. Each standard’s section lists relevant artefacts, noting when certain items are especially expected (for example, required by Beta or commonly produced in Alpha).</p>
         ${artefactsMarkup}
       </div>
     </div>
