@@ -1120,27 +1120,29 @@ function renderStandard(match) {
   const artefacts = artefactsByStandard[standard.number] || [];
   const artefactsMarkup = artefacts.length
     ? `
-      <ol class="ss-artefacts-tasklist">
+      <div class="govuk-accordion" data-module="govuk-accordion" id="artefacts-accordion">
         ${artefacts
           .map(
             (item) => `
-            <li class="ss-artefacts-tasklist__item">
-              <details class="govuk-details ss-artefact">
-                <summary class="govuk-details__summary">
-                  <span class="govuk-details__summary-text ss-artefact__summary">
-                    <span class="ss-artefact__title">${item.title}</span>
-                    <span class="ss-artefact__phases">${phaseTagList(item.phases)}</span>
+            <div class="govuk-accordion__section">
+              <div class="govuk-accordion__section-header ss-artefact__header">
+                <h3 class="govuk-accordion__section-heading">
+                  <span class="govuk-accordion__section-button" id="artefact-${item.id}">
+                    ${item.title}
                   </span>
-                </summary>
-                <div class="govuk-details__text">
-                  <p class="govuk-body">${item.detail}</p>
+                </h3>
+                <div class="ss-artefact__phases">
+                  ${phaseTagList(item.phases)}
                 </div>
-              </details>
-            </li>
+              </div>
+              <div class="govuk-accordion__section-content" aria-labelledby="artefact-${item.id}">
+                <p class="govuk-body">${item.detail}</p>
+              </div>
+            </div>
           `
           )
           .join('')}
-      </ol>
+      </div>
     `
     : `<p class="govuk-body">No typical artefacts listed yet.</p>`;
 
@@ -1199,10 +1201,25 @@ function renderStandard(match) {
     <p class="govuk-body">${standard.description}</p>
     <h2 class="govuk-heading-m">Overall RAG status</h2>
     <div class="govuk-!-margin-bottom-4">${ragTag(calculateStandardStatus(standard))}</div>
-    <h2 class="govuk-heading-m">Subsections</h2>
-    ${subsections}
-    <h2 class="govuk-heading-m">Artefacts and evidence typically demonstrated at assessment</h2>
-    ${artefactsMarkup}
+    <div class="govuk-tabs govuk-!-margin-top-4" data-module="govuk-tabs">
+      <h2 class="govuk-tabs__title">Standard details</h2>
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#standard-subsections">Subsections</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#standard-artefacts">Artefacts and evidence</a>
+        </li>
+      </ul>
+      <div class="govuk-tabs__panel" id="standard-subsections">
+        <h2 class="govuk-heading-m">Subsections</h2>
+        ${subsections}
+      </div>
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="standard-artefacts">
+        <h2 class="govuk-heading-m">Artefacts and evidence typically demonstrated at assessment</h2>
+        ${artefactsMarkup}
+      </div>
+    </div>
   `;
 }
 
