@@ -2,6 +2,7 @@
 
 const STORAGE_KEY = 'service-standard-tracker-projects';
 const clearFlowState = { downloadedCount: 0, saved: false };
+let lastRoutedPath = '/';
 
 const serviceStandards = [
   {
@@ -576,8 +577,9 @@ function init() {
 function getCurrentPath() {
   const hash = window.location.hash.replace(/^#/, '');
   if (!hash) return '/';
-  if (hash.startsWith('standard-')) return '/';
-  if (hash.startsWith('service-standard')) return '/';
+  if (hash.startsWith('standard-') || hash.startsWith('service-standard')) {
+    return lastRoutedPath || '/';
+  }
   return hash;
 }
 
@@ -589,6 +591,7 @@ function navigate(path) {
 function renderRoute(path) {
   const main = document.getElementById('app-content');
   const backLinkContainer = document.getElementById('app-back-link');
+  lastRoutedPath = path;
   const route = routes.find((entry) => entry.pattern.test(path));
   if (!route) {
     main.innerHTML = renderNotFound();
