@@ -89,6 +89,20 @@
   margin-left: 8px;
 }
 
+.ss-artefacts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ss-artefacts__title {
+  margin-bottom: 4px;
+}
+
+.ss-artefacts__detail {
+  margin: 0;
+}
+
 
 .ss-artefact__phases .govuk-tag {
   font-size: 0.9rem;

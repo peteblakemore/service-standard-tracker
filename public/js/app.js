@@ -411,143 +411,143 @@ const serviceStandards = [
 
 const artefactsByStandard = {
   1: [
-    { id: 'user-research-plan', title: 'User research plan and approach', detail: 'Documented plan outlining target users, research questions and methods, aligned to the roadmap.' },
-    { id: 'user-profiles', title: 'User profiles and needs', detail: 'Personas, empathy maps or prioritised user needs derived from research.' },
-    { id: 'journey-maps', title: 'User journey maps or service blueprints', detail: 'End-to-end journey maps showing context and pain points beyond the digital service.' },
-    { id: 'research-findings', title: 'Research findings and usability reports', detail: 'Summaries of insights from interviews, contextual inquiry and usability testing.' },
-    { id: 'prototypes', title: 'Prototypes tested with users', detail: 'Evidence of quick prototypes tested early and iterated based on feedback.' },
-    { id: 'behaviour-data', title: 'Data analysis of user behaviour', detail: 'Analytics or existing service data used to validate user needs and pain points.' },
-    { id: 'ongoing-learning', title: 'Plans for ongoing learning', detail: 'Schedule or approach for continuous research and feedback loops.' }
+    { id: 'user-research-plan', title: 'User Research Plan & Approach', detail: 'A documented research plan outlining target users, research questions, and methods (usually prepared in Discovery/Alpha). For example, assessment panels expect to see a separate research plan artefact summarising the user research approach aligned to the roadmap.' },
+    { id: 'user-profiles', title: 'User Profiles and Needs', detail: 'Outputs from Discovery such as user personas, empathy maps or a prioritised list of user needs derived from research. These show the team’s deep understanding of different user groups and their goals (key in Alpha).' },
+    { id: 'journey-maps', title: 'User Journey Maps / Service Blueprints', detail: 'Diagrams mapping the end-to-end journey, including context and pain points outside the digital service. These artefacts (often created in Alpha) illustrate the user’s entire problem space, not just the online transaction.' },
+    { id: 'research-findings', title: 'Research Findings and Usability Reports', detail: 'Summaries of what the team learned from user interviews, contextual inquiries, and usability testing sessions. In Alpha and Beta, teams typically present user research reports or slide decks highlighting insights and how they influenced design iterations.' },
+    { id: 'prototypes', title: 'Prototypes Tested with Users', detail: 'Evidence that quick, throwaway prototypes were used to test assumptions with users early and often. This can include screenshots or links to prototypes and a log of iterative changes made in response to user feedback (common in Alpha).' },
+    { id: 'behaviour-data', title: 'Data Analysis of User Behaviour', detail: 'Any analytics or supporting data that the team used to understand user needs (e.g. call centre queries, existing service logs). Even in Discovery, teams might present analysis of current data to validate user pain points.' },
+    { id: 'ongoing-learning', title: 'Plans for Ongoing Learning', detail: 'By Beta/Live, the team should show a plan for continuous user research and feedback loops. This could be a schedule of regular user testing, surveys, or analytics reviews to ensure the service keeps meeting users’ needs.' }
   ],
   2: [
-    { id: 'service-map', title: 'End-to-end service map or blueprint', detail: 'Full journey across channels, touchpoints and handoffs.' },
-    { id: 'stakeholder-map', title: 'Stakeholder and systems map', detail: 'Dependencies on other services, policy teams and systems.' },
-    { id: 'policy-process', title: 'Policy and offline process understanding', detail: 'Evidence of policy constraints and non-digital steps in the journey.' },
-    { id: 'assisted-digital', title: 'Assisted digital support plan', detail: 'Support model for users who cannot complete the service online.' },
-    { id: 'collaboration', title: 'Collaboration evidence', detail: 'Outputs from workshops or sessions with related teams to avoid duplication.' },
-    { id: 'journey-demo', title: 'Prototype or demo of entire journey', detail: 'Walkthrough showing the user journey end to end.' },
-    { id: 'beta-outcomes', title: 'Private beta outcomes', detail: 'Evidence that users complete the full journey successfully.' },
-    { id: 'gap-roadmap', title: 'Plans to address gaps', detail: 'Roadmap for any remaining gaps in the whole problem.' }
+    { id: 'service-map', title: 'End-to-End Service Map / Blueprint', detail: 'A service blueprint or journey map covering every step a user takes to achieve their goal, across all channels and touchpoints. This artefact (usually from Discovery/Alpha) demonstrates understanding of where the service fits in the broader journey and any gaps or offline steps. It often highlights pain points and handoffs that the team needs to address.' },
+    { id: 'stakeholder-map', title: 'Stakeholder and Systems Map', detail: 'Documentation showing related services, policy teams, and systems involved in the user’s problem. For example, a diagram or table of “service touchpoints” and evidence the team has talked to those external teams (expected by Alpha). This proves the team has considered integrations and dependencies needed to solve the whole problem.' },
+    { id: 'policy-process', title: 'Policy and Offline Process Understanding', detail: 'Artefacts capturing how policy or existing processes influence the service. Teams might provide a brief of policy constraints and a mapped process flow including non-digital steps (often discovered in Alpha). This shows they won’t inadvertently solve only part of the problem.' },
+    { id: 'assisted-digital', title: 'Assisted Digital Support Plan', detail: 'A plan or description of how users who can’t complete the service online will be helped (common by Beta). This could include support models (e.g. helpline scripts, face-to-face assistance processes) ensuring no user is left behind. The team should have designed and even tested these supporting channels by public Beta.' },
+    { id: 'collaboration', title: 'Collaboration Evidence', detail: 'Notes or outputs from workshops and design sessions with other teams/programmes addressing similar user needs. For instance, the team might share that they have spoken with teams delivering related services to avoid duplication and ensure a joined-up end-to-end journey.' },
+    { id: 'journey-demo', title: 'Prototype/Demo of Entire Journey', detail: 'In assessments, teams often walk through an end-to-end journey of the service. They may present a demo or narrative that shows a user going from start to finish (including any steps beyond the digital product), demonstrating the service solves the user’s whole problem.' },
+    { id: 'beta-outcomes', title: 'Private Beta Outcomes (Beta stage)', detail: 'By Beta, analytics or research from a private beta should indicate users can complete the full journey successfully. Teams might show completion rates or funnel data as evidence that users get through the end-to-end process unaided, proving the service (with its surrounding support) truly resolves the user’s need.' },
+    { id: 'gap-roadmap', title: 'Plans to Address Gaps', detail: 'If any parts of the problem aren’t yet solved (common in Alpha/Beta), the team should present a roadmap addressing those gaps. For example, the GOV.UK Forms beta assessment noted plans for additional features (submission types, “save and return”) to cover more of the user’s needs – showing awareness of what’s needed to solve the whole problem.' }
   ],
   3: [
-    { id: 'cross-channel-map', title: 'Cross-channel journey mapping', detail: 'Maps of entry points, channel switches and return loops.' },
-    { id: 'consistency-guidance', title: 'Consistency guidelines', detail: 'Evidence of consistent language, tone and branding across channels.' },
-    { id: 'common-platforms', title: 'Use of common platforms', detail: 'Reuse of shared components that support joined-up experiences.' },
-    { id: 'transition-testing', title: 'Channel transition testing', detail: 'Testing evidence for journeys that move between offline and online.' },
-    { id: 'entry-exit', title: 'Discovery of entry and exit points', detail: 'How users find the service and what happens after it ends.' },
-    { id: 'outreach', title: 'Service discovery and outreach', detail: 'Plans for onboarding, support channels and communications.' }
+    { id: 'cross-channel-map', title: 'Cross-Channel Journey Mapping', detail: 'Visual maps of how the service works across channels (online, phone, paper, in-person). These artefacts illustrate entry points, channel switches, and return loops. Teams typically present service flow diagrams or service blueprints updated as the design evolves, to demonstrate a seamless experience.' },
+    { id: 'consistency-guidance', title: 'Consistency Guidelines', detail: 'Evidence that the service delivers a consistent look, feel, and tone across channels. For example, the team might show that confirmation emails use the same language and branding as the web service, or that call centre scripts align with on-screen content (often considered in Alpha/Beta). Consistent design and content ensure users don’t feel disoriented moving between channels.' },
+    { id: 'common-platforms', title: 'Use of Common Platforms', detail: 'If applicable, the team should show they’ve used common government components that support cross-channel use. For instance, using a single sign-on (e.g. DfE Sign-in) for both internal and external users to provide a unified login experience. Such reuse of common components also signals a joined-up approach with other services.' },
+    { id: 'transition-testing', title: 'Channel Transition Testing', detail: 'In Beta, teams often have evidence that they tested journeys where users go offline and come back. This could be usability test findings on, say, how a user receives a letter or email and then resumes online, ensuring those transitions are smooth. Any gaps or high drop-off points identified via research or analytics should be highlighted with plans to fix them.' },
+    { id: 'entry-exit', title: 'Discovery of Entry and Exit Points', detail: 'Artefacts showing how users find the service and what happens before/after. For example, a content page on GOV.UK that directs users into the service (the starting point), or a flow diagram depicting how the service hands off to other agencies at the end. Teams should demonstrate they’ve planned for these to create a coherent journey.' },
+    { id: 'outreach', title: 'Service Discovery and Outreach', detail: 'By Live, the team might present an onboarding or communications plan for users and stakeholders. This could include guidance for support staff in other channels, integration with existing helplines, or proactive outreach to drive digital take-up – all ensuring the service does not operate in isolation. Performance data like drop-out rates between steps might be shown to verify the joined-up design is working.' }
   ],
   4: [
-    { id: 'usability', title: 'Usability test reports', detail: 'Evidence of iterative usability testing and improvements.' },
-    { id: 'prototypes', title: 'Interactive prototypes', detail: 'Prototype iterations showing simplification of the journey.' },
-    { id: 'plain-english', title: 'Plain English content samples', detail: 'Before/after examples of content improved for clarity.' },
-    { id: 'design-system', title: 'Use of design system patterns', detail: 'Evidence of GOV.UK patterns and components used.' },
-    { id: 'cross-device', title: 'Cross-device compatibility testing', detail: 'Results from testing across browsers and devices.' },
-    { id: 'error-support', title: 'Error handling and support', detail: 'Improved error messages and embedded help content.' },
-    { id: 'continuous-improvement', title: 'Continuous improvement evidence', detail: 'Data and actions showing ongoing simplification of the service.' }
+    { id: 'usability', title: 'Usability Test Reports', detail: 'Documentation of iterative usability testing is key. Teams usually provide reports or videos from usability sessions (Alpha and Beta) showing how they identified and fixed pain points to simplify the service. They should highlight task success rates and first-time completion improvements over time as evidence the service is easy to use.' },
+    { id: 'prototypes', title: 'Interactive Prototypes', detail: 'Clickable prototypes or screens at various design stages often serve as artefacts. These illustrate a clean, uncluttered interface and straightforward user journey. The team might demonstrate how prototypes evolved to remove “dead ends” or unnecessary steps based on user feedback (common in Alpha).' },
+    { id: 'plain-english', title: 'Plain English Content Samples', detail: 'Examples of content redesigned in plain language and tested for comprehension. For instance, teams bring excerpts of form questions or guidance text before and after content design changes, along with readability scores or user feedback confirming clarity. Simplified content is often a direct outcome of user research in Discovery/Alpha.' },
+    { id: 'design-system', title: 'Use of Design System Patterns', detail: 'Evidence that the service uses established GOV.UK design patterns and components to ensure familiarity and simplicity. The team might cite specific components (e.g. address lookup, date input) from the GOV.UK Design System they implemented rather than creating new ones, thus making the service more intuitive for users. If any custom component was needed, they should show it was tested and follows accessibility guidelines.' },
+    { id: 'cross-device', title: 'Cross-Device Compatibility Testing', detail: 'Results from testing the service on various browsers and devices (Alpha/Beta). For example, teams often maintain a checklist of supported browsers and present evidence the service works responsively and “on every browser or device users access it on”. This demonstrates a simple, consistent experience regardless of technology.' },
+    { id: 'error-support', title: 'Error Handling and Support', detail: 'Artefacts related to how the service guides users when things go wrong. The team might show a “report a problem” link or help content embedded in the service and describe the support process for users who struggle. They may also provide examples of refined error messages or contextual help added to make completion easier (these are usually refined in Beta after observing user errors).' },
+    { id: 'continuous-improvement', title: 'Continuous Improvement Evidence', detail: 'By Beta/Live, the team should present how they monitor and continually improve simplicity. This could include an analytics dashboard tracking drop-offs or frequently accessed help content, plus an action log of journey or content changes made in response. Panels often look for evidence of continuous improvement to the user journey or content based on data and feedback.' }
   ],
   5: [
-    { id: 'inclusive-research', title: 'Inclusive research outputs', detail: 'Research with users with access needs and recruitment plans.' },
-    { id: 'inclusive-design', title: 'Accessibility considerations in design', detail: 'Inclusive design adjustments and content improvements.' },
-    { id: 'assistive-tech', title: 'Assistive tech testing results', detail: 'Testing with screen readers, magnifiers or voice input.' },
-    { id: 'audit', title: 'Accessibility audit report', detail: 'External audit findings and fixes for WCAG 2.1/2.2 AA.' },
-    { id: 'statement', title: 'Accessibility statement', detail: 'Draft or published accessibility statement for the service.' },
-    { id: 'assisted-digital', title: 'Assistive digital support materials', detail: 'Support scripts, training guides and tested routes.' },
-    { id: 'ongoing-checks', title: 'Ongoing accessibility checks', detail: 'Plan for re-audits, ongoing testing and updates.' }
+    { id: 'inclusive-research', title: 'Inclusive Research Outputs', detail: 'Evidence that the team included users with a range of access needs in research from the start (Discovery/Alpha). For example, summaries of interviews or testing with users who have disabilities, are older, have low digital skills, etc., demonstrating the team understands their needs. Recruitment plans for users with access needs are also expected (often documented in Alpha).' },
+    { id: 'inclusive-design', title: 'Accessibility Considerations in Design', detail: 'Artefacts showing how inclusive design principles were applied. Teams might present a list of design adjustments (like using sufficient color contrast, form labels, etc.) or outcomes from using tools like an inclusivity checker early on. They may also highlight content changes made for clarity or translation plans for non-native speakers.' },
+    { id: 'assistive-tech', title: 'Assistive Tech Testing Results', detail: 'Even before formal audits, teams often do in-house testing with assistive technologies (screen readers, screen magnifiers, voice input). They might provide a brief report of these early findings (Alpha/Beta) to prove they iterated the service to accommodate assistive tech users.' },
+    { id: 'audit', title: 'Accessibility Audit Report', detail: 'A professional accessibility audit report (usually by Beta) is a critical artefact. GDS requires teams to get an external audit and fix any issues before public beta. Teams will present the audit findings and a list of fixes implemented, showing WCAG 2.1/2.2 AA compliance.' },
+    { id: 'statement', title: 'Accessibility Statement', detail: 'By the time a service enters public Beta, it must have a published accessibility statement explaining the service’s accessibility level. The team should have this document ready (even if draft in private beta) and provide it as evidence.' },
+    { id: 'assisted-digital', title: 'Assistive Digital Support Materials', detail: 'Documentation of how users who cannot use the digital service will be supported (often prepared by Beta). This may include call centre scripts, help desk training guides, or arrangements with assisted digital partners. Showing that these routes have been tested (e.g. a trial run of the phone support process) is also valuable.' },
+    { id: 'ongoing-checks', title: 'Ongoing Accessibility Checks', detail: 'For Live services, teams should present how they will continuously ensure accessibility – e.g. scheduling regular re-audits, monitoring for new issues, and keeping the accessibility statement up to date. Continual testing with users with access needs (with evidence of those sessions) is expected throughout Beta and Live. Panels look for a culture of not treating accessibility as one-off, but as an ongoing commitment.' }
   ],
   6: [
-    { id: 'team-composition', title: 'Team composition overview', detail: 'List of team members and disciplines for the current phase.' },
-    { id: 'role-responsibilities', title: 'Role descriptions and responsibilities', detail: 'How each discipline contributes to delivery.' },
-    { id: 'collaboration', title: 'Evidence of collaborative working', detail: 'Examples of joint decision-making across roles.' },
-    { id: 'service-owner', title: 'Service owner identification', detail: 'Named service owner and engagement approach.' },
-    { id: 'knowledge-transfer', title: 'Knowledge transfer plan', detail: 'Handover and skills transfer plan for contractors.' },
-    { id: 'scaling-plan', title: 'Scaling plan for Live', detail: 'RACI or operating model for Live support.' },
-    { id: 'decision-logs', title: 'Decision logs and meeting notes', detail: 'Evidence that multiple disciplines input to decisions.' },
-    { id: 'team-health', title: 'Team health materials', detail: 'Retrospectives or team health checks.' }
+    { id: 'team-composition', title: 'Team Composition Overview', detail: 'A list or chart of the team members and roles is a common artefact at Alpha assessments. It should show a diverse mix of skills – typically product manager, delivery manager, user researcher, service designer/UX, content designer, tech lead/developers, QA, and others as needed. Assessors will verify that “the right team roles are in place to deliver the service” for the current phase.' },
+    { id: 'role-responsibilities', title: 'Role Descriptions & Responsibilities', detail: 'Sometimes teams bring brief role descriptions or explain how each discipline contributes to delivery. For example, noting that a performance analyst or accessibility specialist is involved by Beta if those skills are needed. This gives confidence that all aspects (user research, design, tech, ops, etc.) are covered by capable people.' },
+    { id: 'collaboration', title: 'Evidence of Collaborative Working', detail: 'Artefacts that illustrate how the team works together can bolster this standard. This might include a screenshot of an agile board where stories are tagged by discipline, or excerpts from show-and-tell slides demonstrating contributions from multiple disciplines. The key is to show decisions are made collectively rather than silos.' },
+    { id: 'service-owner', title: 'Service Owner Identification', detail: 'If applicable, the team should name the service owner (usually a senior manager accountable for the service) and explain how that person is engaged. While not a “document” per se, it’s evidence of governance and leadership within the team.' },
+    { id: 'knowledge-transfer', title: 'Knowledge Transfer Plan', detail: 'For teams including contractors or external suppliers, a documented plan for sharing knowledge and transitioning to permanent staff is expected (in Alpha/Beta). The team might present a handover checklist, paired working arrangements, or mentorship plans to ensure no skill gaps when contractors roll off. Not having such a plan is a red flag.' },
+    { id: 'scaling-plan', title: 'Scaling Plan for Live', detail: 'By Beta, teams often prepare for how they will support and operate the service at scale. An artefact here could be an organisation chart or RACI for the Live phase, showing on-call engineers, support roles, etc. Assessors look for a clear plan of “who does what” once live.' },
+    { id: 'decision-logs', title: 'Decision Logs / Meeting Notes', detail: 'If relevant, the team can show evidence that all roles input into decisions. For instance, meeting minutes or design review notes indicating developers, designers, and researchers collectively evaluated options.' },
+    { id: 'team-health', title: 'Team Health Materials', detail: 'Occasionally, teams share results of retrospectives or team health checks to illustrate continuous improvement in ways of working (this is optional but can underscore effective multidisciplinary culture).' }
   ],
   7: [
-    { id: 'agile-tools', title: 'Agile project tools', detail: 'Backlog, work in progress and iteration cadence evidence.' },
-    { id: 'iteration-records', title: 'Iteration records (design/tech)', detail: 'Design history or change log by sprint.' },
-    { id: 'risk-log', title: 'Risk and hypothesis log', detail: 'Assumptions and how they were tested.' },
-    { id: 'governance', title: 'Governance evidence with agility', detail: 'OKRs or outcomes-led governance evidence.' },
-    { id: 'stakeholder-logs', title: 'Stakeholder decision logs', detail: 'Examples of rapid decisions and pivots.' },
-    { id: 'velocity', title: 'Team velocity and cadence info', detail: 'Sprints, show-and-tells or burn-downs.' },
-    { id: 'continuous-delivery', title: 'Continuous delivery pipeline', detail: 'Automated pipeline and frequent deployments.' }
+    { id: 'agile-tools', title: 'Agile Project Tools', detail: 'A snapshot or demonstration of the team’s agile tool (e.g. Jira, Trello, Azure DevOps board) is a common artefact to prove agile working. It should show a prioritised backlog of user stories or tasks, work-in-progress, and recent iterations.' },
+    { id: 'iteration-records', title: 'Iteration Records (Design/Tech)', detail: 'Teams often maintain a design history or change log to document what was built, tested, and changed sprint by sprint. Presenting a design history blog or log entries is effective evidence that changes to the service are based on user research feedback and testing and that the team is continuously iterating.' },
+    { id: 'risk-log', title: 'Risk and Hypothesis Log', detail: 'In agile, tackling the riskiest assumptions first is key. The team might show a log of assumptions/hypotheses identified in Discovery and how they were tested in Alpha.' },
+    { id: 'governance', title: 'Governance Evidence with Agility', detail: 'Agile teams still meet governance needs, so evidence here could be lightweight governance documents or OKRs. Panels appreciate seeing evidence that governance is being managed with measurable goals in an outcomes-driven way.' },
+    { id: 'stakeholder-logs', title: 'Stakeholder Decision Logs', detail: 'Examples where senior stakeholders gave rapid feedback or approval in sprint cycles. Meeting notes or emails showing a sponsor agreed to a pivot can serve as evidence.' },
+    { id: 'velocity', title: 'Team Velocity and Cadence Info', detail: 'Sprint cadence, show-and-tells, burn-down charts or velocity metrics showing realistic planning and improvement.' },
+    { id: 'continuous-delivery', title: 'Continuous Delivery Pipeline', detail: 'Evidence that the team can deploy frequently, such as an automated build/deploy pipeline and multiple deployments per week.' }
   ],
   8: [
-    { id: 'design-history', title: 'Change log or design history', detail: 'Record of iterative improvements and reasons.' },
-    { id: 'analytics-feedback', title: 'Analytics and feedback loops', detail: 'Metrics and feedback driving changes.' },
-    { id: 'continuous-deploy', title: 'Continuous deployment evidence', detail: 'Pipeline and release frequency.' },
-    { id: 'content-review', title: 'Content review process', detail: 'Plan to keep content accurate and current.' },
-    { id: 'improvement-backlog', title: 'Backlog of improvements', detail: 'Visible backlog for continuous improvement.' },
-    { id: 'iterative-examples', title: 'Examples of iterative changes', detail: 'Before/after examples supported by data.' },
-    { id: 'future-evolution', title: 'Plan for future evolution', detail: 'Roadmap of upcoming iterations and needs.' }
+    { id: 'design-history', title: 'Change Log / Design History', detail: 'A detailed change log or public design history listing features changed over time and why. Panels often look for such consolidated evidence that the service has evolved frequently between phases.' },
+    { id: 'analytics-feedback', title: 'Analytics and Feedback Loops', detail: 'Examples of how real user data and feedback drive improvements. This might include analytics dashboards and case studies where metrics informed a change.' },
+    { id: 'continuous-deploy', title: 'Continuous Deployment Evidence', detail: 'A CI/CD pipeline setup demonstrating rapid releases, with evidence of frequent deployments and automation.' },
+    { id: 'content-review', title: 'Content Review Process', detail: 'Schedule or process for regular content audits and updates to keep guidance up-to-date.' },
+    { id: 'improvement-backlog', title: 'Backlog of Improvements', detail: 'A backlog specifically earmarked for improvements, ensuring ongoing enhancements are planned.' },
+    { id: 'iterative-examples', title: 'Examples of Iterative Changes', detail: 'Concrete before-and-after examples supported by data showing frequent iteration.' },
+    { id: 'future-evolution', title: 'Plan for Future Evolution', detail: 'Roadmap of upcoming iterations responding to emerging needs or tech changes.' }
   ],
   9: [
-    { id: 'privacy-mapping', title: 'Data and privacy mapping', detail: 'Data flows and DPIA work.' },
-    { id: 'security-engagement', title: 'Security engagement evidence', detail: 'Early input from security specialists.' },
-    { id: 'threat-model', title: 'Threat model artefacts', detail: 'Threats and mitigations identified.' },
-    { id: 'tech-architecture', title: 'Technical architecture and feasibility', detail: 'Security features and compliance in architecture.' },
-    { id: 'security-testing', title: 'Security test results', detail: 'Pen tests and vulnerability scans.' },
-    { id: 'risk-register', title: 'Risk register', detail: 'Security risks with owners and status.' },
-    { id: 'security-policies', title: 'Security policies and compliance', detail: 'GDPR compliance and security standards.' },
-    { id: 'operational-security', title: 'Operational security preparedness', detail: 'Asset register and incident response plan.' },
-    { id: 'privacy-plans', title: 'Privacy and decommissioning plans', detail: 'Retention, deletion and retirement plans.' }
+    { id: 'privacy-mapping', title: 'Data & Privacy Mapping', detail: 'Early-phase artefacts include data flow diagrams and a list of personal data the service will handle. Teams often show they have identified the minimum personal data required from users and mapped out where it flows, to demonstrate privacy by design. A Data Protection Impact Assessment (DPIA) is typically started in Discovery/Alpha and presented as evidence that privacy risks are understood and being addressed.' },
+    { id: 'security-engagement', title: 'Security Engagement Evidence', detail: 'Panels expect to see that the team has involved security experts early. This could be an email or report from the department’s Information Security team providing initial guidance, confirming the team engaged with a security advisor and has a plan for security assurance.' },
+    { id: 'threat-model', title: 'Threat Model / “Evil User” Artefacts', detail: 'Some teams create threat models or “anti-personas” for malicious actors. Presenting a summary of identified threats and mitigations (Alpha) shows proactive thinking about security.' },
+    { id: 'tech-architecture', title: 'Technical Architecture & Feasibility', detail: 'A technical architecture document or diagram highlighting security features (encryption, authentication, access control) is a key artefact by Alpha/Beta. The team should prove the proposed solution is technically feasible and meets required security standards.' },
+    { id: 'security-testing', title: 'Security Test Results', detail: 'By Beta, the team must present results of security testing, including penetration test reports and vulnerability scans or OWASP Top 10 reviews.' },
+    { id: 'risk-register', title: 'Risk Register', detail: 'A security risk register listing identified risks, their severities, and mitigation status, with clear owners.' },
+    { id: 'security-policies', title: 'Security Policies & Compliance', detail: 'Documentation on compliance with security and privacy regulations (GDPR plan, records of processing, cookie policy) and departmental security standards.' },
+    { id: 'operational-security', title: 'Operational Security Preparedness', detail: 'Artefacts like an asset register and an incident response plan indicating readiness to handle incidents.' },
+    { id: 'privacy-plans', title: 'Privacy and Decommissioning Plans', detail: 'Plans for data retention, deletion, and safe decommissioning or archiving.' }
   ],
   10: [
-    { id: 'metrics-framework', title: 'Success metrics framework', detail: 'KPIs and definition of success.' },
-    { id: 'baseline-data', title: 'Baseline data and analysis', detail: 'Current performance baseline.' },
-    { id: 'measurement-plan', title: 'Performance measurement plan', detail: 'How each KPI will be captured and reviewed.' },
-    { id: 'analytics-implementation', title: 'Analytics implementation evidence', detail: 'Dashboards and tracked metrics.' },
-    { id: 'performance-reports', title: 'Performance reports and reviews', detail: 'Reports showing interpretation and action.' },
-    { id: 'qualitative-feedback', title: 'Qualitative feedback integration', detail: 'Themes, case studies or satisfaction insights.' },
-    { id: 'data-driven-improvement', title: 'Evidence of data-driven improvement', detail: 'Examples of changes driven by data.' },
-    { id: 'stakeholder-metrics', title: 'Stakeholder engagement with metrics', detail: 'Evidence metrics inform decisions.' },
-    { id: 'publishing', title: 'Publishing and transparency', detail: 'Public reporting of required metrics.' }
+    { id: 'metrics-framework', title: 'Success Metrics Framework', detail: 'An explicit definition of success, often a metrics framework document listing KPIs and why they were chosen.' },
+    { id: 'baseline-data', title: 'Baseline Data and Analysis', detail: 'Baseline performance data from existing services or processes to benchmark improvement.' },
+    { id: 'measurement-plan', title: 'Performance Measurement Plan', detail: 'How data will be collected for each KPI, including analytics setup and research methods.' },
+    { id: 'analytics-implementation', title: 'Analytics Implementation Evidence', detail: 'Live analytics dashboards or reports showing required metrics being tracked.' },
+    { id: 'performance-reports', title: 'Performance Reports and Reviews', detail: 'Sample reports demonstrating how data is interpreted and acted upon.' },
+    { id: 'qualitative-feedback', title: 'Qualitative Feedback Integration', detail: 'Summary of feedback themes or case studies illustrating outcomes.' },
+    { id: 'data-driven-improvement', title: 'Evidence of Data-Driven Improvement', detail: 'Examples where data revealed an issue and the team responded with changes.' },
+    { id: 'stakeholder-metrics', title: 'Stakeholder Engagement with Metrics', detail: 'Evidence metrics are shared with stakeholders and inform decisions.' },
+    { id: 'publishing', title: 'Publishing and Transparency', detail: 'Plan or evidence of publishing performance data on an appropriate platform.' }
   ],
   11: [
-    { id: 'options-analysis', title: 'Options analysis and decision records', detail: 'Appraisal of options and rationale.' },
-    { id: 'architecture-diagram', title: 'Technical architecture diagram', detail: 'High-level architecture and integrations.' },
-    { id: 'stack-alignment', title: 'Alignment with standards and stacks', detail: 'Evidence solution aligns with recommended stack.' },
-    { id: 'security-accessibility', title: 'Security and accessibility in tech choices', detail: 'Non-functional requirements in selection.' },
-    { id: 'value-for-money', title: 'Value for money rationale', detail: 'Cost comparison or reuse evidence.' },
-    { id: 'tech-feasibility', title: 'Proof of technical feasibility', detail: 'Spikes or prototypes that de-risk choices.' },
-    { id: 'architecture-docs', title: 'Documentation of architecture and plans', detail: 'Reviewed docs and decision records.' },
-    { id: 'revisit-decisions', title: 'Plan to revisit decisions', detail: 'Roadmap or ADRs for future review.' },
-    { id: 'support-plan', title: 'Sustainability and support plans', detail: 'Maintenance and support arrangements.' }
+    { id: 'options-analysis', title: 'Options Analysis & Decision Records', detail: 'Options appraisal or ADRs showing considered approaches and rationale.' },
+    { id: 'architecture-diagram', title: 'Technical Architecture Diagram', detail: 'High-level architecture showing components, APIs and integrations.' },
+    { id: 'stack-alignment', title: 'Alignment with Standards/Stacks', detail: 'Evidence the solution aligns with departmental or GOV.UK recommended stacks.' },
+    { id: 'security-accessibility', title: 'Security and Accessibility in Tech Choices', detail: 'Evidence non-functional requirements guided tool selection.' },
+    { id: 'value-for-money', title: 'Value for Money Rationale', detail: 'Cost comparisons or reuse of existing services and licences.' },
+    { id: 'tech-feasibility', title: 'Proof of Technical Feasibility', detail: 'Spikes or prototypes confirming the approach works.' },
+    { id: 'architecture-docs', title: 'Documentation of Architecture & Plans', detail: 'Reviewed architecture documents and decision records.' },
+    { id: 'revisit-decisions', title: 'Plan to Revisit Decisions', detail: 'Roadmap or ADRs that commit to re-evaluating choices.' },
+    { id: 'support-plan', title: 'Sustainability & Support Plans', detail: 'Support model and approach to updates and patches.' }
   ],
   12: [
-    { id: 'public-repo', title: 'Public repository links', detail: 'Links to open source repositories.' },
-    { id: 'open-license', title: 'Open source licence', detail: 'Appropriate licence in the repo.' },
-    { id: 'no-secrets', title: 'No secrets in repo', detail: 'Evidence of secure configuration handling.' },
-    { id: 'contribution-docs', title: 'Contribution docs', detail: 'README or contribution guidance.' },
-    { id: 'published-packages', title: 'Published packages (if applicable)', detail: 'Reusable libraries published publicly.' },
-    { id: 'open-process', title: 'Open development process', detail: 'Evidence of open PRs and issue tracking.' },
-    { id: 'open-exceptions', title: 'Plan for remaining closed parts', detail: 'Plan to open any exceptions over time.' }
+    { id: 'public-repo', title: 'Public Repository Links', detail: 'Link to the public source code repository (usually on GitHub), showing compliance with “open by default”.' },
+    { id: 'open-license', title: 'Open Source License', detail: 'An explicit OSS license (MIT, Apache 2.0, etc.) included in the repo.' },
+    { id: 'no-secrets', title: 'No Secrets in Repo', detail: 'Evidence of good practice for handling secrets (environment variables, secrets management).' },
+    { id: 'contribution-docs', title: 'Contribution Docs', detail: 'README or contribution guide showing the code is approachable.' },
+    { id: 'published-packages', title: 'Published Packages (if applicable)', detail: 'Reusable libraries published to npm, PyPI, etc.' },
+    { id: 'open-process', title: 'Open Development Process', detail: 'Evidence of open PRs, issues and community engagement.' },
+    { id: 'open-exceptions', title: 'Plan for Remaining Closed Parts', detail: 'Plan or timeline to open any exceptions.' }
   ],
   13: [
-    { id: 'design-system', title: 'Use of GOV.UK design system and patterns', detail: 'Annotated examples of patterns used.' },
-    { id: 'common-platforms', title: 'Reuse of common platforms', detail: 'Integrations with shared government components.' },
-    { id: 'open-standards', title: 'Open standards adherence', detail: 'Evidence of open data or API standards.' },
-    { id: 'contributions', title: 'Contribution back to community', detail: 'PRs or shared components and patterns.' },
-    { id: 'design-history', title: 'Design history or decision logs', detail: 'Design history site or ADRs shared openly.' },
-    { id: 'collaboration', title: 'Collaboration with other teams', detail: 'Evidence of cross-government collaboration.' },
-    { id: 'no-reinvention', title: 'No reinvention evidence', detail: 'Survey of existing solutions and rationale.' },
-    { id: 'open-tech', title: 'Exemplar use of open tech', detail: 'Open-source stack or components used.' },
-    { id: 'open-standards-challenge', title: 'Open standards challenge solutions', detail: 'Evidence of compliance with relevant open standards.' }
+    { id: 'design-system', title: 'Use of GOV.UK Design System and Patterns', detail: 'Annotated screenshots showing reuse of GOV.UK patterns and components.' },
+    { id: 'common-platforms', title: 'Reuse of Common Platforms', detail: 'Integration with shared government components like Notify, Pay, Sign-in.' },
+    { id: 'open-standards', title: 'Open Standards Adherence', detail: 'Evidence of open API/data standards and accessible formats.' },
+    { id: 'contributions', title: 'Contribution Back to Community', detail: 'PRs or published components/patterns shared for reuse.' },
+    { id: 'design-history', title: 'Design History / Decision Logs', detail: 'Design history site or ADRs published openly.' },
+    { id: 'collaboration', title: 'Collaboration with Other Teams', detail: 'Evidence of cross-government collaboration and shared learning.' },
+    { id: 'no-reinvention', title: 'No Reinvention Evidence', detail: 'Survey of existing solutions and rationale for choices.' },
+    { id: 'open-tech', title: 'Exemplar Use of Open Tech', detail: 'Evidence the stack is built on open-source technologies.' },
+    { id: 'open-standards-challenge', title: 'Open Standards Challenge Solutions', detail: 'Evidence of compliance with domain-specific open standards.' }
   ],
   14: [
-    { id: 'monitoring', title: 'Uptime and performance monitoring', detail: 'Dashboards showing uptime and errors.' },
-    { id: 'cicd', title: 'Continuous integration and delivery', detail: 'Pipeline enabling frequent low-risk releases.' },
-    { id: 'load-testing', title: 'Load testing results', detail: 'Performance testing evidence.' },
-    { id: 'disaster-recovery', title: 'Failover and disaster recovery plans', detail: 'DR plans and tested recovery processes.' },
-    { id: 'runbooks', title: 'Runbooks and ops manuals', detail: 'Operational procedures and runbooks.' },
-    { id: 'incident-management', title: 'Incident management process', detail: 'Process and examples of incident reviews.' },
-    { id: 'on-call', title: 'On-call rota and support arrangement', detail: 'Support model and escalation paths.' },
-    { id: 'slas', title: 'Service level agreements or objectives', detail: 'SLAs or SLOs and how they are tracked.' },
-    { id: 'capacity-planning', title: 'Capacity planning docs', detail: 'Scaling and capacity evidence.' },
-    { id: 'maintenance', title: 'Maintenance and patching strategy', detail: 'Approach for updates and patches.' },
-    { id: 'exemplars', title: 'Reliability exemplars', detail: 'Evidence of learning from incidents and improvements.' }
+    { id: 'monitoring', title: 'Uptime and Performance Monitoring', detail: 'Live monitoring dashboards showing uptime, response times and error rates.' },
+    { id: 'cicd', title: 'Continuous Integration/Delivery Pipeline', detail: 'Pipeline configuration showing frequent, low-risk releases.' },
+    { id: 'load-testing', title: 'Load Testing Results', detail: 'Performance testing evidence, including response times under load.' },
+    { id: 'disaster-recovery', title: 'Failover and Disaster Recovery Plans', detail: 'DR plans, backup/restore procedures and test results.' },
+    { id: 'runbooks', title: 'Runbooks and Ops Manuals', detail: 'Operational manuals for handling incidents and deployments.' },
+    { id: 'incident-management', title: 'Incident Management Process', detail: 'Defined process for detection, response, recovery and review.' },
+    { id: 'on-call', title: 'On-Call Rota and Support Arrangement', detail: 'Support model and escalation paths for the service.' },
+    { id: 'slas', title: 'Service Level Agreements (SLAs)', detail: 'Defined SLAs or SLOs and how they are tracked.' },
+    { id: 'capacity-planning', title: 'Capacity Planning Docs', detail: 'Scaling plans and evidence of capacity testing.' },
+    { id: 'maintenance', title: 'Maintenance and Patching Strategy', detail: 'Policy for updates, patches and maintenance windows.' },
+    { id: 'exemplars', title: 'Exemplars', detail: 'Evidence of learning from incident reviews and reliability improvements.' }
   ]
 };
 
@@ -1153,18 +1153,18 @@ function renderStandard(match) {
 
   const artefacts = artefactsByStandard[standard.number] || [];
   const artefactsMarkup = `
-    <dl class="govuk-summary-list">
+    <div class="ss-artefacts">
       ${artefacts
         .map(
           (item) => `
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">${item.title}</dt>
-            <dd class="govuk-summary-list__value">${item.detail}</dd>
+          <div class="ss-artefacts__item">
+            <h3 class="govuk-heading-s ss-artefacts__title">${item.title}</h3>
+            <p class="govuk-body ss-artefacts__detail">${item.detail}</p>
           </div>
         `
         )
         .join('')}
-    </dl>
+    </div>
   `;
 
   const subsections = standard.subsections
