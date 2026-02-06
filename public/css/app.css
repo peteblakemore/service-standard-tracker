@@ -107,6 +107,10 @@
   margin-top: 4px;
 }
 
+.govuk-accordion__section-button {
+  width: 100%;
+}
+
 .ss-artefact__phases .govuk-tag {
   font-size: 0.9rem;
 }
