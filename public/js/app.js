@@ -610,12 +610,46 @@ function renderRoute(path) {
 }
 
 function initAccordions() {
-  if (!window.GOVUKFrontend || !window.GOVUKFrontend.Accordion) return;
-  document.querySelectorAll('.govuk-accordion').forEach((element) => {
-    if (element.dataset.ssAccordionInit === 'true') return;
-    const accordion = new window.GOVUKFrontend.Accordion(element);
-    accordion.init();
-    element.dataset.ssAccordionInit = 'true';
+  document.querySelectorAll('.govuk-accordion').forEach((accordion) => {
+    if (accordion.dataset.ssAccordionInit === 'true') return;
+    const sections = accordion.querySelectorAll('.govuk-accordion__section');
+    sections.forEach((section, index) => {
+      const button = section.querySelector('.govuk-accordion__section-button');
+      const content = section.querySelector('.govuk-accordion__section-content');
+      if (!button || !content) return;
+
+      const contentId = content.id || `accordion-${accordion.id || 'section'}-${index}`;
+      content.id = contentId;
+      button.setAttribute('aria-controls', contentId);
+      button.setAttribute('aria-expanded', 'false');
+      content.hidden = true;
+
+      if (!button.querySelector('.govuk-accordion__section-toggle')) {
+        const toggle = document.createElement('span');
+        toggle.className = 'govuk-accordion__section-toggle';
+        const toggleText = document.createElement('span');
+        toggleText.className = 'govuk-accordion__section-toggle-text';
+        toggleText.textContent = 'Show';
+        const toggleVisuallyHidden = document.createElement('span');
+        toggleVisuallyHidden.className = 'govuk-visually-hidden';
+        toggleVisuallyHidden.textContent = ' section';
+        toggle.appendChild(toggleText);
+        toggle.appendChild(toggleVisuallyHidden);
+        button.appendChild(toggle);
+      }
+
+      button.addEventListener('click', () => {
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', String(!isExpanded));
+        section.classList.toggle('govuk-accordion__section--expanded', !isExpanded);
+        content.hidden = isExpanded;
+        const toggleText = button.querySelector('.govuk-accordion__section-toggle-text');
+        if (toggleText) {
+          toggleText.textContent = isExpanded ? 'Show' : 'Hide';
+        }
+      });
+    });
+    accordion.dataset.ssAccordionInit = 'true';
   });
 }
 
