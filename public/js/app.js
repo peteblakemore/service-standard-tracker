@@ -617,7 +617,6 @@ function renderRoute(path) {
   }
   initTabs();
   activateTabFromHash();
-  activateTabFromStorage();
 }
 
 function initTabs() {
@@ -649,25 +648,6 @@ function activateTabFromHash() {
   const raw = window.location.hash.replace(/^#/, '');
   const tabId = raw.split('#')[1];
   if (!tabId) return;
-  const panel = document.getElementById(tabId);
-  if (!panel) return;
-  const tabs = panel.closest('.govuk-tabs');
-  if (!tabs) return;
-  tabs.querySelectorAll('.govuk-tabs__list-item').forEach((item) => {
-    item.classList.remove('govuk-tabs__list-item--selected');
-  });
-  tabs.querySelectorAll('.govuk-tabs__panel').forEach((p) => {
-    p.classList.add('govuk-tabs__panel--hidden');
-  });
-  const link = tabs.querySelector(`a[href="#${tabId}"]`);
-  link?.closest('.govuk-tabs__list-item')?.classList.add('govuk-tabs__list-item--selected');
-  panel.classList.remove('govuk-tabs__panel--hidden');
-}
-
-function activateTabFromStorage() {
-  const tabId = window.sessionStorage.getItem('ss-active-tab');
-  if (!tabId) return;
-  window.sessionStorage.removeItem('ss-active-tab');
   const panel = document.getElementById(tabId);
   if (!panel) return;
   const tabs = panel.closest('.govuk-tabs');
@@ -1703,7 +1683,6 @@ function handleFormSubmit(event) {
     });
     touchProject(project);
     saveProjects(projects);
-    window.sessionStorage.setItem('ss-active-tab', 'project-commentary');
     navigate(`/projects/${projectId}`);
   }
 }
