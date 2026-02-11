@@ -1305,9 +1305,7 @@ function renderStandard(match) {
           .join('')}
       `
       : `<p class="govuk-body">No comments added yet.</p>`}
-    <div class="govuk-!-margin-bottom-4">
-      <a href="#/projects/${project.id}/standards/${standard.id}/comments/add" class="govuk-button govuk-button--secondary">Add comment</a>
-    </div>
+    <p class="govuk-body"><a class="govuk-link" href="#/projects/${project.id}/standards/${standard.id}/comments/add">Add comment</a></p>
     <h2 class="govuk-heading-m">Overall RAG status</h2>
     <div class="govuk-!-margin-bottom-2">${ragTag(calculateStandardStatus(standard))}</div>
     <div class="govuk-!-margin-bottom-4">
