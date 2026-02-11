@@ -627,6 +627,7 @@ function renderRoute(path) {
     window.GOVUKFrontend.initAll();
   }
   initTabs();
+  activateTabFromHash();
 }
 
 function initTabs() {
@@ -652,6 +653,25 @@ function initTabs() {
     });
     tabs.dataset.ssTabsInit = 'true';
   });
+}
+
+function activateTabFromHash() {
+  const raw = window.location.hash.replace(/^#/, '');
+  const tabId = raw.split('#')[1];
+  if (!tabId) return;
+  const panel = document.getElementById(tabId);
+  if (!panel) return;
+  const tabs = panel.closest('.govuk-tabs');
+  if (!tabs) return;
+  tabs.querySelectorAll('.govuk-tabs__list-item').forEach((item) => {
+    item.classList.remove('govuk-tabs__list-item--selected');
+  });
+  tabs.querySelectorAll('.govuk-tabs__panel').forEach((p) => {
+    p.classList.add('govuk-tabs__panel--hidden');
+  });
+  const link = tabs.querySelector(`a[href="#${tabId}"]`);
+  link?.closest('.govuk-tabs__list-item')?.classList.add('govuk-tabs__list-item--selected');
+  panel.classList.remove('govuk-tabs__panel--hidden');
 }
 
 function getProjects() {
@@ -1678,22 +1698,6 @@ function handleFormSubmit(event) {
     saveProjects(projects);
     window.location.hash = `/projects/${projectId}#project-commentary`;
     renderRoute(`/projects/${projectId}`);
-    setTimeout(() => {
-      const tabs = document.querySelector('#project-commentary')?.closest('.govuk-tabs');
-      if (!tabs) return;
-      tabs.querySelectorAll('.govuk-tabs__list-item').forEach((item) => {
-        item.classList.remove('govuk-tabs__list-item--selected');
-      });
-      const link = tabs.querySelector('a[href="#project-commentary"]');
-      link?.closest('.govuk-tabs__list-item')?.classList.add('govuk-tabs__list-item--selected');
-      tabs.querySelectorAll('.govuk-tabs__panel').forEach((panel) => {
-        panel.classList.add('govuk-tabs__panel--hidden');
-      });
-      const panel = tabs.querySelector('#project-commentary');
-      if (panel) {
-        panel.classList.remove('govuk-tabs__panel--hidden');
-      }
-    }, 0);
   }
 }
 
