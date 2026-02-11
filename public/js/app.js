@@ -571,12 +571,6 @@ const routes = [
 
 function init() {
   window.addEventListener('hashchange', () => {
-    const raw = window.location.hash.replace(/^#/, '');
-    const hash = raw.split('#')[0];
-    const tabHash = raw.split('#')[1] || '';
-    if (tabHash === 'standard-subsections' || tabHash === 'standard-artefacts' || tabHash === 'project-commentary') {
-      return;
-    }
     renderRoute(getCurrentPath());
   });
   renderRoute(getCurrentPath());
@@ -589,12 +583,7 @@ function init() {
 function getCurrentPath() {
   const raw = window.location.hash.replace(/^#/, '');
   if (!raw) return '/';
-  const hash = raw.split('#')[0];
-  const tabHash = raw.split('#')[1] || '';
-  if (tabHash === 'standard-subsections' || tabHash === 'standard-artefacts' || tabHash === 'project-commentary') {
-    return lastRoutedPath || '/';
-  }
-  return hash;
+  return raw.split('#')[0];
 }
 
 function navigate(path) {
