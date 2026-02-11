@@ -571,8 +571,10 @@ const routes = [
 
 function init() {
   window.addEventListener('hashchange', () => {
-    const hash = window.location.hash.replace(/^#/, '');
-    if (hash.startsWith('standard-') || hash.startsWith('service-standard')) {
+    const raw = window.location.hash.replace(/^#/, '');
+    const hash = raw.split('#')[0];
+    const tabHash = raw.split('#')[1] || '';
+    if (tabHash === 'standard-subsections' || tabHash === 'standard-artefacts' || tabHash === 'project-commentary') {
       return;
     }
     renderRoute(getCurrentPath());
@@ -585,9 +587,11 @@ function init() {
 }
 
 function getCurrentPath() {
-  const hash = window.location.hash.replace(/^#/, '');
-  if (!hash) return '/';
-  if (hash.startsWith('standard-') || hash.startsWith('service-standard') || hash.startsWith('project-commentary')) {
+  const raw = window.location.hash.replace(/^#/, '');
+  if (!raw) return '/';
+  const hash = raw.split('#')[0];
+  const tabHash = raw.split('#')[1] || '';
+  if (tabHash === 'standard-subsections' || tabHash === 'standard-artefacts' || tabHash === 'project-commentary') {
     return lastRoutedPath || '/';
   }
   return hash;
