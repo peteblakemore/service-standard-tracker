@@ -1359,6 +1359,7 @@ function commentFormMarkup(project, standard, subsection, comment) {
         <textarea class="govuk-textarea" id="notes" name="notes" rows="6">${comment ? escapeHtml(comment.text) : ''}</textarea>
       </div>
       <button class="govuk-button" type="submit">${comment ? 'Save changes' : 'Add comment'}</button>
+      ${comment ? `<p class="govuk-body"><a class="govuk-link" href="#" data-action="remove-comment" data-project-id="${project.id}" data-standard-id="${standard.id}" data-subsection-id="${subsection.id}" data-comment-id="${comment.id}">Remove comment</a></p>` : ''}
     </form>
   `;
 }
@@ -1639,6 +1640,25 @@ function handleActionClick(event) {
     if (form) {
       form.classList.add('govuk-!-display-none');
     }
+  }
+
+  if (action === 'remove-comment') {
+    event.preventDefault();
+    const projectId = button.getAttribute('data-project-id');
+    const standardId = button.getAttribute('data-standard-id');
+    const subsectionId = button.getAttribute('data-subsection-id');
+    const commentId = button.getAttribute('data-comment-id');
+    const projects = getProjects();
+    const project = projects.find((item) => item.id === projectId);
+    if (!project) return;
+    const standard = project.serviceStandards.find((item) => item.id === standardId);
+    if (!standard) return;
+    const subsection = standard.subsections.find((item) => item.id === subsectionId);
+    if (!subsection) return;
+    subsection.comments = (subsection.comments || []).filter((item) => item.id !== commentId);
+    touchProject(project);
+    saveProjects(projects);
+    navigate(`/projects/${projectId}/standards/${standardId}`);
   }
 
   if (action === 'show-phase-edit') {
