@@ -563,6 +563,7 @@ const routes = [
   { pattern: /^\/projects\/import\/?$/, render: renderImportProject },
   { pattern: /^\/projects\/([^/]+)\/?$/, render: renderProject },
   { pattern: /^\/projects\/([^/]+)\/standards\/([^/]+)\/?$/, render: renderStandard },
+  { pattern: /^\/projects\/([^/]+)\/standards\/([^/]+)\/comments\/add\/?$/, render: renderStandardCommentForm },
   { pattern: /^\/projects\/([^/]+)\/standards\/([^/]+)\/subsections\/([^/]+)\/?$/, render: renderCommentForm },
   { pattern: /^\/projects\/([^/]+)\/standards\/([^/]+)\/subsections\/([^/]+)\/comments\/([^/]+)\/edit\/?$/, render: renderCommentEdit }
 ];
@@ -669,6 +670,8 @@ function cloneStandards() {
     title: standard.title,
     description: standard.description,
     serviceManualUrl: standard.serviceManualUrl,
+    overallRagStatus: 'pending',
+    comments: [],
     subsections: standard.subsections.map((subsection) => ({
       id: subsection.id,
       title: subsection.title,
@@ -711,11 +714,7 @@ function calculateSubsectionStatus(subsection) {
 }
 
 function calculateStandardStatus(standard) {
-  const statuses = standard.subsections.map((subsection) => calculateSubsectionStatus(subsection));
-  if (statuses.includes('red')) return 'red';
-  if (statuses.includes('amber')) return 'amber';
-  if (statuses.includes('green')) return 'green';
-  return 'pending';
+  return standard.overallRagStatus || 'pending';
 }
 
 function calculateProjectStatus(project) {
@@ -1197,7 +1196,6 @@ function renderStandard(match) {
 
   const subsections = standard.subsections
     .map((subsection) => {
-      const rag = calculateSubsectionStatus(subsection);
       const commentsMarkup = subsection.comments && subsection.comments.length
         ? `
           <h4 class="govuk-heading-s govuk-!-margin-bottom-2">Comments</h4>
@@ -1206,7 +1204,6 @@ function renderStandard(match) {
               (comment) => `
             <div class="ss-notes">
               <p class="govuk-body">${escapeHtml(comment.text)}</p>
-              <p class="govuk-body govuk-!-margin-top-2"><strong class="govuk-!-margin-right-2">RAG:</strong>${ragTag(comment.ragStatus)}</p>
               <p class="govuk-body govuk-!-margin-top-2"><a class="govuk-link" href="#/projects/${project.id}/standards/${standard.id}/subsections/${subsection.id}/comments/${comment.id}/edit">Change</a></p>
             </div>
           `
@@ -1222,7 +1219,6 @@ function renderStandard(match) {
         <div class="ss-subsection">
           <div class="ss-subsection__header">
             <h3 class="govuk-heading-s">${subsection.title}</h3>
-            <div class="ss-subsection__rag">${ragTag(rag)}</div>
           </div>
           <p class="govuk-body">${subsection.guidanceText}</p>
           ${subsection.serviceManualDetail
@@ -1248,20 +1244,51 @@ function renderStandard(match) {
     <a href="#/projects/${project.id}" class="govuk-back-link">Back</a>
     <h1 class="govuk-heading-l">Service Standard ${standard.number}: ${standard.title}</h1>
     <p class="govuk-body">${standard.description}</p>
+    <h2 class="govuk-heading-m">Comments</h2>
+    ${standard.comments && standard.comments.length
+      ? `
+        ${standard.comments
+          .map((comment) => `<p class="govuk-body ss-notes">${escapeHtml(comment.text)}</p>`)
+          .join('')}
+      `
+      : `<p class="govuk-body">No comments added yet.</p>`}
+    <div class="govuk-!-margin-bottom-4">
+      <a href="#/projects/${project.id}/standards/${standard.id}/comments/add" class="govuk-button govuk-button--secondary">Add comment</a>
+    </div>
     <h2 class="govuk-heading-m">Overall RAG status</h2>
-    <div class="govuk-!-margin-bottom-4">${ragTag(calculateStandardStatus(standard))}</div>
+    <div class="govuk-!-margin-bottom-2">${ragTag(calculateStandardStatus(standard))}</div>
+    <div class="govuk-!-margin-bottom-4">
+      <a class="govuk-link" href="#" data-action="show-standard-rag" data-project-id="${project.id}" data-standard-id="${standard.id}">Change</a>
+      <form class="govuk-!-margin-top-3 govuk-!-display-none" data-action="update-standard-rag" data-project-id="${project.id}" data-standard-id="${standard.id}" id="standard-rag-form-${standard.id}">
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="overallRagStatus-${standard.id}">Update overall RAG status</label>
+          <select class="govuk-select" id="overallRagStatus-${standard.id}" name="overallRagStatus">
+            ${['pending', 'red', 'amber', 'green']
+              .map((status) => {
+                const label = status.charAt(0).toUpperCase() + status.slice(1);
+                return `<option value="${status}" ${standard.overallRagStatus === status ? 'selected' : ''}>${label}</option>`;
+              })
+              .join('')}
+          </select>
+        </div>
+        <div class="govuk-button-group">
+          <button class="govuk-button govuk-button--secondary" type="submit">Save overall status</button>
+          <a class="govuk-link" href="#" data-action="cancel-standard-rag" data-standard-id="${standard.id}">Cancel</a>
+        </div>
+      </form>
+    </div>
     <div class="govuk-tabs govuk-!-margin-top-4" data-module="govuk-tabs">
       <h2 class="govuk-tabs__title">Standard details</h2>
       <ul class="govuk-tabs__list">
         <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
-          <a class="govuk-tabs__tab" href="#standard-subsections">Subsections</a>
+          <a class="govuk-tabs__tab" href="#standard-subsections">Assessment criteria</a>
         </li>
         <li class="govuk-tabs__list-item">
           <a class="govuk-tabs__tab" href="#standard-artefacts">Artefacts and evidence</a>
         </li>
       </ul>
       <div class="govuk-tabs__panel" id="standard-subsections">
-        <h2 class="govuk-heading-m">Subsections</h2>
+        <h2 class="govuk-heading-m">Assessment criteria</h2>
         ${subsections}
       </div>
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="standard-artefacts">
@@ -1283,6 +1310,27 @@ function renderCommentForm(match) {
   if (!subsection) return renderNotFound();
 
   return commentFormMarkup(project, standard, subsection, null);
+}
+
+function renderStandardCommentForm(match) {
+  const [projectId, standardId] = match.slice(1);
+  const project = getProjects().find((item) => item.id === projectId);
+  if (!project) return renderNotFound();
+  const standard = project.serviceStandards.find((item) => item.id === standardId);
+  if (!standard) return renderNotFound();
+
+  return `
+    <a href="#/projects/${project.id}/standards/${standard.id}" class="govuk-back-link">Back</a>
+    <h1 class="govuk-heading-l">Add a comment</h1>
+    <p class="govuk-body">Add a general comment about this standard.</p>
+    <form class="govuk-!-margin-top-4" data-action="save-standard-comment" data-project-id="${project.id}" data-standard-id="${standard.id}">
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="notes">Comment</label>
+        <textarea class="govuk-textarea" id="notes" name="notes" rows="6"></textarea>
+      </div>
+      <button class="govuk-button" type="submit">Save comment</button>
+    </form>
+  `;
 }
 
 function renderCommentEdit(match) {
@@ -1309,25 +1357,6 @@ function commentFormMarkup(project, standard, subsection, comment) {
       <div class="govuk-form-group">
         <label class="govuk-label" for="notes">Comment</label>
         <textarea class="govuk-textarea" id="notes" name="notes" rows="6">${comment ? escapeHtml(comment.text) : ''}</textarea>
-      </div>
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">RAG status</legend>
-          <div class="govuk-radios">
-            ${['red', 'amber', 'green', 'pending']
-              .map((status, index) => {
-                const label = status.charAt(0).toUpperCase() + status.slice(1);
-                const checked = comment ? comment.ragStatus === status : index === 3;
-                return `
-                  <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="rag-${status}" name="ragStatus" type="radio" value="${status}" ${checked ? 'checked' : ''} />
-                    <label class="govuk-label govuk-radios__label" for="rag-${status}">${label}</label>
-                  </div>
-                `;
-              })
-              .join('')}
-          </div>
-        </fieldset>
       </div>
       <button class="govuk-button" type="submit">${comment ? 'Save changes' : 'Add comment'}</button>
     </form>
@@ -1442,7 +1471,6 @@ function handleFormSubmit(event) {
     const subsectionId = form.getAttribute('data-subsection-id');
     const commentId = form.getAttribute('data-comment-id');
     const commentText = formData.get('notes').trim();
-    const ragStatus = formData.get('ragStatus');
 
     const projects = getProjects();
     const project = projects.find((item) => item.id === projectId);
@@ -1454,14 +1482,12 @@ function handleFormSubmit(event) {
       const comment = subsection.comments.find((item) => item.id === commentId);
       if (comment && commentText) {
         comment.text = commentText;
-        comment.ragStatus = ragStatus;
         touchProject(project);
       }
     } else if (commentText) {
       subsection.comments.push({
         id: `comment-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-        text: commentText,
-        ragStatus
+        text: commentText
       });
       touchProject(project);
     }
@@ -1536,6 +1562,45 @@ function handleFormSubmit(event) {
       navigate(targetPath);
     }
   }
+
+  if (action === 'save-standard-comment') {
+    const projectId = form.getAttribute('data-project-id');
+    const standardId = form.getAttribute('data-standard-id');
+    const commentText = formData.get('notes').trim();
+    if (!commentText) return;
+    const projects = getProjects();
+    const project = projects.find((item) => item.id === projectId);
+    const standard = project.serviceStandards.find((item) => item.id === standardId);
+    standard.comments = standard.comments || [];
+    standard.comments.push({
+      id: `standard-comment-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      text: commentText
+    });
+    touchProject(project);
+    saveProjects(projects);
+    navigate(`/projects/${projectId}/standards/${standardId}`);
+  }
+
+  if (action === 'update-standard-rag') {
+    const projectId = form.getAttribute('data-project-id');
+    const standardId = form.getAttribute('data-standard-id');
+    const selectedStatus = formData.get('overallRagStatus');
+    const projects = getProjects();
+    const project = projects.find((item) => item.id === projectId);
+    const standard = project.serviceStandards.find((item) => item.id === standardId);
+    if (standard && selectedStatus) {
+      standard.overallRagStatus = selectedStatus;
+      touchProject(project);
+      saveProjects(projects);
+    }
+    const targetPath = `/projects/${projectId}/standards/${standardId}`;
+    if (getCurrentPath() === targetPath) {
+      renderRoute(targetPath);
+      window.scrollTo(0, 0);
+    } else {
+      navigate(targetPath);
+    }
+  }
 }
 
 function handleActionClick(event) {
@@ -1556,6 +1621,24 @@ function handleActionClick(event) {
     const ids = (button.getAttribute('data-project-ids') || '').split(',').filter(Boolean);
     if (!ids.length) return;
     downloadProjectsByIds(ids);
+  }
+
+  if (action === 'show-standard-rag') {
+    event.preventDefault();
+    const standardId = button.getAttribute('data-standard-id');
+    const form = document.getElementById(`standard-rag-form-${standardId}`);
+    if (form) {
+      form.classList.remove('govuk-!-display-none');
+    }
+  }
+
+  if (action === 'cancel-standard-rag') {
+    event.preventDefault();
+    const standardId = button.getAttribute('data-standard-id');
+    const form = document.getElementById(`standard-rag-form-${standardId}`);
+    if (form) {
+      form.classList.add('govuk-!-display-none');
+    }
   }
 
   if (action === 'show-phase-edit') {
@@ -1609,6 +1692,8 @@ function hydrateImportedProject(payload) {
       title: templateStandard.title,
       description: templateStandard.description,
       serviceManualUrl: templateStandard.serviceManualUrl,
+      overallRagStatus: existingStandard.overallRagStatus || 'pending',
+      comments: existingStandard.comments || [],
       subsections
     };
   });
