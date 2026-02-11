@@ -587,7 +587,7 @@ function init() {
 function getCurrentPath() {
   const hash = window.location.hash.replace(/^#/, '');
   if (!hash) return '/';
-  if (hash.startsWith('standard-') || hash.startsWith('service-standard')) {
+  if (hash.startsWith('standard-') || hash.startsWith('service-standard') || hash.startsWith('project-commentary')) {
     return lastRoutedPath || '/';
   }
   return hash;
