@@ -583,6 +583,9 @@ function init() {
 function getCurrentPath() {
   const raw = window.location.hash.replace(/^#/, '');
   if (!raw) return '/';
+  if (!raw.startsWith('/')) {
+    return lastRoutedPath || '/';
+  }
   return raw.split('#')[0];
 }
 
@@ -1683,7 +1686,8 @@ function handleFormSubmit(event) {
     });
     touchProject(project);
     saveProjects(projects);
-    navigate(`/projects/${projectId}`);
+    window.location.hash = `/projects/${projectId}#project-commentary`;
+    renderRoute(`/projects/${projectId}`);
   }
 }
 
