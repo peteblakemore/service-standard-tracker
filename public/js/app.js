@@ -1672,7 +1672,24 @@ function handleFormSubmit(event) {
     });
     touchProject(project);
     saveProjects(projects);
-    navigate(`/projects/${projectId}#project-commentary`);
+    window.location.hash = `/projects/${projectId}#project-commentary`;
+    renderRoute(`/projects/${projectId}`);
+    setTimeout(() => {
+      const tabs = document.querySelector('#project-commentary')?.closest('.govuk-tabs');
+      if (!tabs) return;
+      tabs.querySelectorAll('.govuk-tabs__list-item').forEach((item) => {
+        item.classList.remove('govuk-tabs__list-item--selected');
+      });
+      const link = tabs.querySelector('a[href="#project-commentary"]');
+      link?.closest('.govuk-tabs__list-item')?.classList.add('govuk-tabs__list-item--selected');
+      tabs.querySelectorAll('.govuk-tabs__panel').forEach((panel) => {
+        panel.classList.add('govuk-tabs__panel--hidden');
+      });
+      const panel = tabs.querySelector('#project-commentary');
+      if (panel) {
+        panel.classList.remove('govuk-tabs__panel--hidden');
+      }
+    }, 0);
   }
 }
 
