@@ -561,6 +561,7 @@ const routes = [
   { pattern: /^\/clear-data\/complete\/?$/, render: renderClearComplete },
   { pattern: /^\/projects\/add\/?$/, render: renderAddProject },
   { pattern: /^\/projects\/import\/?$/, render: renderImportProject },
+  { pattern: /^\/projects\/([^/]+)\/comments\/add\/?$/, render: renderProjectCommentForm },
   { pattern: /^\/projects\/([^/]+)\/?$/, render: renderProject },
   { pattern: /^\/projects\/([^/]+)\/standards\/([^/]+)\/?$/, render: renderStandard },
   { pattern: /^\/projects\/([^/]+)\/standards\/([^/]+)\/comments\/add\/?$/, render: renderStandardCommentForm },
@@ -1102,11 +1103,14 @@ function renderProject(match) {
     ? projectComments
         .map((comment) => {
           const dateText = formatDisplayDate(comment.createdAt);
-          const meta = [comment.commenter, dateText].filter(Boolean).join(' · ');
+          const meta = [
+            comment.commenter ? `Added by: ${comment.commenter}` : '',
+            dateText ? `Date added: ${dateText}` : ''
+          ].filter(Boolean).join(' · ');
           return `
             <div class="ss-notes">
               ${meta ? `<p class="govuk-body govuk-!-margin-bottom-2">${escapeHtml(meta)}</p>` : ''}
-              <p class="govuk-body">${escapeHtml(comment.text)}</p>
+              <p class="govuk-body"><strong>Commentary:</strong> ${escapeHtml(comment.text)}</p>
             </div>
           `;
         })
@@ -1185,20 +1189,8 @@ function renderProject(match) {
       </div>
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="project-commentary">
         <h2 class="govuk-heading-m">Commentary</h2>
-        <form class="govuk-!-margin-top-2" data-action="save-project-comment" data-project-id="${project.id}">
-          <div class="govuk-form-group">
-            <label class="govuk-label" for="commenter">Name of commenter</label>
-            <input class="govuk-input" id="commenter" name="commenter" type="text" />
-          </div>
-          <div class="govuk-form-group">
-            <label class="govuk-label" for="comment">Comment</label>
-            <textarea class="govuk-textarea" id="comment" name="comment" rows="5"></textarea>
-          </div>
-          <button class="govuk-button govuk-button--secondary" type="submit">Add a comment</button>
-        </form>
-        <div class="govuk-!-margin-top-4">
-          ${commentsMarkup}
-        </div>
+        <p class="govuk-body"><a class="govuk-link" href="#/projects/${project.id}/comments/add">Add a comment</a></p>
+        <div class="govuk-!-margin-top-4">${commentsMarkup}</div>
       </div>
     </div>
   `;
@@ -1364,6 +1356,29 @@ function renderStandardCommentForm(match) {
       <div class="govuk-form-group">
         <label class="govuk-label" for="notes">Comment</label>
         <textarea class="govuk-textarea" id="notes" name="notes" rows="6"></textarea>
+      </div>
+      <button class="govuk-button" type="submit">Save comment</button>
+    </form>
+  `;
+}
+
+function renderProjectCommentForm(match) {
+  const projectId = match[1];
+  const project = getProjects().find((item) => item.id === projectId);
+  if (!project) return renderNotFound();
+
+  return `
+    <a href="#/projects/${project.id}#project-commentary" class="govuk-back-link">Back</a>
+    <h1 class="govuk-heading-l">Add a comment</h1>
+    <p class="govuk-body">Add a comment about progress, advice or decisions for this project.</p>
+    <form class="govuk-!-margin-top-4" data-action="save-project-comment" data-project-id="${project.id}">
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="commenter">Name of commenter</label>
+        <input class="govuk-input" id="commenter" name="commenter" type="text" />
+      </div>
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="comment">Commentary</label>
+        <textarea class="govuk-textarea" id="comment" name="comment" rows="6"></textarea>
       </div>
       <button class="govuk-button" type="submit">Save comment</button>
     </form>
@@ -1657,7 +1672,7 @@ function handleFormSubmit(event) {
     });
     touchProject(project);
     saveProjects(projects);
-    navigate(`/projects/${projectId}`);
+    navigate(`/projects/${projectId}#project-commentary`);
   }
 }
 
