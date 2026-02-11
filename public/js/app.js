@@ -691,6 +691,7 @@ function createProjectFromForm(formData) {
     description: formData.get('description') || '',
     currentPhase: formData.get('currentPhase') || 'Discovery',
     nextAssessmentType: formData.get('nextAssessmentType') || '',
+    comments: [],
     serviceStandards: cloneStandards()
   };
 }
@@ -1096,6 +1097,22 @@ function renderProject(match) {
     ? `<p class="govuk-body"><span class="govuk-!-font-weight-bold">Last updated:</span> ${lastUpdatedText}</p>`
     : '';
 
+  const projectComments = project.comments || [];
+  const commentsMarkup = projectComments.length
+    ? projectComments
+        .map((comment) => {
+          const dateText = formatDisplayDate(comment.createdAt);
+          const meta = [comment.commenter, dateText].filter(Boolean).join(' · ');
+          return `
+            <div class="ss-notes">
+              ${meta ? `<p class="govuk-body govuk-!-margin-bottom-2">${escapeHtml(meta)}</p>` : ''}
+              <p class="govuk-body">${escapeHtml(comment.text)}</p>
+            </div>
+          `;
+        })
+        .join('')
+    : `<p class="govuk-body">No commentary added yet.</p>`;
+
   return `
     <a href="#/" class="govuk-back-link">Back</a>
     <div class="ss-project-header">
@@ -1115,13 +1132,16 @@ function renderProject(match) {
 
     <div class="govuk-tabs govuk-!-margin-top-6" data-module="govuk-tabs">
       <h2 class="govuk-tabs__title">Service Standard details</h2>
-          <ul class="govuk-tabs__list">
-            <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
-              <a class="govuk-tabs__tab" href="#service-standard">Service Standard compliance</a>
-            </li>
-          </ul>
-          <div class="govuk-tabs__panel" id="service-standard">
-            <div class="ss-standards-layout">
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#service-standard">Service Standard compliance</a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#project-commentary">Commentary</a>
+        </li>
+      </ul>
+      <div class="govuk-tabs__panel" id="service-standard">
+        <div class="ss-standards-layout">
               <div class="ss-standards-sidebar">
                 <div class="ss-details">
                   <div class="ss-details__item">
@@ -1161,7 +1181,24 @@ function renderProject(match) {
                 <h2 class="govuk-heading-m">Service Standard compliance</h2>
                 <ol class="ss-standards">${standardsList}</ol>
               </div>
-            </div>
+        </div>
+      </div>
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="project-commentary">
+        <h2 class="govuk-heading-m">Commentary</h2>
+        <form class="govuk-!-margin-top-2" data-action="save-project-comment" data-project-id="${project.id}">
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="commenter">Name of commenter</label>
+            <input class="govuk-input" id="commenter" name="commenter" type="text" />
+          </div>
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="comment">Comment</label>
+            <textarea class="govuk-textarea" id="comment" name="comment" rows="5"></textarea>
+          </div>
+          <button class="govuk-button govuk-button--secondary" type="submit">Add a comment</button>
+        </form>
+        <div class="govuk-!-margin-top-4">
+          ${commentsMarkup}
+        </div>
       </div>
     </div>
   `;
@@ -1602,6 +1639,26 @@ function handleFormSubmit(event) {
       navigate(targetPath);
     }
   }
+
+  if (action === 'save-project-comment') {
+    const projectId = form.getAttribute('data-project-id');
+    const commenter = (formData.get('commenter') || '').trim();
+    const commentText = (formData.get('comment') || '').trim();
+    if (!commentText) return;
+    const projects = getProjects();
+    const project = projects.find((item) => item.id === projectId);
+    if (!project) return;
+    project.comments = project.comments || [];
+    project.comments.unshift({
+      id: `project-comment-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      commenter,
+      text: commentText,
+      createdAt: new Date().toISOString()
+    });
+    touchProject(project);
+    saveProjects(projects);
+    navigate(`/projects/${projectId}`);
+  }
 }
 
 function handleActionClick(event) {
@@ -1717,6 +1774,8 @@ function hydrateImportedProject(payload) {
       subsections
     };
   });
+
+  project.comments = payload.comments || [];
 
   return project;
 }
