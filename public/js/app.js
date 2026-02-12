@@ -571,6 +571,10 @@ const routes = [
 
 function init() {
   window.addEventListener('hashchange', () => {
+    const raw = window.location.hash.replace(/^#/, '');
+    if (raw && !raw.startsWith('/')) {
+      return;
+    }
     renderRoute(getCurrentPath());
   });
   renderRoute(getCurrentPath());
@@ -578,6 +582,7 @@ function init() {
     window.GOVUKFrontend.initAll();
   }
   initTabs();
+  activateTabFromStorage();
 }
 
 function getCurrentPath() {
@@ -619,7 +624,7 @@ function renderRoute(path) {
     window.GOVUKFrontend.initAll();
   }
   initTabs();
-  activateTabFromHash();
+  activateTabFromStorage();
 }
 
 function initTabs() {
@@ -647,10 +652,10 @@ function initTabs() {
   });
 }
 
-function activateTabFromHash() {
-  const raw = window.location.hash.replace(/^#/, '');
-  const tabId = raw.split('#')[1];
+function activateTabFromStorage() {
+  const tabId = window.sessionStorage.getItem('ss-active-tab');
   if (!tabId) return;
+  window.sessionStorage.removeItem('ss-active-tab');
   const panel = document.getElementById(tabId);
   if (!panel) return;
   const tabs = panel.closest('.govuk-tabs');
@@ -1382,7 +1387,7 @@ function renderProjectCommentForm(match) {
   if (!project) return renderNotFound();
 
   return `
-    <a href="#/projects/${project.id}#project-commentary" class="govuk-back-link">Back</a>
+    <a href="#/projects/${project.id}" class="govuk-back-link">Back</a>
     <h1 class="govuk-heading-l">Add a comment</h1>
     <p class="govuk-body">Add a comment about progress, advice or decisions for this project.</p>
     <form class="govuk-!-margin-top-4" data-action="save-project-comment" data-project-id="${project.id}">
@@ -1686,8 +1691,8 @@ function handleFormSubmit(event) {
     });
     touchProject(project);
     saveProjects(projects);
-    window.location.hash = `/projects/${projectId}#project-commentary`;
-    renderRoute(`/projects/${projectId}`);
+    window.sessionStorage.setItem('ss-active-tab', 'project-commentary');
+    navigate(`/projects/${projectId}`);
   }
 }
 
